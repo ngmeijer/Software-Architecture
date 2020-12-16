@@ -97,11 +97,12 @@ public class Inventory
 
     private void PopulateInventory(int itemCount)
     {
-        Random random = new Random();
         for (int index = 0; index < itemCount; index++)
         {
-            Item item = new Item("Student Sword", "items_" + random.Next(73, 145), 50); //item name, item icon, cost
-            itemList.Add(item);
+            ShopItemFactory factory = new ShopItemFactory();
+            Weapon weapon = factory.CreateWeapon();
+
+            itemList.Add(weapon);
         }
     }
     //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.
