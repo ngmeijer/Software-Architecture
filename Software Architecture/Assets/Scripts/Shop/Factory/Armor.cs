@@ -10,8 +10,6 @@ public class Armor : Item
 
     public Armor(string pName, string pIconName, int pPrice)
     {
-        Debug.Log($"Created{pName}");
-
         _name = pName;
         _iconName = pIconName;
         _price = pPrice;

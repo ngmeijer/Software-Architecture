@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// This class defines a basic inventory
@@ -9,6 +10,8 @@ public class Inventory
 {
     public int Money { get; }//Getter for the money, the views need it to display the amount of money.
     private List<Item> itemList = new List<Item>(); //Items in the inventory
+
+    private int lastItemIndex = 103;
 
     //Set up the inventory with item count and money
     public Inventory(int pItemCount, int pMoney)
@@ -100,9 +103,11 @@ public class Inventory
         for (int index = 0; index < itemCount; index++)
         {
             ShopItemFactory factory = new ShopItemFactory();
-            Weapon weapon = factory.CreateWeapon();
+            string iconName = "items_" + lastItemIndex;
+            Armor armor = factory.CreateArmor(iconName);
+            lastItemIndex++;
 
-            itemList.Add(weapon);
+            itemList.Add(armor);
         }
     }
     //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.

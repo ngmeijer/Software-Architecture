@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShopItemFactory : ItemFactory
 {
-    public override Armor CreateArmor()
+    public override Armor CreateArmor(string pIconName)
     {
-        return new Armor("low armor", "Armor", 5);
+        return new Armor("low armor", pIconName, 5);
     }
 
     public override Potion CreatePotion()
@@ -16,6 +16,6 @@ public class ShopItemFactory : ItemFactory
 
     public override Weapon CreateWeapon()
     {
-        return new Weapon("low weapon", "Weapon", 6);
+        return new Weapon("items_99", "Weapon", 6);
     }
 }

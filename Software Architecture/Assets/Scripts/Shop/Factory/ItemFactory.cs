@@ -6,7 +6,7 @@ public abstract class ItemFactory
 {
     public abstract Weapon CreateWeapon();
 
-    public abstract Armor CreateArmor();
+    public abstract Armor CreateArmor(string pIconName);
 
     public abstract Potion CreatePotion();
 }

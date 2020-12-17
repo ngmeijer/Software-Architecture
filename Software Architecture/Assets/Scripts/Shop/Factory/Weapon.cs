@@ -8,10 +8,10 @@ public class Weapon : Item
     private string _iconName;
     private int _price;
 
+    
+
     public Weapon(string pName, string pIconName, int pPrice)
     {
-        Debug.Log($"Created item {pName}");
-
         _name = pName;
         _iconName = pIconName;
         _price = pPrice;
