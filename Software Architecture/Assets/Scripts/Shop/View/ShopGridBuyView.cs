@@ -12,7 +12,7 @@ using TMPro;
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
 public class ShopGridBuyView : MonoBehaviour
-{ 
+{
     public ShopModel ShopModel => shopModel; //A getter to access shopModel.
 
     [SerializeField]
@@ -22,7 +22,7 @@ public class ShopGridBuyView : MonoBehaviour
     private GameObject itemPrefab; //A prefab to display an item in the view
 
     [SerializeField]
-    private Button buyButton; 
+    private Button buyButton;
 
     [SerializeField]
     private TextMeshProUGUI instructionText;
@@ -41,7 +41,7 @@ public class ShopGridBuyView : MonoBehaviour
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
         SetupItemIconView(); //Setup the grid view's properties
-        PopulateItemIconView(); //Display items
+        PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
         //RepopulateItemIconView();
     }
@@ -62,18 +62,47 @@ public class ShopGridBuyView : MonoBehaviour
     //                                                  RepopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Clears the grid view and repopulates it with new icons (updates the visible icons)
-    private void RepopulateItemIconView() {
+    public void RepopulateItemIconView(int index)
+    {
         ClearIconView();
-        PopulateItemIconView();
+        PopulateItemIconView(index);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView() {
-        foreach (Item item in shopModel.inventory.GetItems()) {
-            AddItemToView(item);
+    private void PopulateItemIconView(int index)
+    {
+        //For some reason, "downcasting" from Item (base class) to, for example, Armor, will throw an InvalidCastException. 
+        //However again, for some reason (while the error is still being thrown), the sorting mechanic does work for Armor, but not for Weapon & Potion?
+        switch (index)
+        {
+            case 0:
+                foreach (Item item in shopModel.inventory.GetItems())
+                {
+                    AddItemToView(item);
+                }
+                break;
+            case 1:
+                foreach (Weapon weapon in ShopModel.inventory.GetItems())
+                {
+                    AddItemToView(weapon);
+                }
+                break;
+            case 2:
+
+                foreach(Armor armor in ShopModel.inventory.GetItems())
+                {
+                    AddItemToView(armor);
+                }
+                break;
+            case 3:
+                foreach (Potion potion in ShopModel.inventory.GetItems())
+                {
+                    AddItemToView(potion);
+                }
+                break;
         }
     }
 
@@ -81,20 +110,24 @@ public class ShopGridBuyView : MonoBehaviour
     //                                                  ClearIconView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Removes all existing icons in the gridview
-    private void ClearIconView() {
+    private void ClearIconView()
+    {
         Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
-        foreach (Transform child in allIcons) {
-                if (child != itemLayoutGroup.transform) {
-                    Destroy(child.gameObject);
-                }
+        foreach (Transform child in allIcons)
+        {
+            if (child != itemLayoutGroup.transform)
+            {
+                Destroy(child.gameObject);
             }
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  AddItemToView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds a new item container to the view, each view can have its way of displaying items
-    private void AddItemToView(Item item) {
+    private void AddItemToView(Item item)
+    {
         GameObject newItemIcon = GameObject.Instantiate(itemPrefab);
         newItemIcon.transform.SetParent(itemLayoutGroup.transform);
         newItemIcon.transform.localScale = Vector3.one;//The scale would automatically change in Unity so we set it back to Vector3.one.
@@ -110,9 +143,11 @@ public class ShopGridBuyView : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------        
     //This method adds a listener to the 'Buy' button. They are forwarded to the controller. Since this is the confirm button of
     //the buy view, it will just call the controller interface's ConfirmSelectedItem function, the controller will handle the rest.
-    private void InitializeButtons() {
+    private void InitializeButtons()
+    {
         buyButton.onClick.AddListener(
-            delegate {
+            delegate
+            {
                 shopController.ConfirmSelectedItem();
             }
         );

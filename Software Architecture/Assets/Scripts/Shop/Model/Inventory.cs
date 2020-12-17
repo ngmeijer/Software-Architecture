@@ -11,8 +11,6 @@ public class Inventory
     public int Money { get; }//Getter for the money, the views need it to display the amount of money.
     private List<Item> itemList = new List<Item>(); //Items in the inventory
 
-    private int lastItemIndex = 103;
-
     //Set up the inventory with item count and money
     public Inventory(int pItemCount, int pMoney)
     {
@@ -97,18 +95,47 @@ public class Inventory
     //------------------------------------------------------------------------------------------------------------------------
     //This is obviously not how you should generate items. For this assignment you need either an abstract item factory, or
     //make this into a factory method.
+    //DONE
 
     private void PopulateInventory(int itemCount)
     {
-        for (int index = 0; index < itemCount; index++)
-        {
-            ShopItemFactory factory = new ShopItemFactory();
-            string iconName = "items_" + lastItemIndex;
-            Armor armor = factory.CreateArmor(iconName);
-            lastItemIndex++;
+        ShopItemFactory factory = new ShopItemFactory();
 
+        //Working on converting this to a reusable method. See generateItem();.
+        for (int index = 0; index < 5; index++)
+        {
+            Armor armor = factory.CreateArmor(index);
             itemList.Add(armor);
+        }
+
+        for (int index = 0; index < 6; index++)
+        {
+            Weapon weapon = factory.CreateWeapon(index);
+            itemList.Add(weapon);
+        }
+
+        for (int index = 0; index < 4; index++)
+        {
+            Potion potion = factory.CreatePotion(index);
+            itemList.Add(potion);
         }
     }
     //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.
+
+
+    //------------------------------------------------------------------------------------------------------------------------
+    //WIP!
+    //------------------------------------------------------------------------------------------------------------------------
+    private void generateItem(ShopItemFactory factory, Item itemInstance, int itemCount)
+    {
+        int itemIndex = 0;
+
+        for (int index = 0; index < itemCount; index++)
+        {
+            itemInstance = factory.CreateArmor(itemIndex);
+            itemIndex++;
+
+            itemList.Add(itemInstance);
+        }
+    }
 }

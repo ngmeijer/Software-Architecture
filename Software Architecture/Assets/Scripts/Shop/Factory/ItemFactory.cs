@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class ItemFactory
 {
-    public abstract Weapon CreateWeapon();
+    public abstract Weapon CreateWeapon(int index);
 
-    public abstract Armor CreateArmor(string pIconName);
+    public abstract Armor CreateArmor(int index);
 
-    public abstract Potion CreatePotion();
+    public abstract Potion CreatePotion(int index);
 }
