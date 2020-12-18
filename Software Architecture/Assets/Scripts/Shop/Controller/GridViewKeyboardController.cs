@@ -30,7 +30,7 @@ public class GridViewKeyboardController : ShopController
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  HandleInput()
     //------------------------------------------------------------------------------------------------------------------------
-    //Currently hardcoded to AWSD to move focus and K to confirm the selected item
+    //Currently hardcoded to WASD to move focus and K to confirm the selected item
     public override void HandleInput()
     {
         //Move the focus to the left if possible

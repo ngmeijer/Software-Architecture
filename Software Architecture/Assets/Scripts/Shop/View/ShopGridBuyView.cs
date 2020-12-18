@@ -20,6 +20,9 @@ public class ShopGridBuyView : MonoBehaviour
 
     [SerializeField]
     private GameObject itemPrefab; //A prefab to display an item in the view
+    
+    [SerializeField] 
+    private List<GameObject> itemList = new List<GameObject>();
 
     [SerializeField]
     private Button buyButton;
@@ -103,6 +106,7 @@ public class ShopGridBuyView : MonoBehaviour
                     //ANY possible better way to check what the itemType is, 
                     //besides converting to string for better readability? 
                     //Feel like this isn't very good code.
+
                     //As tried before, using a foreach with any inherited child of abstract Item gives an InvalidCastException 
                     if (weapon.ItemType == 0)
                         AddItemToView(weapon);
@@ -149,14 +153,16 @@ public class ShopGridBuyView : MonoBehaviour
     //Adds a new item container to the view, each view can have its way of displaying items
     private void AddItemToView(Item item)
     {
-        GameObject newItemIcon = GameObject.Instantiate(itemPrefab);
-        newItemIcon.transform.SetParent(itemLayoutGroup.transform);
-        newItemIcon.transform.localScale = Vector3.one;//The scale would automatically change in Unity so we set it back to Vector3.one.
+        GameObject newItemInstance = GameObject.Instantiate(itemPrefab);
+        newItemInstance.transform.SetParent(itemLayoutGroup.transform);
+        newItemInstance.transform.localScale = Vector3.one;//The scale would automatically change in Unity so we set it back to Vector3.one.
 
-        GridViewItemContainer itemContainer = newItemIcon.GetComponent<GridViewItemContainer>();
+        GridViewItemContainer itemContainer = newItemInstance.GetComponent<GridViewItemContainer>();
         Debug.Assert(itemContainer != null);
         bool isSelected = (item == shopModel.GetSelectedItem());
         itemContainer.Initialize(item, isSelected);
+
+        itemList.Add(newItemInstance);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -198,6 +204,11 @@ public class ShopGridBuyView : MonoBehaviour
 
         //Let the current controller handle input
         shopController.HandleInput();
+    }
+
+    private void selectCurrentItem(IItemContainer item)
+    {
+        
     }
 
 

@@ -40,8 +40,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         //Sets the highlight image and infoPanel's visibility
         if (isSelected)
         {
-            highLight.SetActive(true);
-            infoPanel.SetActive(true);
+            handlePanelForSelectedItem();
         }
 
         // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
@@ -51,5 +50,11 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         {
             icon.sprite = sprite;
         }
+    }
+
+    public void handlePanelForSelectedItem()
+    {
+        highLight.SetActive(true);
+        infoPanel.SetActive(true);
     }
 }

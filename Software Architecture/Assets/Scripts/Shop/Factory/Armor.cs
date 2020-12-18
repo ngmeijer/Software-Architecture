@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,17 @@ public class Armor : Item
     private string _iconName;
     private int _price;
     private int _itemType = 1;
+    private E_ItemRarity _itemRarity;
+
+    private int _protection;
+    private int[] upgradedProtectionValues = new int[5]
+    {
+        1,
+        3,
+        5,
+        7,
+        10
+    };
 
     public Armor(string pName, string pIconName, int pPrice)
     {
@@ -38,5 +50,22 @@ public class Armor : Item
     {
         get { return _price; }
         set { _price = value; }
+    }
+
+    public E_ItemRarity ItemRarity
+    {
+        get { return _itemRarity; }
+        set { _itemRarity = value; }
+    }
+
+    public int Protection
+    {
+        get { return _protection; }
+        set { _protection = value; }
+    }
+
+    public int NewProtectionValue(E_ItemRarity newTier)
+    {
+        return upgradedProtectionValues[(int)newTier];
     }
 }

@@ -121,6 +121,7 @@ public class Inventory
         {
             Weapon weapon = factory.CreateWeapon(index);
             itemList.Add(weapon);
+            weapon.ItemRarity = Item.E_ItemRarity.COMMON;
         }
 
         for (int index = 0; index < 5; index++)

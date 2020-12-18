@@ -9,4 +9,10 @@ public abstract class ItemFactory
     public abstract Armor CreateArmor(int index);
 
     public abstract Potion CreatePotion(int index);
+
+    public abstract void UpgradeWeapon(Weapon weapon);
+
+    public abstract void UpgradeArmor(Armor armor);
+
+    public abstract void UpgradePotion(Potion potion);
 }
