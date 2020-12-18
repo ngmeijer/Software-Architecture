@@ -28,6 +28,17 @@ public class Inventory
                                          //however this is shallow copy of the original list, so changes in 
                                          //the original list will likely influence the copy, apply 
                                          //creational patterns like prototype to fix this. 
+
+    }
+
+    public List<Weapon> GetWeapons()
+    {
+        List<Weapon> localList = new List<Weapon>();
+        foreach (Weapon weapon in itemList)
+        {
+            localList.Add(weapon);
+        }
+        return localList;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -102,16 +113,20 @@ public class Inventory
         ShopItemFactory factory = new ShopItemFactory();
 
         //Working on converting this to a reusable method. See generateItem();.
-        for (int index = 0; index < 5; index++)
-        {
-            Armor armor = factory.CreateArmor(index);
-            itemList.Add(armor);
-        }
+
+        //Order of for-loops determines what object type shows correctly?
+        //FIXED
 
         for (int index = 0; index < 6; index++)
         {
             Weapon weapon = factory.CreateWeapon(index);
             itemList.Add(weapon);
+        }
+
+        for (int index = 0; index < 5; index++)
+        {
+            Armor armor = factory.CreateArmor(index);
+            itemList.Add(armor);
         }
 
         for (int index = 0; index < 4; index++)

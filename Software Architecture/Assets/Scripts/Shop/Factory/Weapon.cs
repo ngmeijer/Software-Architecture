@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,7 @@ public class Weapon : Item
     private string _name;
     private string _iconName;
     private int _price;
-
-    
+    private int _itemType = 0;
 
     public Weapon(string pName, string pIconName, int pPrice)
     {
@@ -21,6 +21,12 @@ public class Weapon : Item
     {
         get { return _name; }
         set { _name = value; }
+    }
+
+    public override int ItemType 
+    {
+        get { return _itemType; }
+        set { _itemType = value; }
     }
 
     public override string IconName

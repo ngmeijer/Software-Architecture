@@ -21,7 +21,6 @@ public class ShopItemFactory : ItemFactory
         "items_76",
         "items_77",
         "items_78"
-
     };
 
     private string[] potionIconNames = new string[4]
@@ -34,16 +33,16 @@ public class ShopItemFactory : ItemFactory
 
     public override Armor CreateArmor(int index)
     {
-        return new Armor("low armor", armorIconNames[index], 5);
+        return new Armor("Armor display name", armorIconNames[index], 5);
     }
 
     public override Potion CreatePotion(int index)
     {
-        return new Potion("low potion", potionIconNames[index], 3);
+        return new Potion("Potion display name", potionIconNames[index], 3);
     }
 
     public override Weapon CreateWeapon(int index)
     {
-        return new Weapon("low weapon", weaponIconNames[index], 6);
+        return new Weapon("Weapon display name", weaponIconNames[index], 6);
     }
 }

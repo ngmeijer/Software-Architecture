@@ -7,6 +7,7 @@ public class Potion : Item
     private string _name;
     private string _iconName;
     private int _price;
+    private int _itemType = 2;
 
     public Potion(string pName, string pIconName, int pPrice)
     {
@@ -19,6 +20,12 @@ public class Potion : Item
     {
         get { return _name; }
         set { _name = value; }
+    }
+
+    public override int ItemType
+    {
+        get { return _itemType; }
+        set { _itemType = value; }
     }
 
     public override string IconName

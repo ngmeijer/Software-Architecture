@@ -75,7 +75,11 @@ public class ShopGridBuyView : MonoBehaviour
     private void PopulateItemIconView(int index)
     {
         //For some reason, "downcasting" from Item (base class) to, for example, Armor, will throw an InvalidCastException. 
-        //However again, for some reason (while the error is still being thrown), the sorting mechanic does work for Armor, but not for Weapon & Potion?
+        //However again, for some reason (while the error is still being thrown), 
+        //the sorting mechanic does work for Armor, but not for Weapon & Potion?
+
+        //UPDATE: trying to downcast is indeed the problem, when using GetItems for the abstract class Item, 
+        //it won't throw the error (but doesn't sort).
         switch (index)
         {
             case 0:
@@ -84,23 +88,40 @@ public class ShopGridBuyView : MonoBehaviour
                     AddItemToView(item);
                 }
                 break;
-            case 1:
-                foreach (Weapon weapon in ShopModel.inventory.GetItems())
-                {
-                    AddItemToView(weapon);
-                }
-                break;
-            case 2:
 
-                foreach(Armor armor in ShopModel.inventory.GetItems())
+            //Doesnt work. Notice GetWeapons();
+            //case 1:
+            //  foreach (Weapon weapon in ShopModel.inventory.GetWeapons())
+            //  {
+            //      AddItemToView(weapon);
+            //  }
+            //  break;
+
+            case 1:
+                foreach (Item weapon in ShopModel.inventory.GetItems())
                 {
-                    AddItemToView(armor);
+                    //ANY possible better way to check what the itemType is, 
+                    //besides converting to string for better readability? 
+                    //Feel like this isn't very good code.
+                    //As tried before, using a foreach with any inherited child of abstract Item gives an InvalidCastException 
+                    if (weapon.ItemType == 0)
+                        AddItemToView(weapon);
                 }
                 break;
-            case 3:
-                foreach (Potion potion in ShopModel.inventory.GetItems())
+
+            case 2:
+                foreach (Item armor in ShopModel.inventory.GetItems())
                 {
-                    AddItemToView(potion);
+                    if (armor.ItemType == 1)
+                        AddItemToView(armor);
+                }
+                break;
+
+            case 3:
+                foreach (Item potion in ShopModel.inventory.GetItems())
+                {
+                    if (potion.ItemType == 2)
+                        AddItemToView(potion);
                 }
                 break;
         }
