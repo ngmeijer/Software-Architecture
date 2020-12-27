@@ -21,6 +21,7 @@ public abstract class ShopController : MonoBehaviour
     public virtual ShopController Initialize(ShopModel pModel)
     {
         model = pModel;
+        pModel.ClickedItem += OnItemSelectProcessComplete;
         return this;
     }
 
@@ -41,8 +42,8 @@ public abstract class ShopController : MonoBehaviour
 
         model.SelectItem(item);
 
-        Debug.Log($"2b. Index of item: {model.GetSelectedItemIndex()}");
-        Debug.Log($"2c. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
+        Debug.Log($"2b. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
+        Debug.Log($"2c. Index of item: {model.GetSelectedItemIndex()}");
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -61,5 +62,11 @@ public abstract class ShopController : MonoBehaviour
     public void ConfirmSelectedItem()
     {
         model.ConfirmSelectedItem();
+    }
+
+    /////////////////////////////////////
+    public static void OnItemSelectProcessComplete()
+    {
+        //Selected item, focus + info panel visible with updated information.
     }
 }

@@ -9,10 +9,10 @@ public class Potion : Item
     private string _iconName;
     private int _price;
     private int _itemType = 2;
-    private E_ItemRarity _itemRarity;
 
-    private string _potionEffect;
-    private int _potionEffectAmount;
+    public E_ItemRarity ItemRarity { get; set; }
+    public string PotionEffect { get; set; }
+    public int PotionEffectAmount { get; set; }
 
     private int[] upgradedEffectValues = new int[5]
     {
@@ -52,24 +52,6 @@ public class Potion : Item
     {
         get { return _price; }
         set { _price = value; }
-    }
-
-    public E_ItemRarity ItemRarity
-    {
-        get { return _itemRarity; }
-        set { _itemRarity = value; }
-    }
-
-    public string PotionEffect
-    {
-        get { return _potionEffect; }
-        set { _potionEffect = value; }
-    }
-
-    public int PotionEffectAmount
-    {
-        get { return _potionEffectAmount; }
-        set { _potionEffectAmount = value; }
     }
 
     public int newEffectValue(E_ItemRarity newTier)

@@ -46,22 +46,28 @@ public class ShopItemFactory : ItemFactory
         return new Weapon("Weapon display name", weaponIconNames[index], 6);
     }
 
-    public override void UpgradeArmor(Armor armor)
+    public override Armor UpgradeArmor(Armor armor)
     {
         armor.Protection += armor.NewProtectionValue(armor.ItemRarity += 1);
         armor.ItemRarity += 1;
+
+        return armor;
     }
 
-    public override void UpgradePotion(Potion potion)
+    public override Potion UpgradePotion(Potion potion)
     {
         potion.PotionEffectAmount += potion.newEffectValue(potion.ItemRarity += 1);
         potion.ItemRarity += 1;
+
+        return potion;
     }
 
-    public override void UpgradeWeapon(Weapon weapon)
+    public override Weapon UpgradeWeapon(Weapon weapon)
     {
         weapon.Damage += weapon.newDamageValue(weapon.ItemRarity += 1);
         weapon.AttackSpeed += weapon.newAttackSpeedValue(weapon.ItemRarity += 1);
         weapon.ItemRarity += 1;
+
+        return weapon;
     }
 }

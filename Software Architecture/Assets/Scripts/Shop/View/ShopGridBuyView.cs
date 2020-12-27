@@ -83,6 +83,8 @@ public class ShopGridBuyView : MonoBehaviour
 
         //UPDATE: trying to downcast is indeed the problem, when using GetItems for the abstract class Item, 
         //it won't throw the error (but doesn't sort).
+
+        //UPDATE 2: Fixed both the error and sorting problem, but I'm not sure about whether or not the solution is clean enough.
         switch (index)
         {
             case 0:
