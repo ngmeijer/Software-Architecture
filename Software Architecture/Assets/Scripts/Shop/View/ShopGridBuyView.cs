@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// This class connects a grid view for buy state of the shop to a controller to manipulate the BuyModel via a ShopController
 /// interface, it contains specific methods to setup and update a grid view, with the data from a BuyModel. If you want to display
-/// informationoutside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
+/// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
 public class ShopGridBuyView : MonoBehaviour
@@ -46,7 +44,6 @@ public class ShopGridBuyView : MonoBehaviour
         SetupItemIconView(); //Setup the grid view's properties
         PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
-        //RepopulateItemIconView();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -94,14 +91,6 @@ public class ShopGridBuyView : MonoBehaviour
                 }
                 break;
 
-            //Doesnt work. Notice GetWeapons();
-            //case 1:
-            //  foreach (Weapon weapon in ShopModel.inventory.GetWeapons())
-            //  {
-            //      AddItemToView(weapon);
-            //  }
-            //  break;
-
             case 1:
                 foreach (Item weapon in ShopModel.inventory.GetItems())
                 {
@@ -136,7 +125,7 @@ public class ShopGridBuyView : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  ClearIconView()
     //------------------------------------------------------------------------------------------------------------------------        
-    //Removes all existing icons in the gridview
+    //Removes all existing icons in the grid view
     private void ClearIconView()
     {
         Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
@@ -184,9 +173,6 @@ public class ShopGridBuyView : MonoBehaviour
 
     private void Update()
     {
-        //RepopulateItemIconView();//Repopulate the view each frame, this is very inefficient and won't work in many scenarios and SHOULD NOT be in
-        //                         //the final implementation, the view should be modified by the models via an observer or event queue pattern
-
         //Switch between mouse and keyboard controllers
         if (Input.GetKeyUp(KeyCode.K))
         {
@@ -233,6 +219,6 @@ public class ShopGridBuyView : MonoBehaviour
         Destroy(shopController);//Remove the current controller component
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
-        buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controler
+        buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
     }
 }

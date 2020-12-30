@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// This class defines the methods to be called by views to control a ShopModel. You can make concrete
-/// controllers like a mouse controller, keyboard controller, gamepad controller, etc from this interface.
+/// controllers like a mouse controller, keyboard controller, game pad controller, etc from this interface.
 /// </summary>
 public abstract class ShopController : MonoBehaviour
 { 
@@ -12,6 +13,9 @@ public abstract class ShopController : MonoBehaviour
     protected ShopModel model; //Ties this controller to a ShopModel
 
     public abstract void HandleInput(); //Concrete controllers override this method and handle input in different ways.
+
+    public delegate void OnItemClicked();
+    public static event OnItemClicked onClick;
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
@@ -21,8 +25,16 @@ public abstract class ShopController : MonoBehaviour
     public virtual ShopController Initialize(ShopModel pModel)
     {
         model = pModel;
-        pModel.ClickedItem += OnItemSelectProcessComplete;
+
         return this;
+    }
+
+    private void ClickItem(Item item)
+    {
+        if (onClick != null)
+        {
+            Debug.Log("Clicked item! Delegate works.");
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -41,6 +53,7 @@ public abstract class ShopController : MonoBehaviour
         }
 
         model.SelectItem(item);
+        ClickItem(item);
 
         Debug.Log($"2b. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
         Debug.Log($"2c. Index of item: {model.GetSelectedItemIndex()}");

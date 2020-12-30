@@ -5,5 +5,7 @@
     public abstract string IconName { get; set; }
     public abstract int BasePrice { get; set; }
 
+    public GridViewItemContainer container;
+
     public enum E_ItemRarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
 }

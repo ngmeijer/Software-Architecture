@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
+using TMPro;
 
 /// <summary>
 /// This class is applied to a button that represents an Item in the View. It is a visual representation of the item
@@ -21,6 +22,10 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     [SerializeField] private GameObject infoPanel;
 
     [SerializeField] private Image icon;
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private TextMeshProUGUI itemTypeText;
+    [SerializeField] private TextMeshProUGUI itemRarityText;
+    [SerializeField] private TextMeshProUGUI itemPriceText;
 
     //Link to the atlas of all the item icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
@@ -50,6 +55,13 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         {
             icon.sprite = sprite;
         }
+
+        ShopController.onClick += handlePanelForSelectedItem;
+    }
+
+    private void updateItemStats()
+    {
+
     }
 
     public void handlePanelForSelectedItem()
