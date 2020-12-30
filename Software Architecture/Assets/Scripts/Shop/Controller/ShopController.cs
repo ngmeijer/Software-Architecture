@@ -54,6 +54,7 @@ public abstract class ShopController : MonoBehaviour
 
         model.SelectItem(item);
         ClickItem(item);
+        onClick();
 
         Debug.Log($"2b. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
         Debug.Log($"2c. Index of item: {model.GetSelectedItemIndex()}");
