@@ -45,7 +45,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         //Sets the highlight image and infoPanel's visibility
         if (isSelected)
         {
-            handlePanelForSelectedItem();
+            //handlePanelForSelectedItem();
         }
 
         // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
