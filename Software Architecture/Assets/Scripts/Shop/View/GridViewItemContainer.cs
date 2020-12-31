@@ -42,12 +42,6 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         //Stores the item
         this.item = item;
 
-        //Sets the highlight image and infoPanel's visibility
-        if (isSelected)
-        {
-            //handlePanelForSelectedItem();
-        }
-
         // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
         Sprite sprite = iconAtlas.GetSprite(item.IconName);
 
@@ -56,7 +50,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
             icon.sprite = sprite;
         }
 
-        ShopController.onClick += handlePanelForSelectedItem;
+        ShopModel.onClick += handlePanelForSelectedItem;
     }
 
     private void updateItemStats()

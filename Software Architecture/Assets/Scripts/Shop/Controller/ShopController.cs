@@ -14,9 +14,6 @@ public abstract class ShopController : MonoBehaviour
 
     public abstract void HandleInput(); //Concrete controllers override this method and handle input in different ways.
 
-    public delegate void OnItemClicked();
-    public static event OnItemClicked onClick;
-
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------   
@@ -27,14 +24,6 @@ public abstract class ShopController : MonoBehaviour
         model = pModel;
 
         return this;
-    }
-
-    private void ClickItem(Item item)
-    {
-        if (onClick != null)
-        {
-            Debug.Log("Clicked item! Delegate works.");
-        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -53,8 +42,6 @@ public abstract class ShopController : MonoBehaviour
         }
 
         model.SelectItem(item);
-        ClickItem(item);
-        onClick();
 
         Debug.Log($"2b. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
         Debug.Log($"2c. Index of item: {model.GetSelectedItemIndex()}");
