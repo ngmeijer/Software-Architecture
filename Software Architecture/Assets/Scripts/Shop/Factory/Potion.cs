@@ -8,9 +8,9 @@ public class Potion : Item
     private string _name;
     private string _iconName;
     private int _price;
-    private int _itemType = 2;
+    private string _itemType = "Potion";
 
-    public E_ItemRarity ItemRarity { get; set; }
+    public E_ItemRarity _itemRarity;
     public string PotionEffect { get; set; }
     public int PotionEffectAmount { get; set; }
 
@@ -36,7 +36,7 @@ public class Potion : Item
         set { _name = value; }
     }
 
-    public override int ItemType
+    public override string ItemType
     {
         get { return _itemType; }
         set { _itemType = value; }
@@ -54,8 +54,21 @@ public class Potion : Item
         set { _price = value; }
     }
 
+    public override E_ItemRarity ItemRarity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    //public override E_ItemRarity ItemRarity
+    //{
+    //    get { return _itemRarity; }
+    //    set { _itemRarity = value; }
+    //}
+
     public int newEffectValue(E_ItemRarity newTier)
     {
         return upgradedEffectValues[(int)newTier];
+    }
+
+    public override void generateItemDetails()
+    {
+        throw new NotImplementedException();
     }
 }

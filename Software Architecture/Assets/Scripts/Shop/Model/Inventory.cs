@@ -121,12 +121,13 @@ public class Inventory
         {
             Weapon weapon = factory.CreateWeapon(index);
             itemList.Add(weapon);
-            weapon.ItemRarity = Item.E_ItemRarity.COMMON;
+            //weapon.ItemRarity = Item.E_ItemRarity.COMMON;
         }
 
         for (int index = 0; index < 5; index++)
         {
-            Armor armor = factory.CreateArmor(index);
+            Debug.Log("GENERATING ARMOR");
+            Armor armor = factory.CreateArmor();
             itemList.Add(armor);
         }
 
@@ -148,7 +149,7 @@ public class Inventory
 
         for (int index = 0; index < itemCount; index++)
         {
-            itemInstance = factory.CreateArmor(itemIndex);
+            itemInstance = factory.CreateArmor();
             itemIndex++;
 
             itemList.Add(itemInstance);

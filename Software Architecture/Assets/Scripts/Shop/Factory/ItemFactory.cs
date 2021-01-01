@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class ItemFactory
 {
     public abstract Weapon CreateWeapon(int index);
-    public abstract Armor CreateArmor(int index);
+    public abstract Armor CreateArmor();
     public abstract Potion CreatePotion(int index);
 
     //On first glance this seems like repeated code. It's not, though. 

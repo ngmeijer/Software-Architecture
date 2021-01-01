@@ -101,7 +101,7 @@ public class ShopGridBuyView : MonoBehaviour
                     //Feel like this isn't very good code.
 
                     //As tried before, using a foreach with any inherited child of abstract Item gives an InvalidCastException 
-                    if (weapon.ItemType == 0)
+                    if (weapon.ItemType == "Weapon")
                         AddItemToView(weapon);
                 }
                 break;
@@ -109,7 +109,7 @@ public class ShopGridBuyView : MonoBehaviour
             case 2:
                 foreach (Item armor in ShopModel.inventory.GetItems())
                 {
-                    if (armor.ItemType == 1)
+                    if (armor.ItemType == "Armor")
                         AddItemToView(armor);
                 }
                 break;
@@ -117,7 +117,7 @@ public class ShopGridBuyView : MonoBehaviour
             case 3:
                 foreach (Item potion in ShopModel.inventory.GetItems())
                 {
-                    if (potion.ItemType == 2)
+                    if (potion.ItemType == "Potion")
                         AddItemToView(potion);
                 }
                 break;

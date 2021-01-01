@@ -26,7 +26,7 @@ public class ItemFactoryTests
     public void DisplayCorrectArmorName()
     {
         ShopItemFactory factory = new ShopItemFactory();
-        Armor armorInstance = factory.CreateArmor(0);
+        Armor armorInstance = factory.CreateArmor();
         Assert.That(armorInstance.Name, Is.EqualTo("Armor display name"));
     }
 
@@ -34,7 +34,7 @@ public class ItemFactoryTests
     public void DisplayCorrectArmorBasePrice()
     {
         ShopItemFactory factory = new ShopItemFactory();
-        Armor armorInstance = factory.CreateArmor(0);
+        Armor armorInstance = factory.CreateArmor();
         Assert.That(armorInstance.BasePrice, Is.EqualTo(5));
     }
 

@@ -31,9 +31,15 @@ public class ShopItemFactory : ItemFactory
         "items_288",
     };
 
-    public override Armor CreateArmor(int index)
+    public override Armor CreateArmor()
     {
-        return new Armor("Armor display name", armorIconNames[index], 5);
+        Item.E_ItemRarity itemRarity = (Item.E_ItemRarity)Random.Range((float)Item.E_ItemRarity.COMMON, (float)Item.E_ItemRarity.LEGENDARY);
+        Armor armor = new Armor(itemRarity);
+
+        Debug.Log($"Item instance  has Rarity {itemRarity}");
+
+        return armor;
+        //return new Armor("Armor display name", armorIconNames[index], 5);
     }
 
     public override Potion CreatePotion(int index)
@@ -48,25 +54,25 @@ public class ShopItemFactory : ItemFactory
 
     public override Armor UpgradeArmor(Armor armor)
     {
-        armor.Protection += armor.NewProtectionValue(armor.ItemRarity += 1);
-        armor.ItemRarity += 1;
+        //armor.Protection += armor.NewProtectionValue(armor.ItemRarity += 1);
+        //armor.ItemRarity += 1;
 
         return armor;
     }
 
     public override Potion UpgradePotion(Potion potion)
     {
-        potion.PotionEffectAmount += potion.newEffectValue(potion.ItemRarity += 1);
-        potion.ItemRarity += 1;
+        //potion.PotionEffectAmount += potion.newEffectValue(potion.ItemRarity += 1);
+        //potion.ItemRarity += 1;
 
         return potion;
     }
 
     public override Weapon UpgradeWeapon(Weapon weapon)
     {
-        weapon.Damage += weapon.newDamageValue(weapon.ItemRarity += 1);
-        weapon.AttackSpeed += weapon.newAttackSpeedValue(weapon.ItemRarity += 1);
-        weapon.ItemRarity += 1;
+        //weapon.Damage += weapon.newDamageValue(weapon.ItemRarity += 1);
+        //weapon.AttackSpeed += weapon.newAttackSpeedValue(weapon.ItemRarity += 1);
+        //weapon.ItemRarity += 1;
 
         return weapon;
     }

@@ -34,6 +34,8 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     //link to the original item (set in Initialize)
     private Item item;
 
+    private bool currentlyFocused = false;
+
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------
@@ -50,20 +52,33 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
             icon.sprite = sprite;
         }
 
+        Debug.Log(item.ItemRarity);
+
+        updateItemDetailsUI();
+
         ShopModel.onClick += handlePanelForSelectedItem;
     }
 
-    private void updateItemStats()
+    private void updateItemDetailsUI()
     {
-
+        itemNameText.text = item.Name;
+        itemTypeText.text = item.ItemType;
+        itemPriceText.text = item.BasePrice.ToString();
+        itemRarityText.text = item.ItemRarity.ToString();
     }
 
     public void handlePanelForSelectedItem(int index)
     {
         if (index == item.ItemIndex)
         {
+            currentlyFocused = true;
             highLight.SetActive(true);
             infoPanel.SetActive(true);
+        }
+        else
+        {
+            highLight.SetActive(false);
+            infoPanel.SetActive(false);
         }
     }
 }

@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Weapon : Item
 {
     private string _name;
     private string _iconName;
     private int _price;
-    private int _itemType = 0;
+    private string _itemType = "Weapon";
 
     public int Damage { get; set; }
-    public E_ItemRarity ItemRarity { get; set; } = 0;
+    public E_ItemRarity _itemRarity { get; set; } = 0;
     public int AttackSpeed { get; set; }
 
     private int[] upgradedDamageValues = new int[5]
@@ -46,7 +45,7 @@ public class Weapon : Item
         set { _name = value; }
     }
 
-    public override int ItemType
+    public override string ItemType
     {
         get { return _itemType; }
         set { _itemType = value; }
@@ -64,6 +63,13 @@ public class Weapon : Item
         set { _price = value; }
     }
 
+    public override E_ItemRarity ItemRarity
+    {
+        get { return _itemRarity; }
+        set { _itemRarity = value; }
+    }
+
+
     public int newDamageValue(E_ItemRarity newTier)
     {
         return upgradedDamageValues[(int)newTier];
@@ -72,5 +78,11 @@ public class Weapon : Item
     public int newAttackSpeedValue(E_ItemRarity newTier)
     {
         return upgradedAttackSpeedValues[(int)newTier];
+    }
+
+    public override void generateItemDetails()
+    {
+        //eehhhh
+        _itemRarity = (E_ItemRarity)UnityEngine.Random.Range((float)E_ItemRarity.COMMON, (float)E_ItemRarity.LEGENDARY);
     }
 }
