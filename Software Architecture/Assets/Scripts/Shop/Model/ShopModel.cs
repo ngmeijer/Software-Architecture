@@ -13,7 +13,7 @@ public abstract class ShopModel
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index
 
-    public delegate void OnItemClicked();
+    public delegate void OnItemClicked(int index);
     public static event OnItemClicked onClick;
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -70,13 +70,13 @@ public abstract class ShopModel
     //Question: I don't see why this would supposedly fail? Item parameter is not null, and index will always be at least 0.
     public void SelectItem(Item item)
     {
-        onClick();
         if (item != null)
         {
             int index = inventory.GetItems().IndexOf(item);
             if (index >= 0)
             {
-                selectedItemIndex = index;                
+                selectedItemIndex = index;
+                onClick(index);
             }
         }
     }

@@ -87,6 +87,8 @@ public class ShopGridBuyView : MonoBehaviour
             case 0:
                 foreach (Item item in shopModel.inventory.GetItems())
                 {
+                    item.ItemIndex = shopModel.inventory.GetItems().IndexOf(item);
+                    Debug.Log($"Item index: {item.ItemIndex}");
                     AddItemToView(item);
                 }
                 break;
@@ -154,6 +156,18 @@ public class ShopGridBuyView : MonoBehaviour
         itemContainer.Initialize(item, isSelected);
 
         itemList.Add(newItemInstance);
+
+        HideItemFromView(itemContainer);
+    }
+
+    private void HideItemFromView(GridViewItemContainer item)
+    {
+        Item reference = item.Item;
+
+        if(reference == null)
+        {
+            Debug.LogError("Nope.");
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -193,12 +207,6 @@ public class ShopGridBuyView : MonoBehaviour
         //Let the current controller handle input
         shopController.HandleInput();
     }
-
-    private void selectCurrentItem(IItemContainer item)
-    {
-        
-    }
-
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SwitchToKeyboardControl()

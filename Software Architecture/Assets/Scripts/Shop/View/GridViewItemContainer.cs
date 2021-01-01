@@ -58,9 +58,12 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
     }
 
-    public void handlePanelForSelectedItem()
+    public void handlePanelForSelectedItem(int index)
     {
-        highLight.SetActive(true);
-        infoPanel.SetActive(true);
+        if (index == item.ItemIndex)
+        {
+            highLight.SetActive(true);
+            infoPanel.SetActive(true);
+        }
     }
 }

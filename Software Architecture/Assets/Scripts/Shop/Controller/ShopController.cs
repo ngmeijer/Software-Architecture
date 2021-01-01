@@ -64,10 +64,4 @@ public abstract class ShopController : MonoBehaviour
     {
         model.ConfirmSelectedItem();
     }
-
-    /////////////////////////////////////
-    public static void OnItemSelectProcessComplete()
-    {
-        //Selected item, focus + info panel visible with updated information.
-    }
 }

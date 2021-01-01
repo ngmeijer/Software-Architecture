@@ -7,5 +7,7 @@
 
     public GridViewItemContainer container;
 
+    public int ItemIndex = 0;
+
     public enum E_ItemRarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
 }
