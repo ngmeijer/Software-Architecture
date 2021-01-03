@@ -26,6 +26,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     [SerializeField] private TextMeshProUGUI itemTypeText;
     [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
+    [SerializeField] private TextMeshProUGUI itemDescriptionText;
 
     //Link to the atlas of all the item icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
