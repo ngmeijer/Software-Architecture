@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class ShopItemFactory : ItemFactory
 {
-    private string[] armorIconNames = new string[5]
-    {
-        "items_103",
-        "items_104",
-        "items_105",
-        "items_106",
-        "items_107",
-    };
 
     private string[] weaponIconNames = new string[6]
     {
@@ -31,15 +23,20 @@ public class ShopItemFactory : ItemFactory
         "items_288",
     };
 
+    private List<Item.E_ItemRarity> existingRarities = new List<Item.E_ItemRarity>();
+
+    private static Item.E_ItemRarity generateRarity()
+    {
+        Item.E_ItemRarity rarity = (Item.E_ItemRarity)Random.Range((float)Item.E_ItemRarity.COMMON, (float)Item.E_ItemRarity.LEGENDARY + 1);
+        return rarity;
+    }
+
     public override Armor CreateArmor()
     {
-        Item.E_ItemRarity itemRarity = (Item.E_ItemRarity)Random.Range((float)Item.E_ItemRarity.COMMON, (float)Item.E_ItemRarity.LEGENDARY);
-        Armor armor = new Armor(itemRarity);
-
-        Debug.Log($"Item instance  has Rarity {itemRarity}");
+        Item.E_ItemRarity rarity = generateRarity();
+        Armor armor = new Armor(rarity);
 
         return armor;
-        //return new Armor("Armor display name", armorIconNames[index], 5);
     }
 
     public override Potion CreatePotion(int index)

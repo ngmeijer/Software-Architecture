@@ -6,14 +6,13 @@ using Random = System.Random;
 public class Armor : Item
 {
     private string _name;
+    private string _description;
     private string _iconName;
     private int _price;
     private string _itemType = "Armor";
     private E_ItemRarity _itemRarity;
 
     private int _protection;
-
-
 
     private int[] upgradedProtectionValues = new int[5]
     {
@@ -57,6 +56,39 @@ public class Armor : Item
         }
     };
 
+    private readonly string[,] itemDescriptionArrays = new string[5, 2]
+    {
+        //Common
+        {
+            "Piece of cloth, commonly used by the lower Demons in Hell. Bloody, but offers some protection.",
+            "Piece of cloth, commonly used by the lower Demons in Hell. Bloody, but offers some protection."
+        },
+        
+        //Uncommon
+        {
+            "Armor produced for foot soldiers of Heaven, who marched against the demonic creations of the Faero.",
+            "..."
+        },
+
+        //Rare
+        {
+            "...",
+            "..."
+        },
+
+        //Epic
+        {
+            "Created and worn by the Dark Elves of the North, the Faero. This armor is infused with magic, making it nearly impenetrable.",
+            "..."
+        },
+
+        //Legendary
+        {
+            "'Rip and tear, until it is done. For it is he that they fear, not man or his armies. They fear the mark of the Beast.",
+            "..."
+        }
+    };
+
     public Armor(E_ItemRarity pItemRarity)
     {
         _itemRarity = pItemRarity;
@@ -71,6 +103,12 @@ public class Armor : Item
     {
         get { return _name; }
         set { _name = value; }
+    }
+
+    public override string Description
+    {
+        get { return _description; }
+        set { _description = value; }
     }
 
     public override string ItemType
@@ -109,28 +147,33 @@ public class Armor : Item
         switch (_itemRarity)
         {
             case E_ItemRarity.COMMON:
-                IconName = "items_103";
+                IconName = "items_112";
                 Name = itemNameArrays[0, r.Next(itemNameArrays.GetLength(1))];
+                Description = itemDescriptionArrays[0, r.Next(itemDescriptionArrays.GetLength(1))];
                 BasePrice = 10;
                 break;
             case E_ItemRarity.UNCOMMON:
-                IconName = "items_104";
+                IconName = "items_108";
                 Name = itemNameArrays[1, r.Next(itemNameArrays.GetLength(1))];
+                Description = itemDescriptionArrays[1, r.Next(itemDescriptionArrays.GetLength(1))];
                 BasePrice = 25;
                 break;
             case E_ItemRarity.RARE:
-                IconName = "items_105";
-                Name = itemNameArrays[2,r.Next(itemNameArrays.GetLength(1))];
+                IconName = "items_106";
+                Name = itemNameArrays[2, r.Next(itemNameArrays.GetLength(1))];
+                Description = itemDescriptionArrays[2, r.Next(itemDescriptionArrays.GetLength(1))];
                 BasePrice = 50;
                 break;
             case E_ItemRarity.EPIC:
-                IconName = "items_106";
+                IconName = "items_109";
                 Name = itemNameArrays[3, r.Next(itemNameArrays.GetLength(1))];
+                Description = itemDescriptionArrays[3, r.Next(itemDescriptionArrays.GetLength(1))];
                 BasePrice = 80;
                 break;
             case E_ItemRarity.LEGENDARY:
                 IconName = "items_107";
                 Name = itemNameArrays[4, r.Next(itemNameArrays.GetLength(1))];
+                Description = itemDescriptionArrays[4, r.Next(itemDescriptionArrays.GetLength(1))];
                 BasePrice = 125;
                 break;
         }

@@ -63,6 +63,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     private void updateItemDetailsUI()
     {
         itemNameText.text = item.Name;
+        itemDescriptionText.text = item.Description;
         itemTypeText.text = item.ItemType;
         itemPriceText.text = item.BasePrice.ToString();
         itemRarityText.text = item.ItemRarity.ToString();

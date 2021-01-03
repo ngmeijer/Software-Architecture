@@ -6,6 +6,7 @@ using UnityEngine;
 public class Potion : Item
 {
     private string _name;
+    private string _description;
     private string _iconName;
     private int _price;
     private string _itemType = "Potion";
@@ -34,6 +35,11 @@ public class Potion : Item
     {
         get { return _name; }
         set { _name = value; }
+    }
+    public override string Description
+    {
+        get { return _description; }
+        set { _description = value; }
     }
 
     public override string ItemType
