@@ -8,6 +8,9 @@ public abstract class Item : ScriptableObject
     public abstract string IconName { get; set; }
     public abstract int BasePrice { get; set; }
 
+    public abstract string BaseEnchantmentText { get; set; }
+    public abstract int BaseEnchantmentValue { get; set; }
+
     public GridViewItemContainer container;
 
     public int ItemIndex = 0;

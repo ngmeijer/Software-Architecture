@@ -27,6 +27,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
     [SerializeField] private TextMeshProUGUI itemDescriptionText;
+    [SerializeField] private TextMeshProUGUI itemPropertyText;
 
     //Link to the atlas of all the item icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
@@ -34,8 +35,6 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
     //link to the original item (set in Initialize)
     private Item item;
-
-    private bool currentlyFocused = false;
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
@@ -66,6 +65,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         itemDescriptionText.text = item.Description;
         itemTypeText.text = item.ItemType;
         itemPriceText.text = item.BasePrice.ToString();
+        itemPropertyText.text = item.BaseEnchantmentText + item.BaseEnchantmentValue;
         itemRarityText.text = item.ItemRarity.ToString();
     }
 
@@ -73,7 +73,6 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     {
         if (index == item.ItemIndex)
         {
-            currentlyFocused = true;
             highLight.SetActive(true);
             infoPanel.SetActive(true);
         }

@@ -12,8 +12,9 @@ public class Potion : Item
     private string _itemType = "Potion";
 
     public E_ItemRarity _itemRarity;
-    public string PotionEffect { get; set; }
-    public int PotionEffectAmount { get; set; }
+
+    private string _potionEffectTextValue = "Heal: ";
+    private int _potionEffectAmount { get; set; }
 
     private int[] upgradedEffectValues = new int[5]
     {
@@ -58,6 +59,18 @@ public class Potion : Item
     {
         get { return _price; }
         set { _price = value; }
+    }
+
+    public override string BaseEnchantmentText
+    {
+        get { return _potionEffectTextValue; }
+        set { _potionEffectTextValue = value; }
+    }
+
+    public override int BaseEnchantmentValue
+    {
+        get { return _potionEffectAmount; }
+        set { _potionEffectAmount = value; }
     }
 
     public override E_ItemRarity ItemRarity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

@@ -67,7 +67,7 @@ public class ShopItemFactory : ItemFactory
 
     public override Weapon UpgradeWeapon(Weapon weapon)
     {
-        //weapon.Damage += weapon.newDamageValue(weapon.ItemRarity += 1);
+        //weapon._damage += weapon.newDamageValue(weapon.ItemRarity += 1);
         //weapon.AttackSpeed += weapon.newAttackSpeedValue(weapon.ItemRarity += 1);
         //weapon.ItemRarity += 1;
 

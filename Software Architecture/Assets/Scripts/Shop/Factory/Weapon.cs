@@ -9,9 +9,11 @@ public class Weapon : Item
     private string _description;
     private string _iconName;
     private int _price;
+
     private string _itemType = "Weapon";
 
-    public int Damage { get; set; }
+    private string _damageTextValue = "Damage: ";
+    public int _damage { get; set; }
     public E_ItemRarity _itemRarity { get; set; } = 0;
     public int AttackSpeed { get; set; }
 
@@ -68,6 +70,18 @@ public class Weapon : Item
     {
         get { return _price; }
         set { _price = value; }
+    }
+
+    public override string BaseEnchantmentText
+    {
+        get { return _damageTextValue; }
+        set { _damageTextValue = value; }
+    }
+
+    public override int BaseEnchantmentValue
+    {
+        get { return _damage; }
+        set { _damage = value; }
     }
 
     public override E_ItemRarity ItemRarity
