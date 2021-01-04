@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Random = System.Random;
 
 public class Weapon : Item
 {
@@ -11,35 +10,89 @@ public class Weapon : Item
     private int _price;
 
     private string _itemType = "Weapon";
+    private E_ItemRarity _itemRarity;
 
-    private string _damageTextValue = "Damage: ";
-    public int _damage { get; set; }
-    public E_ItemRarity _itemRarity { get; set; } = 0;
-    public int AttackSpeed { get; set; }
-
-    private int[] upgradedDamageValues = new int[5]
+    private int _damage;
+    private int[] _damageValues = new int[5]
     {
-        1,
-        3,
-        5,
-        7,
-        10
+        10,
+        30,
+        50,
+        70,
+        100
+    };
+    private string _damageTextValue = "Protection: ";
+
+    private readonly string[,] _itemNameArrays = new string[5, 2]
+    {
+        //Common
+        {
+            "",
+            ""
+        },
+        
+        //Uncommon
+        {
+            "",
+            ""
+        },
+
+        //Rare
+        {
+            "",
+            ""
+        },
+
+        //Epic
+        {
+            "",
+            ""
+        },
+
+        //Legendary
+        {
+            "",
+            ""
+        }
+    };
+    private readonly string[,] _itemDescriptionArrays = new string[5, 2]
+    {
+        //Common
+        {
+            "",
+            ""
+        },
+        
+        //Uncommon
+        {
+            "",
+            ""
+        },
+
+        //Rare
+        {
+            "",
+            ""
+        },
+
+        //Epic
+        {
+            "",
+            ""
+        },
+
+        //Legendary
+        {
+            "'",
+            ""
+        }
     };
 
-    private int[] upgradedAttackSpeedValues = new int[5]
+    public Weapon(E_ItemRarity pItemRarity)
     {
-        1,
-        3,
-        5,
-        7,
-        10
-    };
+        _itemRarity = pItemRarity;
 
-    public Weapon(string pName, string pIconName, int pPrice)
-    {
-        _name = pName;
-        _iconName = pIconName;
-        _price = pPrice;
+        generateItemDetails();
     }
 
     public override string Name
@@ -90,20 +143,51 @@ public class Weapon : Item
         set { _itemRarity = value; }
     }
 
-
-    public int newDamageValue(E_ItemRarity newTier)
-    {
-        return upgradedDamageValues[(int)newTier];
-    }
-
-    public int newAttackSpeedValue(E_ItemRarity newTier)
-    {
-        return upgradedAttackSpeedValues[(int)newTier];
-    }
-
     public override void generateItemDetails()
     {
-        //eehhhh
-        _itemRarity = (E_ItemRarity)UnityEngine.Random.Range((float)E_ItemRarity.COMMON, (float)E_ItemRarity.LEGENDARY);
+        Random r = new Random();
+
+        switch (_itemRarity)
+        {
+            case E_ItemRarity.COMMON:
+                IconName = "items_73";
+                Name = _itemNameArrays[0, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[0, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _damageValues[0];
+                BasePrice = 10;
+                break;
+
+            case E_ItemRarity.UNCOMMON:
+                IconName = "items_74";
+                Name = _itemNameArrays[1, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[1, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _damageValues[1];
+                BasePrice = 25;
+                break;
+
+            case E_ItemRarity.RARE:
+                IconName = "items_77";
+                Name = _itemNameArrays[2, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[2, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _damageValues[2];
+                BasePrice = 50;
+                break;
+
+            case E_ItemRarity.EPIC:
+                IconName = "items_79";
+                Name = _itemNameArrays[3, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[3, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _damageValues[3];
+                BasePrice = 80;
+                break;
+
+            case E_ItemRarity.LEGENDARY:
+                IconName = "items_84";
+                Name = _itemNameArrays[4, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[4, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _damageValues[4];
+                BasePrice = 125;
+                break;
+        }
     }
 }

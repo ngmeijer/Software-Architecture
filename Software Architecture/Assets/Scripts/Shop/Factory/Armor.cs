@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Random = System.Random;
 
 public class Armor : Item
 {
+
     private string _name;
     private string _description;
     private string _iconName;
@@ -14,8 +14,6 @@ public class Armor : Item
     private E_ItemRarity _itemRarity;
 
     private int _protection;
-
-    private string _protectionTextValue = "Protection: ";
     private int[] _protectionValues = new int[5]
     {
         10,
@@ -24,6 +22,7 @@ public class Armor : Item
         70,
         100
     };
+    private string _protectionTextValue = "Protection: ";
 
     private readonly string[,] _itemNameArrays = new string[5, 2]
     {
@@ -57,7 +56,6 @@ public class Armor : Item
             "Mithril Armor of Imminent Hope"
         }
     };
-
     private readonly string[,] _itemDescriptionArrays = new string[5, 2]
     {
         //Common

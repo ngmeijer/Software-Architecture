@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class ItemFactory
 {
-    public abstract Weapon CreateWeapon(int index);
+    public abstract Weapon CreateWeapon();
     public abstract Armor CreateArmor();
-    public abstract Potion CreatePotion(int index);
+    public abstract Potion CreatePotion();
 
     //On first glance this seems like repeated code. It's not, though. 
     //For example, Weapon has a _damage attribute, that Armor obviously does not have,  eliminating the chance for reusing a general function.

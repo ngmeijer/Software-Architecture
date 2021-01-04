@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Random = System.Random;
 
 public class Potion : Item
 {
@@ -9,27 +6,91 @@ public class Potion : Item
     private string _description;
     private string _iconName;
     private int _price;
+
     private string _itemType = "Potion";
+    private E_ItemRarity _itemRarity;
 
-    public E_ItemRarity _itemRarity;
-
-    private string _potionEffectTextValue = "Heal: ";
-    private int _potionEffectAmount { get; set; }
-
-    private int[] upgradedEffectValues = new int[5]
+    private int _heal;
+    private int[] _healValues = new int[5]
     {
-        1,
-        3,
-        5,
-        7,
-        10
+        10,
+        30,
+        50,
+        70,
+        100
+    };
+    private string _damageTextValue = "Heal: ";
+
+    private readonly string[,] _itemNameArrays = new string[5, 2]
+    {
+        //Common
+        {
+            "",
+            ""
+        },
+        
+        //Uncommon
+        {
+            "",
+            ""
+        },
+
+        //Rare
+        {
+            "",
+            ""
+        },
+
+        //Epic
+        {
+            "",
+            ""
+        },
+
+        //Legendary
+        {
+            "",
+            ""
+        }
+    };
+    private readonly string[,] _itemDescriptionArrays = new string[5, 2]
+    {
+        //Common
+        {
+            "",
+            ""
+        },
+        
+        //Uncommon
+        {
+            "",
+            ""
+        },
+
+        //Rare
+        {
+            "",
+            ""
+        },
+
+        //Epic
+        {
+            "",
+            ""
+        },
+
+        //Legendary
+        {
+            "'",
+            ""
+        }
     };
 
-    public Potion(string pName, string pIconName, int pPrice)
+    public Potion(E_ItemRarity pItemRarity)
     {
-        _name = pName;
-        _iconName = pIconName;
-        _price = pPrice;
+        _itemRarity = pItemRarity;
+
+        generateItemDetails();
     }
 
     public override string Name
@@ -37,6 +98,7 @@ public class Potion : Item
         get { return _name; }
         set { _name = value; }
     }
+
     public override string Description
     {
         get { return _description; }
@@ -63,31 +125,67 @@ public class Potion : Item
 
     public override string BaseEnchantmentText
     {
-        get { return _potionEffectTextValue; }
-        set { _potionEffectTextValue = value; }
+        get { return _damageTextValue; }
+        set { _damageTextValue = value; }
     }
 
     public override int BaseEnchantmentValue
     {
-        get { return _potionEffectAmount; }
-        set { _potionEffectAmount = value; }
+        get { return _heal; }
+        set { _heal = value; }
     }
 
-    public override E_ItemRarity ItemRarity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-    //public override E_ItemRarity ItemRarity
-    //{
-    //    get { return _itemRarity; }
-    //    set { _itemRarity = value; }
-    //}
-
-    public int newEffectValue(E_ItemRarity newTier)
+    public override E_ItemRarity ItemRarity
     {
-        return upgradedEffectValues[(int)newTier];
+        get { return _itemRarity; }
+        set { _itemRarity = value; }
     }
 
     public override void generateItemDetails()
     {
-        throw new NotImplementedException();
+        Random r = new Random();
+
+        switch (_itemRarity)
+        {
+            case E_ItemRarity.COMMON:
+                IconName = "items_285";
+                Name = _itemNameArrays[0, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[0, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _healValues[0];
+                BasePrice = 10;
+                break;
+
+            case E_ItemRarity.UNCOMMON:
+                IconName = "items_132";
+                Name = _itemNameArrays[1, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[1, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _healValues[1];
+                BasePrice = 25;
+                break;
+
+            case E_ItemRarity.RARE:
+                IconName = "items_135";
+                Name = _itemNameArrays[2, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[2, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _healValues[2];
+                BasePrice = 50;
+                break;
+
+            case E_ItemRarity.EPIC:
+                IconName = "items_144";
+                Name = _itemNameArrays[3, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[3, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _healValues[3];
+                BasePrice = 80;
+                break;
+
+            case E_ItemRarity.LEGENDARY:
+                IconName = "items_141";
+                Name = _itemNameArrays[4, r.Next(_itemNameArrays.GetLength(1))];
+                Description = _itemDescriptionArrays[4, r.Next(_itemDescriptionArrays.GetLength(1))];
+                BaseEnchantmentValue = _healValues[4];
+                BasePrice = 125;
+                break;
+        }
     }
 }

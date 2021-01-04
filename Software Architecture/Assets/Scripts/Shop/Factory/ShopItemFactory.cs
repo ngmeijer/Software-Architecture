@@ -39,14 +39,20 @@ public class ShopItemFactory : ItemFactory
         return armor;
     }
 
-    public override Potion CreatePotion(int index)
+    public override Potion CreatePotion()
     {
-        return new Potion("Potion display name", potionIconNames[index], 3);
+        Item.E_ItemRarity rarity = generateRarity();
+        Potion potion = new Potion(rarity);
+
+        return potion;
     }
 
-    public override Weapon CreateWeapon(int index)
+    public override Weapon CreateWeapon()
     {
-        return new Weapon("Weapon display name", weaponIconNames[index], 6);
+        Item.E_ItemRarity rarity = generateRarity();
+        Weapon weapon = new Weapon(rarity);
+
+        return weapon;
     }
 
     public override Armor UpgradeArmor(Armor armor)

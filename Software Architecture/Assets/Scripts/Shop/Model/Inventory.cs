@@ -119,21 +119,19 @@ public class Inventory
 
         for (int index = 0; index < 6; index++)
         {
-            Weapon weapon = factory.CreateWeapon(index);
+            Weapon weapon = factory.CreateWeapon();
             itemList.Add(weapon);
-            //weapon.ItemRarity = Item.E_ItemRarity.COMMON;
         }
 
         for (int index = 0; index < 5; index++)
         {
-            Debug.Log("GENERATING ARMOR");
             Armor armor = factory.CreateArmor();
             itemList.Add(armor);
         }
 
         for (int index = 0; index < 4; index++)
         {
-            Potion potion = factory.CreatePotion(index);
+            Potion potion = factory.CreatePotion();
             itemList.Add(potion);
         }
     }

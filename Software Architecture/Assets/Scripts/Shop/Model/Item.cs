@@ -11,8 +11,6 @@ public abstract class Item : ScriptableObject
     public abstract string BaseEnchantmentText { get; set; }
     public abstract int BaseEnchantmentValue { get; set; }
 
-    public GridViewItemContainer container;
-
     public int ItemIndex = 0;
 
     public enum E_ItemRarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
