@@ -31,16 +31,6 @@ public class Inventory
 
     }
 
-    public List<Weapon> GetWeapons()
-    {
-        List<Weapon> localList = new List<Weapon>();
-        foreach (Weapon weapon in itemList)
-        {
-            localList.Add(weapon);
-        }
-        return localList;
-    }
-
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  GetItemCount()
     //------------------------------------------------------------------------------------------------------------------------        

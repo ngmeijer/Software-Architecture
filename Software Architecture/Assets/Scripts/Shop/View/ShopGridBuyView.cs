@@ -21,6 +21,7 @@ public class ShopGridBuyView : MonoBehaviour
     
     [SerializeField] 
     private List<GameObject> itemList = new List<GameObject>();
+    private List<GameObject> tempItemList = new List<GameObject>();
 
     [SerializeField]
     private Button buyButton;
@@ -82,13 +83,14 @@ public class ShopGridBuyView : MonoBehaviour
         //it won't throw the error (but doesn't sort).
 
         //UPDATE 2: Fixed both the error and sorting problem, but I'm not sure about whether or not the solution is clean enough.
+
         switch (index)
         {
             case 0:
                 foreach (Item item in shopModel.inventory.GetItems())
                 {
                     item.ItemIndex = shopModel.inventory.GetItems().IndexOf(item);
-                    Debug.Log($"Item index: {item.ItemIndex}");
+                    //Debug.Log($"Item index: {item.ItemIndex}");
                     AddItemToView(item);
                 }
                 break;
@@ -130,6 +132,7 @@ public class ShopGridBuyView : MonoBehaviour
     //Removes all existing icons in the grid view
     private void ClearIconView()
     {
+        itemList.Clear();
         Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
         foreach (Transform child in allIcons)
         {
@@ -156,18 +159,6 @@ public class ShopGridBuyView : MonoBehaviour
         itemContainer.Initialize(item, isSelected);
 
         itemList.Add(newItemInstance);
-
-        HideItemFromView(itemContainer);
-    }
-
-    private void HideItemFromView(GridViewItemContainer item)
-    {
-        Item reference = item.Item;
-
-        if(reference == null)
-        {
-            Debug.LogError("Nope.");
-        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------

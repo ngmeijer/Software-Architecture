@@ -18,20 +18,20 @@ public class MouseController : ShopController, IPointerClickHandler
     //If there is an item to select, call SelectItem to select it. 
     public override void HandleInput()
     {
-        Debug.Log("1a. Checking for input.");
+        //Debug.Log("1a. Checking for input.");
         if (itemToSelect != null)
         {
-            Debug.Log("1b. Select item");
+            //Debug.Log("1b. Select item");
             SelectItem(itemToSelect);
 
-            if (itemToSelect != null)
-            {
-                Debug.Log($"1e.1. Select item");
-            }
-            else
-            {
-                Debug.Log("1e.2. Item is null.");
-            }
+            //if (itemToSelect != null)
+            //{
+            //    Debug.Log($"1e.1. Select item");
+            //}
+            //else
+            //{
+            //    Debug.Log("1e.2. Item is null.");
+            //}
 
             itemToSelect = null;//Now that the item was selected, set itemToSelect back to null
         }
@@ -47,14 +47,14 @@ public class MouseController : ShopController, IPointerClickHandler
         //Check if the mouse clicked on an item container. 
         IItemContainer itemContainer = eventData.pointerCurrentRaycast.gameObject.GetComponent<IItemContainer>();
 
-        if (itemContainer != null)
-        {
-            Debug.Log($"1c.1. Select item");
-        }
-        else
-        {
-            Debug.Log("1c.2. ItemContainer is null.");
-        }
+        //if (itemContainer != null)
+        //{
+        //    Debug.Log($"1c.1. Select item");
+        //}
+        //else
+        //{
+        //    Debug.Log("1c.2. ItemContainer is null.");
+        //}
 
         //If the game object that was clicked on has a component which implements the IItemContainer interface, itemContainer
         //will be assigned with that component, otherwise itemContainer would be null, meaning the mouse didn't click on any
@@ -65,14 +65,14 @@ public class MouseController : ShopController, IPointerClickHandler
             itemToSelect = itemContainer.Item;//Use IItemContainer's getter to get the item in the container, assign it to itemToSelect,
                                               //now it will be selected the next time HandleInput is called
 
-            if (itemToSelect != null)
-            {
-                Debug.Log($"1d.1. Select item");
-            }
-            else
-            {
-                Debug.Log("1d.2. ItemToSelect is null.");
-            }
+            //if (itemToSelect != null)
+            //{
+            //    Debug.Log($"1d.1. Select item");
+            //}
+            //else
+            //{
+            //    Debug.Log("1d.2. ItemToSelect is null.");
+            //}
         }
     }
 }

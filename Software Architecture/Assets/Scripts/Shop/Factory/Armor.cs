@@ -4,6 +4,7 @@ using Random = System.Random;
 
 public class Armor : Item
 {
+    #region Private fields
 
     private string _name;
     private string _description;
@@ -89,6 +90,8 @@ public class Armor : Item
         }
     };
 
+    #endregion
+
     public Armor(E_ItemRarity pItemRarity)
     {
         _itemRarity = pItemRarity;
@@ -96,53 +99,50 @@ public class Armor : Item
         generateItemDetails();
     }
 
+    #region Getters & Setters
+
     public override string Name
     {
         get { return _name; }
         set { _name = value; }
     }
-
     public override string Description
     {
         get { return _description; }
         set { _description = value; }
     }
-
     public override string ItemType
     {
         get { return _itemType; }
         set { _itemType = value; }
     }
-
     public override string IconName
     {
         get { return _iconName; }
         set { _iconName = value; }
     }
-
     public override int BasePrice
     {
         get { return _price; }
         set { _price = value; }
     }
-
     public override string BaseEnchantmentText
     {
         get { return _protectionTextValue; }
         set { _protectionTextValue = value; }
     }
-
     public override int BaseEnchantmentValue
     {
         get { return _protection; }
         set { _protection = value; }
     }
-
     public override E_ItemRarity ItemRarity
     {
         get { return _itemRarity; }
         set { _itemRarity = value; }
     }
+
+    #endregion
 
     public override void generateItemDetails()
     {

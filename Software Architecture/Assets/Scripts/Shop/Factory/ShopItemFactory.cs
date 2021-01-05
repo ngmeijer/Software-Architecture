@@ -39,6 +39,13 @@ public class ShopItemFactory : ItemFactory
         return armor;
     }
 
+    public Armor CreateArmorUT(Item.E_ItemRarity rarity)
+    {
+        Armor armor = new Armor(rarity);
+
+        return armor;
+    }
+
     public override Potion CreatePotion()
     {
         Item.E_ItemRarity rarity = generateRarity();

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public abstract class Item : ScriptableObject
+﻿public abstract class Item
 {
     public abstract string Name { get; set; }
     public abstract string Description { get; set; }

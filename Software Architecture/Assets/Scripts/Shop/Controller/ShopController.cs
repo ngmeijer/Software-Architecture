@@ -32,19 +32,19 @@ public abstract class ShopController : MonoBehaviour
     //Called when a certain item is selected
     public void SelectItem(Item item)
     {
-        if (item != null)
-        {
-            Debug.Log($"2a.1. Select item");
-        }
-        else
-        {
-            Debug.Log("2a.2. Item is null.");
-        }
+        //if (item != null)
+        //{
+        //    Debug.Log($"2a.1. Select item");
+        //}
+        //else
+        //{
+        //    Debug.Log("2a.2. Item is null.");
+        //}
 
         model.SelectItem(item);
 
-        Debug.Log($"2b. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
-        Debug.Log($"2c. Index of item: {model.GetSelectedItemIndex()}");
+        //Debug.Log($"2b. Index of item with used function: {model.inventory.GetItems().IndexOf(item)}");
+        //Debug.Log($"2c. Index of item: {model.GetSelectedItemIndex()}");
     }
 
     //------------------------------------------------------------------------------------------------------------------------

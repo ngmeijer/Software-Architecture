@@ -52,8 +52,6 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
             icon.sprite = sprite;
         }
 
-        Debug.Log(item.ItemRarity);
-
         updateItemDetailsUI();
 
         ShopModel.onClick += handlePanelForSelectedItem;
@@ -71,6 +69,11 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
     public void handlePanelForSelectedItem(int index)
     {
+        if (this.gameObject == null)
+            return;
+
+        Debug.Log("handling focus.");
+
         if (index == item.ItemIndex)
         {
             highLight.SetActive(true);
@@ -82,4 +85,6 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
             infoPanel.SetActive(false);
         }
     }
+
+
 }

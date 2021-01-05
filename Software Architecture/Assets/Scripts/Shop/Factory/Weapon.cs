@@ -21,7 +21,7 @@ public class Weapon : Item
         70,
         100
     };
-    private string _damageTextValue = "Protection: ";
+    private string _damageTextValue = "Damage: ";
 
     private readonly string[,] _itemNameArrays = new string[5, 2]
     {
