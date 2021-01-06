@@ -7,7 +7,7 @@ using UnityEngine;
 /// This class defines the methods to be called by views to control a ShopModel. You can make concrete
 /// controllers like a mouse controller, keyboard controller, game pad controller, etc from this interface.
 /// </summary>
-public abstract class ShopController : MonoBehaviour
+public abstract class ShopController : MonoBehaviour, IObserver
 { 
     public ShopModel Model => model;//Public getter for the model
     protected ShopModel model; //Ties this controller to a ShopModel
@@ -23,7 +23,30 @@ public abstract class ShopController : MonoBehaviour
     {
         model = pModel;
 
+        Subject subject = new Subject();
+        ConcreteObserverA observerA = new ConcreteObserverA();
+
+        subject.Attach(observerA);
+
+        ConcreteObserverB observerB = new ConcreteObserverB();
+        subject.Attach(observerB);
+
+        subject.TestFunction();
+        subject.TestFunction();
+
+        subject.Detach(observerB);
+
+        subject.TestFunction();
+
         return this;
+    }
+
+    public void UpdateFromSubject(ISubject subject)
+    {
+        if ((subject as Subject).State < 3)
+        {
+            Debug.Log("ShopController (Observer): reacted to the event.");
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -62,6 +85,7 @@ public abstract class ShopController : MonoBehaviour
     //Tells the model to confirm the current selected item
     public void ConfirmSelectedItem()
     {
+        Debug.Log("attempt to select item.");
         model.ConfirmSelectedItem();
     }
 }

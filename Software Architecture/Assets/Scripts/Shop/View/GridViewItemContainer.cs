@@ -54,7 +54,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
         updateItemDetailsUI();
 
-        ShopModel.onClick += handlePanelForSelectedItem;
+        ShopModel.OnClick += handlePanelForSelectedItem;
     }
 
     private void updateItemDetailsUI()

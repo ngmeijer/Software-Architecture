@@ -10540,4 +10540,6 @@ MonoBehaviour:
     type: 3}
   itemList: []
   buyButton: {fileID: 889320678}
+  upgradeButton: {fileID: 357782884}
+  sellButton: {fileID: 1300432821}
   instructionText: {fileID: 1352417142}

@@ -87,6 +87,7 @@ public class Inventory
         if (index >= 0 && index < itemList.Count)
         {
             itemList.RemoveAt(index);
+            
         }
     }
 

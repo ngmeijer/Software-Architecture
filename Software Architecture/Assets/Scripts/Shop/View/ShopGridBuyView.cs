@@ -18,13 +18,19 @@ public class ShopGridBuyView : MonoBehaviour
 
     [SerializeField]
     private GameObject itemPrefab; //A prefab to display an item in the view
-    
-    [SerializeField] 
+
+    [SerializeField]
     private List<GameObject> itemList = new List<GameObject>();
     private List<GameObject> tempItemList = new List<GameObject>();
 
     [SerializeField]
     private Button buyButton;
+
+    [SerializeField]
+    private Button upgradeButton;
+
+    [SerializeField]
+    private Button sellButton;
 
     [SerializeField]
     private TextMeshProUGUI instructionText;
@@ -55,8 +61,9 @@ public class ShopGridBuyView : MonoBehaviour
     //like cellSize, spacing, padding, etc.
     private void SetupItemIconView()
     {
-        itemLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;//Set the constraint mode of the GridLayoutGroup
+        itemLayoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;//Set the constraint mode of the GridLayoutGroup
         itemLayoutGroup.constraintCount = viewConfig.gridViewColumnCount; //Set the column count according to the ViewConfig object
+        itemLayoutGroup.cellSize = new Vector2(50, 50);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -161,6 +168,11 @@ public class ShopGridBuyView : MonoBehaviour
         itemList.Add(newItemInstance);
     }
 
+    public static void DestroyIcon()
+    {
+
+    }
+
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  InitializeButtons()
     //------------------------------------------------------------------------------------------------------------------------        
@@ -170,10 +182,24 @@ public class ShopGridBuyView : MonoBehaviour
     {
         buyButton.onClick.AddListener(
             delegate
-            {
-                shopController.ConfirmSelectedItem();
-            }
-        );
+                {
+                    shopController.ConfirmSelectedItem();
+                }
+            );
+
+        upgradeButton.onClick.AddListener(
+            delegate
+                {
+                    shopController.ConfirmSelectedItem();
+                }
+            );
+        
+        sellButton.onClick.AddListener(
+            delegate
+                {
+                    shopController.ConfirmSelectedItem();
+                }
+            );
     }
 
     private void Update()

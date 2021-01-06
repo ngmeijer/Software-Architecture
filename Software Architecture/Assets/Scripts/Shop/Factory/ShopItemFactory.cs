@@ -64,9 +64,9 @@ public class ShopItemFactory : ItemFactory
 
     public override Armor UpgradeArmor(Armor armor)
     {
-        //armor.Protection += armor.NewProtectionValue(armor.ItemRarity += 1);
-        //armor.ItemRarity += 1;
-
+        armor.BaseEnchantmentValue += armor.NewProtectionValue(armor.ItemRarity += 1);
+        armor.ItemRarity += 1;
+        
         return armor;
     }
 

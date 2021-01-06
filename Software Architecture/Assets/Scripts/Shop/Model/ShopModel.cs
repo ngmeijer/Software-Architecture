@@ -14,7 +14,9 @@ public abstract class ShopModel
     protected int selectedItemIndex = 0; //selected item index
 
     public delegate void OnItemClicked(int index);
-    public static event OnItemClicked onClick;
+    public static event OnItemClicked OnClick;
+
+    public abstract int State { get; set; }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  ShopModel()
@@ -67,7 +69,7 @@ public abstract class ShopModel
             if (index >= 0)
             {
                 selectedItemIndex = index;
-                onClick(index);
+                OnClick(index);
             }
         }
     }
