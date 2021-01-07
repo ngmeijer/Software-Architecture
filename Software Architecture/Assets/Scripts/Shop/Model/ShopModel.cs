@@ -6,20 +6,33 @@ using System.Collections.Generic;
 ///In its current setup, view and controller need to get data via polling. Advisable is, to apply observer pattern or
 ///set up an event system for better integration with View and Controller.
 /// </summary>
+
 public abstract class ShopModel
 {
     public Inventory inventory { get; } // Getter of the inventory, the views might need this to set up the display.
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index
 
+    public delegate void OnItemClicked(int index);
+    public static event OnItemClicked OnClick;
+
+    public abstract List<ISubsciber> SubscriberList { get; set; }
+    public abstract int MainState { get; set; }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  ShopModel()
     //------------------------------------------------------------------------------------------------------------------------        
     public ShopModel(float pPriceModifier, int pItemCount, int pMoney)
     {
-        inventory = new Inventory(pItemCount, pMoney); 
+        inventory = new Inventory(pItemCount, pMoney);
+
+        priceModifier = pPriceModifier;
     }
+
+    public abstract void Subscribe(ISubsciber subsciber);
+    public abstract void Unsubscribe(ISubsciber subscriber);
+    public abstract void NotifySubscribers();
+    public abstract void MainBussinessLogic();
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  GetSelectedItem()
@@ -49,11 +62,11 @@ public abstract class ShopModel
         }
     }
 
-
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SelectItem(Item item)
     //------------------------------------------------------------------------------------------------------------------------
     //Attempts to select the given item, fails silently
+    //Question: I don't see why this would supposedly fail? Item parameter is not null, and index will always be at least 0.
     public void SelectItem(Item item)
     {
         if (item != null)
@@ -62,6 +75,7 @@ public abstract class ShopModel
             if (index >= 0)
             {
                 selectedItemIndex = index;
+                OnClick(index);
             }
         }
     }
@@ -70,10 +84,7 @@ public abstract class ShopModel
     //                                                  GetSelectedItemIndex()
     //------------------------------------------------------------------------------------------------------------------------
     //returns the index of the current selected item
-    public int GetSelectedItemIndex()
-    {
-        return selectedItemIndex;
-    }
+    public int GetSelectedItemIndex() => selectedItemIndex;
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Confirm()

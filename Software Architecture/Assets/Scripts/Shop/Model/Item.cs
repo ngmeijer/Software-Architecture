@@ -1,22 +1,19 @@
-﻿/// <summary>
-/// This class holds data for an Item. Currently it has a name, an iconName and a base price.
-/// </summary>
-public class Item
+﻿public abstract class Item
 {
-    public readonly string name;
-    public readonly string iconName;
-    public int basePrice { get; private set; } // This is the base price for the item, the buying and selling prices can be
-                                               // generated based on this value. 
+    public abstract string Name { get; set; }
+    public abstract string Description { get; set; }
+    public abstract string ItemType { get; set; }
+    public abstract string IconName { get; set; }
+    public abstract int BasePrice { get; set; }
 
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  Item()
-    //------------------------------------------------------------------------------------------------------------------------
-    public Item(string name, string iconName, int pbasePrice)
-    {
-        this.name = name;
-        this.iconName = iconName;
-        this.basePrice = pbasePrice;
-    }
+    public abstract string BaseEnchantmentText { get; set; }
+    public abstract int BaseEnchantmentValue { get; set; }
 
+    public int ItemIndex = 0;
+
+    public enum E_ItemRarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
+
+    public abstract  E_ItemRarity ItemRarity { get; set; }
+
+    public abstract void generateItemDetails();
 }
-

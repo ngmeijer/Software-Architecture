@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
+using TMPro;
 
 /// <summary>
 /// This class is applied to a button that represents an Item in the View. It is a visual representation of the item
@@ -21,6 +22,12 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     [SerializeField] private GameObject infoPanel;
 
     [SerializeField] private Image icon;
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private TextMeshProUGUI itemTypeText;
+    [SerializeField] private TextMeshProUGUI itemRarityText;
+    [SerializeField] private TextMeshProUGUI itemPriceText;
+    [SerializeField] private TextMeshProUGUI itemDescriptionText;
+    [SerializeField] private TextMeshProUGUI itemPropertyText;
 
     //Link to the atlas of all the item icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
@@ -32,24 +39,52 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------
-    public void Initialize(Item item, bool isSelected)
+    public void Initialize(Item item)
     {
         //Stores the item
         this.item = item;
 
-        //Sets the highlight image and infoPanel's visibility
-        if (isSelected)
-        {
-            highLight.SetActive(true);
-            infoPanel.SetActive(true);
-        }
-
         // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
-        Sprite sprite = iconAtlas.GetSprite(item.iconName);
+        Sprite sprite = iconAtlas.GetSprite(item.IconName);
 
         if (sprite != null)
         {
             icon.sprite = sprite;
         }
+
+        updateItemDetailsUI();
+
+        ShopModel.OnClick += handlePanelForSelectedItem;
     }
+
+    private void updateItemDetailsUI()
+    {
+        itemNameText.text = item.Name;
+        itemDescriptionText.text = item.Description;
+        itemTypeText.text = item.ItemType;
+        itemPriceText.text = item.BasePrice.ToString();
+        itemPropertyText.text = item.BaseEnchantmentText + item.BaseEnchantmentValue;
+        itemRarityText.text = item.ItemRarity.ToString();
+    }
+
+    public void handlePanelForSelectedItem(int index)
+    {
+        if (this.gameObject == null)
+            return;
+
+        Debug.Log("handling focus.");
+
+        if (index == item.ItemIndex)
+        {
+            highLight.SetActive(true);
+            infoPanel.SetActive(true);
+        }
+        else
+        {
+            highLight.SetActive(false);
+            infoPanel.SetActive(false);
+        }
+    }
+
+
 }
