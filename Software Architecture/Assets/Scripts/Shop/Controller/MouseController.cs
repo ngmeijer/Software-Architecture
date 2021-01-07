@@ -24,16 +24,11 @@ public class MouseController : ShopController, IPointerClickHandler
             //Debug.Log("1b. Select item");
             SelectItem(itemToSelect);
 
-            //if (itemToSelect != null)
-            //{
-            //    Debug.Log($"1e.1. Select item");
-            //}
-            //else
-            //{
-            //    Debug.Log("1e.2. Item is null.");
-            //}
-
             itemToSelect = null;//Now that the item was selected, set itemToSelect back to null
+        }
+        else
+        {
+            Debug.Log("1e.2. Item is null.");
         }
     }
 

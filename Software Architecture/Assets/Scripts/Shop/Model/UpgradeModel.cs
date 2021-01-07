@@ -5,7 +5,6 @@ using UnityEngine;
 public class UpgradeModel : ShopModel
 {
     private ShopItemFactory _factory;
-    public override int State { get; set; } = 0;
 
     public UpgradeModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
     {
@@ -24,16 +23,15 @@ public class UpgradeModel : ShopModel
         switch (currentItem.ItemType)
         {
             case "Weapon":
-                _factory.UpgradeWeapon((Weapon)currentItem);
+                _factory.UpgradeWeapon((Weapon) currentItem);
                 break;
             case "Armor":
                 _factory.UpgradeArmor((Armor) currentItem);
                 break;
             case "Potion":
-                _factory.UpgradePotion((Potion)currentItem);
+                _factory.UpgradePotion((Potion) currentItem);
                 //inventory.Money -= currentItem.BasePrice;
                 break;
         }
-
     }
 }

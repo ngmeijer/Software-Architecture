@@ -39,7 +39,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------
-    public void Initialize(Item item, bool isSelected)
+    public void Initialize(Item item)
     {
         //Stores the item
         this.item = item;

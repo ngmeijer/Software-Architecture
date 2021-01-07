@@ -15,7 +15,7 @@ public class ShopGridBuyView : MonoBehaviour
 
     [SerializeField]
     private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
-
+    
     [SerializeField]
     private GameObject itemPrefab; //A prefab to display an item in the view
 
@@ -97,7 +97,6 @@ public class ShopGridBuyView : MonoBehaviour
                 foreach (Item item in shopModel.inventory.GetItems())
                 {
                     item.ItemIndex = shopModel.inventory.GetItems().IndexOf(item);
-                    //Debug.Log($"Item index: {item.ItemIndex}");
                     AddItemToView(item);
                 }
                 break;
@@ -162,8 +161,7 @@ public class ShopGridBuyView : MonoBehaviour
 
         GridViewItemContainer itemContainer = newItemInstance.GetComponent<GridViewItemContainer>();
         Debug.Assert(itemContainer != null);
-        bool isSelected = (item == shopModel.GetSelectedItem());
-        itemContainer.Initialize(item, isSelected);
+        itemContainer.Initialize(item);
 
         itemList.Add(newItemInstance);
     }

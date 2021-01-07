@@ -16,8 +16,6 @@ public abstract class ShopModel
     public delegate void OnItemClicked(int index);
     public static event OnItemClicked OnClick;
 
-    public abstract int State { get; set; }
-
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  ShopModel()
     //------------------------------------------------------------------------------------------------------------------------        
