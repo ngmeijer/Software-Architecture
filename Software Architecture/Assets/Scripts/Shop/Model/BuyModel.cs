@@ -8,6 +8,12 @@ using UnityEngine;
 /// </summary>
 public class BuyModel : ShopModel
 {
+    //PUBLISHER CLASS!
+    public override List<ISubsciber> SubscriberList { get; set; }
+
+    public override int MainState { get; set; }
+
+
     public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
     {
 
@@ -25,5 +31,30 @@ public class BuyModel : ShopModel
     {
         Debug.Log("removing item.");
         inventory.RemoveItemByIndex(selectedItemIndex);
+        NotifySubscribers();
+    }
+
+    public override void MainBussinessLogic()
+    {
+        //MainState = NewState;
+        NotifySubscribers();
+    }
+
+    public override void NotifySubscribers()
+    {
+        foreach (ISubsciber s in SubscriberList)
+        {
+            s.Update(this);
+        }
+    }
+
+    public override void Subscribe(ISubsciber subsciber)
+    {
+        SubscriberList.Add(subsciber);
+    }
+
+    public override void Unsubscribe(ISubsciber subscriber)
+    {
+        SubscriberList.Remove(subscriber);
     }
 }

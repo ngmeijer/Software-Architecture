@@ -11,9 +11,32 @@ public class UpgradeModel : ShopModel
 
     }
 
+    public override List<ISubsciber> SubscriberList { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public override int MainState { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     public override void ConfirmSelectedItem()
     {
         upgradeSelectedItem();
+    }
+
+    public override void MainBussinessLogic()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void NotifySubscribers()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Subscribe(ISubsciber subsciber)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Unsubscribe(ISubsciber subscriber)
+    {
+        throw new System.NotImplementedException();
     }
 
     private void upgradeSelectedItem()

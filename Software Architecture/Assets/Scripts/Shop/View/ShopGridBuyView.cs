@@ -9,8 +9,9 @@ using UnityEngine.UI;
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
-public class ShopGridBuyView : MonoBehaviour
+public class ShopGridBuyView : MonoBehaviour, ISubsciber
 {
+    //SUBSCRIBER CLASS!
     public ShopModel ShopModel => shopModel; //A getter to access shopModel.
 
     [SerializeField]
@@ -243,5 +244,10 @@ public class ShopGridBuyView : MonoBehaviour
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
+    }
+
+    public void Update(ShopModel model)
+    {
+        
     }
 }
