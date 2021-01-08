@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This class defines the methods to be called by views to control a ShopModel. You can make concrete
+/// This class defines the methods to be called by views to control a shopModel. You can make concrete
 /// controllers like a mouse controller, keyboard controller, game pad controller, etc from this interface.
 /// </summary>
 public abstract class ShopController : MonoBehaviour
 { 
     public ShopModel Model => model;//Public getter for the model
-    protected ShopModel model; //Ties this controller to a ShopModel
+    protected ShopModel model; //Ties this controller to a shopModel
 
     public abstract void HandleInput(); //Concrete controllers override this method and handle input in different ways.
 

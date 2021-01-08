@@ -85,6 +85,4 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
             infoPanel.SetActive(false);
         }
     }
-
-
 }

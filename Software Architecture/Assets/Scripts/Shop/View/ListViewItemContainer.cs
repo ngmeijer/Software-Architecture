@@ -46,7 +46,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
             //icon.sprite = sprite;
         }
 
-        //updateItemDetailsUI();
+        updateItemDetailsUI();
 
         ShopModel.OnClick += handlePanelForSelectedItem;
     }
@@ -54,10 +54,10 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
     public void updateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
-        itemDescriptionText.text = Item.Description;
+        //itemDescriptionText.text = Item.Description;
         itemTypeText.text = Item.ItemType;
-        itemPriceText.text = Item.BasePrice.ToString();
-        itemPropertyText.text = Item.BaseEnchantmentText + Item.BaseEnchantmentValue;
+        //itemPriceText.text = Item.BasePrice.ToString();
+        //itemPropertyText.text = Item.BaseEnchantmentText + Item.BaseEnchantmentValue;
         itemRarityText.text = Item.ItemRarity.ToString();
     }
 

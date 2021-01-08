@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This class provides a keyboard controller for a ShopModel in a grid view, it defines how to handle keyboard input in HandleInput()
+/// This class provides a keyboard controller for a shopModel in a grid view, it defines how to handle keyboard input in HandleInput()
 /// </summary>
 public class GridViewKeyboardController : ShopController
 {

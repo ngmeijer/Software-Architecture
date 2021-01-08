@@ -27,32 +27,32 @@ public class Weapon : Item
     {
         //Common
         {
-            "",
-            ""
+            "Common weapon 1",
+            "Common weapon 2"
         },
         
         //Uncommon
         {
-            "",
-            ""
+            "Uncommon weapon 1",
+            "Uncommon weapon 2"
         },
 
         //Rare
         {
-            "",
-            ""
+            "Rare weapon 1",
+            "Rare weapon 2"
         },
 
         //Epic
         {
-            "",
-            ""
+            "Epic weapon 1",
+            "Epic weapon 2"
         },
 
         //Legendary
         {
-            "",
-            ""
+            "Legendary weapon 1",
+            "Legendary weapon 2"
         }
     };
     private readonly string[,] _itemDescriptionArrays = new string[5, 2]

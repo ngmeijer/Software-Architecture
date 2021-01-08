@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// This class connects a grid view for buy state of the shop to a controller to manipulate the BuyModel via a ShopController
+/// This class connects a grid view for buy state of the shop to a controller to manipulate the BuyModel via a shopController
 /// interface, it contains specific methods to setup and update a grid view, with the data from a BuyModel. If you want to display
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
@@ -12,8 +12,6 @@ using UnityEngine.UI;
 public class ShopListBuyView : ShopBuyView, ISubsciber
 {
     //SUBSCRIBER CLASS!
-    public ShopModel ShopModel => shopModel; //A getter to access shopModel.
-
     [SerializeField]
     private VerticalLayoutGroup itemLayoutGroup; //Links to a VerticalLayoutGroup in the Unity scene
 
@@ -40,13 +38,8 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
                                    //this information can be found in a ViewConfig scriptable object, which serves as a configuration file for
                                    //views.
 
-    private ShopModel shopModel; //Model in MVC pattern
-    private ShopController shopController; //Controller in MVC pattern
-
     private void Start()
     {
-        shopModel = new BuyModel(2f, 16, 500); //Right now use magic values to set up the shop
-        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
         SetupItemIconView(); //Setup the grid view's properties
@@ -167,11 +160,6 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
         itemContainer.Initialize(item);
 
         itemList.Add(newItemInstance);
-    }
-
-    public static void DestroyIcon()
-    {
-
     }
 
     //------------------------------------------------------------------------------------------------------------------------

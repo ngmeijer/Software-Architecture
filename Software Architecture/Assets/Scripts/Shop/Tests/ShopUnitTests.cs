@@ -35,14 +35,14 @@ namespace Tests
             gridBuyView.gameObject.SetActive(true);
         }
 
-        // Use meaningful name for your test cases, this case tests if the ShopGridBuyView component has initialized its ShopModel property 
+        // Use meaningful name for your test cases, this case tests if the ShopGridBuyView component has initialized its shopModel property 
         [UnityTest]
         public IEnumerator ShopGridBuyViewInitializedShopModel()
         {
             yield return null; //yield return null skips one frame, waits for the Unity scene to load
 
-            //now test if a ShopModel is assigned to gridBuyView
-            Assert.IsNotNull(gridBuyView.ShopModel, "No BuyModel is assigned in ShopGridBuyView");
+            //now test if a shopModel is assigned to gridBuyView
+            Assert.IsNotNull(gridBuyView.shopModel, "No BuyModel is assigned in ShopGridBuyView");
         }
 
         //This case tests if the grid buy view displays the correct amount of Items
@@ -59,7 +59,7 @@ namespace Tests
                                                  //so that the view finished updating and rendering everything 
 
             int itemCount = gridItemsPanel.transform.childCount;
-            Assert.AreEqual(gridBuyView.ShopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
+            Assert.AreEqual(gridBuyView.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
         }
 
         //This case tests if the buyModel can throw an ArgumentOutOfRangeException when it's asked to select an item by a negative
@@ -71,12 +71,12 @@ namespace Tests
             //yield return null skips one frame, waits for the Unity scene to load and buyModel to be assigned
             yield return null;
 
-            //Creates a delegate that call gridBuyView.ShopModel.SelectItemByIndex(-1), the test runner will run the function, and
+            //Creates a delegate that call gridBuyView.shopModel.SelectItemByIndex(-1), the test runner will run the function, and
             //check if an ArgumentOutOfRangeException is thrown, the unit test would fail if no ArgumentOutOfRangeException
             //was thrown
             Assert.Throws<System.ArgumentOutOfRangeException>(delegate
             {
-                gridBuyView.ShopModel.SelectItemByIndex(-1);
+                gridBuyView.shopModel.SelectItemByIndex(-1);
             });
         }
     }

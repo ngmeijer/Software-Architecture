@@ -20,7 +20,7 @@ public abstract class ShopModel
     public abstract int MainState { get; set; }
 
     //------------------------------------------------------------------------------------------------------------------------
-    //                                                  ShopModel()
+    //                                                  shopModel()
     //------------------------------------------------------------------------------------------------------------------------        
     public ShopModel(float pPriceModifier, int pItemCount, int pMoney)
     {

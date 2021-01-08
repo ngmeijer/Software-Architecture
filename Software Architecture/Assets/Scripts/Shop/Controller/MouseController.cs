@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 
 /// <summary>
-/// This class provides a mouse controller for a ShopModel, it receives UI events such as button clicks from the view and
+/// This class provides a mouse controller for a shopModel, it receives UI events such as button clicks from the view and
 /// munipluates the model it controls. It implements UnityEngine.EventSystems's IPointerClickerHandler to receive mouse click
 /// events
 /// </summary>
