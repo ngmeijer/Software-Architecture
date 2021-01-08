@@ -26,10 +26,6 @@ public class MouseController : ShopController, IPointerClickHandler
 
             itemToSelect = null;//Now that the item was selected, set itemToSelect back to null
         }
-        else
-        {
-            Debug.Log("1e.2. Item is null.");
-        }
     }
 
 

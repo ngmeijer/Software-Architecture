@@ -16,7 +16,7 @@ public class ShopGridBuyView : MonoBehaviour, ISubsciber
 
     [SerializeField]
     private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
-    
+
     [SerializeField]
     private GameObject itemPrefab; //A prefab to display an item in the view
 
@@ -52,6 +52,8 @@ public class ShopGridBuyView : MonoBehaviour, ISubsciber
         SetupItemIconView(); //Setup the grid view's properties
         PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
+
+        shopModel.Subscribe(this);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -192,7 +194,7 @@ public class ShopGridBuyView : MonoBehaviour, ISubsciber
                     shopController.ConfirmSelectedItem();
                 }
             );
-        
+
         sellButton.onClick.AddListener(
             delegate
                 {
@@ -248,6 +250,6 @@ public class ShopGridBuyView : MonoBehaviour, ISubsciber
 
     public void Update(ShopModel model)
     {
-        
+        Debug.Log($"Subscriber has been notified. Size of subscriber list: {shopModel.SubscriberList.Count}");
     }
 }

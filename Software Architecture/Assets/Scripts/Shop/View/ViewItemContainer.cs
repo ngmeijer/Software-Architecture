@@ -27,4 +27,8 @@ public abstract class ViewItemContainer : MonoBehaviour
 
     //link to the original item (set in Initialize)
     public abstract Item Item { get; set; }
+
+    public abstract void Initialize(Item pItem);
+    public abstract void updateItemDetailsUI();
+    public abstract void handlePanelForSelectedItem(int index);
 }

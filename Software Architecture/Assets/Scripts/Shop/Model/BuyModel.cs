@@ -16,7 +16,7 @@ public class BuyModel : ShopModel
 
     public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
     {
-
+        SubscriberList = new List<ISubsciber>();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -51,6 +51,7 @@ public class BuyModel : ShopModel
     public override void Subscribe(ISubsciber subsciber)
     {
         SubscriberList.Add(subsciber);
+        NotifySubscribers();
     }
 
     public override void Unsubscribe(ISubsciber subscriber)

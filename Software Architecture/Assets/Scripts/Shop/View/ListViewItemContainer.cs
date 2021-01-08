@@ -11,27 +11,24 @@ using TMPro;
 /// the one specified in the Item data, and it enables or disables the infoPanel to indicate if the pItem is selected
 /// and display the details of the pItem.
 /// </summary>
-public class ListViewItemContainer : ViewItemContainer, IItemContainer
+public class ListViewItemContainer : MonoBehaviour, IItemContainer
 {
-    public override Item Item { get; set; } //Public getter for the pItem, required by IItemContainer interface.
+    public Item Item { get; private set; } //Public getter for the pItem, required by IItemContainer interface.
 
     //Link to the highlight image (set in prefab)
-    public override GameObject highLight { get; set; }
+    [SerializeField] private GameObject highLight;
 
-    //Link to the infomation panel (set in prefab)
-    public override GameObject infoPanel { get; set; }
-
-    public override Image icon { get; set; }
-    public override TextMeshProUGUI itemNameText { get; set; }
-    public override TextMeshProUGUI itemTypeText { get; set; }
-    public override TextMeshProUGUI itemRarityText { get; set; }
-    public override TextMeshProUGUI itemPriceText { get; set; }
-    public override TextMeshProUGUI itemDescriptionText { get; set; }
-    public override TextMeshProUGUI itemPropertyText { get; set; }
+    [SerializeField] private Image icon;
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private TextMeshProUGUI itemTypeText;
+    [SerializeField] private TextMeshProUGUI itemRarityText;
+    [SerializeField] private TextMeshProUGUI itemPriceText;
+    [SerializeField] private TextMeshProUGUI itemDescriptionText;
+    [SerializeField] private TextMeshProUGUI itemPropertyText;
 
     //Link to the atlas of all the pItem icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
-    public override SpriteAtlas iconAtlas { get; set; }
+    [SerializeField] private SpriteAtlas iconAtlas;
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
@@ -46,15 +43,15 @@ public class ListViewItemContainer : ViewItemContainer, IItemContainer
 
         if (sprite != null)
         {
-            icon.sprite = sprite;
+            //icon.sprite = sprite;
         }
 
-        updateItemDetailsUI();
+        //updateItemDetailsUI();
 
         ShopModel.OnClick += handlePanelForSelectedItem;
     }
 
-    private void updateItemDetailsUI()
+    public void updateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
         itemDescriptionText.text = Item.Description;
@@ -80,6 +77,4 @@ public class ListViewItemContainer : ViewItemContainer, IItemContainer
             highLight.SetActive(false);
         }
     }
-
-
 }
