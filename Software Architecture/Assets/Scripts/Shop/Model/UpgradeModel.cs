@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class UpgradeModel : ShopModel
 {
-    private ShopItemFactory _factory;
+    private WeaponFactory weaponFactory;
+    private ArmorFactory armorFactory;
+    private PotionFactory potionFactory;
 
     public UpgradeModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
     {
-
+        weaponFactory = new WeaponFactory();
+        armorFactory = new ArmorFactory();
+        potionFactory = new PotionFactory();
     }
 
     public override List<ISubsciber> SubscriberList { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
@@ -43,18 +47,18 @@ public class UpgradeModel : ShopModel
     {
         Item currentItem = inventory.GetItemByIndex(selectedItemIndex);
         Debug.Log("upgrading current item");
-        switch (currentItem.ItemType)
-        {
-            case "Weapon":
-                _factory.UpgradeWeapon((Weapon) currentItem);
-                break;
-            case "Armor":
-                _factory.UpgradeArmor((Armor) currentItem);
-                break;
-            case "Potion":
-                _factory.UpgradePotion((Potion) currentItem);
-                //inventory.Money -= currentItem.BasePrice;
-                break;
-        }
+        //switch (currentItem.ItemType)
+        //{
+        //    case "Weapon":
+        //        weaponFactory.UpgradeWeapon((Weapon) currentItem);
+        //        break;
+        //    case "Armor":
+        //        armorFactory.UpgradeArmor((Armor) currentItem);
+        //        break;
+        //    case "Potion":
+        //        potionFactory.UpgradePotion((Potion) currentItem);
+        //        //inventory.Money -= currentItem.BasePrice;
+        //        break;
+        //}
     }
 }

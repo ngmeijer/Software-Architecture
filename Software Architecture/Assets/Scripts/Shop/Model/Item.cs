@@ -11,9 +11,7 @@
 
     public int ItemIndex = 0;
 
-    public enum E_ItemRarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
-
-    public abstract  E_ItemRarity ItemRarity { get; set; }
+    public abstract EItemRarity ItemRarity { get; set; }
 
     public abstract void generateItemDetails();
 }

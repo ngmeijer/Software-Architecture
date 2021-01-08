@@ -10,7 +10,7 @@ public class Weapon : Item
     private int _price;
 
     private string _itemType = "Weapon";
-    private E_ItemRarity _itemRarity;
+    private EItemRarity _itemRarity;
 
     private int _damage;
     private int[] _damageValues = new int[5]
@@ -88,7 +88,7 @@ public class Weapon : Item
         }
     };
 
-    public Weapon(E_ItemRarity pItemRarity)
+    public Weapon(EItemRarity pItemRarity)
     {
         _itemRarity = pItemRarity;
 
@@ -137,7 +137,7 @@ public class Weapon : Item
         set { _damage = value; }
     }
 
-    public override E_ItemRarity ItemRarity
+    public override EItemRarity ItemRarity
     {
         get { return _itemRarity; }
         set { _itemRarity = value; }
@@ -149,7 +149,7 @@ public class Weapon : Item
 
         switch (_itemRarity)
         {
-            case E_ItemRarity.COMMON:
+            case EItemRarity.COMMON:
                 IconName = "items_73";
                 Name = _itemNameArrays[0, r.Next(_itemNameArrays.GetLength(1))];
                 Description = _itemDescriptionArrays[0, r.Next(_itemDescriptionArrays.GetLength(1))];
@@ -157,7 +157,7 @@ public class Weapon : Item
                 BasePrice = 10;
                 break;
 
-            case E_ItemRarity.UNCOMMON:
+            case EItemRarity.UNCOMMON:
                 IconName = "items_74";
                 Name = _itemNameArrays[1, r.Next(_itemNameArrays.GetLength(1))];
                 Description = _itemDescriptionArrays[1, r.Next(_itemDescriptionArrays.GetLength(1))];
@@ -165,7 +165,7 @@ public class Weapon : Item
                 BasePrice = 25;
                 break;
 
-            case E_ItemRarity.RARE:
+            case EItemRarity.RARE:
                 IconName = "items_77";
                 Name = _itemNameArrays[2, r.Next(_itemNameArrays.GetLength(1))];
                 Description = _itemDescriptionArrays[2, r.Next(_itemDescriptionArrays.GetLength(1))];
@@ -173,7 +173,7 @@ public class Weapon : Item
                 BasePrice = 50;
                 break;
 
-            case E_ItemRarity.EPIC:
+            case EItemRarity.EPIC:
                 IconName = "items_79";
                 Name = _itemNameArrays[3, r.Next(_itemNameArrays.GetLength(1))];
                 Description = _itemDescriptionArrays[3, r.Next(_itemDescriptionArrays.GetLength(1))];
@@ -181,7 +181,7 @@ public class Weapon : Item
                 BasePrice = 80;
                 break;
 
-            case E_ItemRarity.LEGENDARY:
+            case EItemRarity.LEGENDARY:
                 IconName = "items_84";
                 Name = _itemNameArrays[4, r.Next(_itemNameArrays.GetLength(1))];
                 Description = _itemDescriptionArrays[4, r.Next(_itemDescriptionArrays.GetLength(1))];

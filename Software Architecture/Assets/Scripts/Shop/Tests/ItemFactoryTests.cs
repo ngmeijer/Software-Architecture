@@ -10,40 +10,40 @@ public class ItemFactoryTests
     [Test]
     public void DisplayCorrectArmorName()
     {
-        ShopItemFactory factoryInstance = new ShopItemFactory();
-        Armor armorInstance = factoryInstance.CreateArmorUT(Item.E_ItemRarity.COMMON);
+        ArmorFactory factoryInstance = new ArmorFactory();
+        Item armorInstance = factoryInstance.CreateItem();
         Assert.That(armorInstance.Name, Is.EqualTo("Silk Vest of Hallowed Hell"));
     }
 
     [Test]
     public void DisplayCorrectArmorSpriteName()
     {
-        ShopItemFactory factoryInstance = new ShopItemFactory();
-        Armor armorInstance = factoryInstance.CreateArmorUT(Item.E_ItemRarity.EPIC);
+        ArmorFactory factoryInstance = new ArmorFactory();
+        Item armorInstance = factoryInstance.CreateItem();
         Assert.That(armorInstance.IconName, Is.EqualTo("items_109"));
     }
 
     [Test]
     public void DisplayCorrectArmorBasePrice()
     {
-        ShopItemFactory factoryInstance = new ShopItemFactory();
-        Armor armorInstance = factoryInstance.CreateArmorUT(Item.E_ItemRarity.LEGENDARY);
+        ArmorFactory factoryInstance = new ArmorFactory();
+        Item armorInstance = factoryInstance.CreateItem();
         Assert.That(armorInstance.BasePrice, Is.EqualTo(125));
     }
 
     [Test]
     public void DisplayCorrectArmorProtectionValue()
     {
-        ShopItemFactory factoryInstance = new ShopItemFactory();
-        Armor armorInstance = factoryInstance.CreateArmorUT(Item.E_ItemRarity.RARE);
+        ArmorFactory factoryInstance = new ArmorFactory();
+        Item armorInstance = factoryInstance.CreateItem();
         Assert.That(armorInstance.BaseEnchantmentValue, Is.EqualTo(50));
     }
 
     [Test]
     public void DisplayCorrectArmorItemDescription()
     {
-        ShopItemFactory factoryInstance = new ShopItemFactory();
-        Armor armorInstance = factoryInstance.CreateArmorUT(Item.E_ItemRarity.COMMON);
+        ArmorFactory factoryInstance = new ArmorFactory();
+        Item armorInstance = factoryInstance.CreateItem();
         Assert.That(armorInstance.Description, Is.EqualTo("Piece of cloth, commonly used " +
                                                           "by the lower Demons in Hell. Bloody, " +
                                                           "but offers some protection."));

@@ -28,7 +28,6 @@ public class Inventory
                                          //however this is shallow copy of the original list, so changes in 
                                          //the original list will likely influence the copy, apply 
                                          //creational patterns like prototype to fix this. 
-
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -95,53 +94,29 @@ public class Inventory
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateInventory()
     //------------------------------------------------------------------------------------------------------------------------
-    //This is obviously not how you should generate items. For this assignment you need either an abstract item factory, or
-    //make this into a factory method.
-    //DONE
-
     private void PopulateInventory(int itemCount)
     {
-        ShopItemFactory factory = new ShopItemFactory();
-
-        //Working on converting this to a reusable method. See generateItem();.
-
-        //Order of for-loops determines what object type shows correctly?
-        //FIXED
+        WeaponFactory weaponFactory = new WeaponFactory();
+        ArmorFactory armorFactory = new ArmorFactory();
+        PotionFactory potionFactory = new PotionFactory();
 
         for (int index = 0; index < 6; index++)
         {
-            Weapon weapon = factory.CreateWeapon();
+            Item weapon = weaponFactory.CreateItem();
             itemList.Add(weapon);
         }
 
         for (int index = 0; index < 5; index++)
         {
-            Armor armor = factory.CreateArmor();
+            Item armor = armorFactory.CreateItem();
             itemList.Add(armor);
         }
 
         for (int index = 0; index < 4; index++)
         {
-            Potion potion = factory.CreatePotion();
+            Item potion = potionFactory.CreateItem();
             itemList.Add(potion);
         }
     }
     //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.
-
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //WIP!
-    //------------------------------------------------------------------------------------------------------------------------
-    private void generateItem(ShopItemFactory factory, Item itemInstance, int itemCount)
-    {
-        int itemIndex = 0;
-
-        for (int index = 0; index < itemCount; index++)
-        {
-            itemInstance = factory.CreateArmor();
-            itemIndex++;
-
-            itemList.Add(itemInstance);
-        }
-    }
 }
