@@ -77,7 +77,6 @@ public abstract class ShopModel
             {
                 selectedItemIndex = index;
                 OnClick(index);
-                Debug.Log($"index of item:{index}");
             }
         }
     }

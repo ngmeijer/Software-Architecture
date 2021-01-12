@@ -48,6 +48,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
     {
         itemNameText.text = Item.Name;
         itemPriceText.text = Item.BasePrice.ToString();
+        itemTypeText.text = Item.ItemType;
         itemRarityText.text = Item.ItemRarity.ToString();
     }
 
