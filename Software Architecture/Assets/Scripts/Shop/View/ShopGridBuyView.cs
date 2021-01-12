@@ -216,7 +216,7 @@ public class ShopGridBuyView : ShopBuyView, ISubsciber
         }
 
         //Let the current controller handle input
-        //shopController.HandleInput();
+        shopController.HandleInput();
     }
 
     //------------------------------------------------------------------------------------------------------------------------

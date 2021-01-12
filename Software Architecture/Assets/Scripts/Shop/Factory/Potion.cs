@@ -1,4 +1,5 @@
-﻿using Random = System.Random;
+﻿using UnityEngine;
+using Random = System.Random;
 
 public class Potion : Item
 {
@@ -9,6 +10,8 @@ public class Potion : Item
 
     private string _itemType = "Potion";
     private EItemRarity _itemRarity;
+
+    private Sprite _itemSprite;
 
     private int _heal;
     private int[] _healValues = new int[5]
@@ -139,6 +142,12 @@ public class Potion : Item
     {
         get { return _itemRarity; }
         set { _itemRarity = value; }
+    }
+
+    public override Sprite itemSprite
+    {
+        get { return _itemSprite; }
+        set { _itemSprite = value; }
     }
 
     public override void generateItemDetails()

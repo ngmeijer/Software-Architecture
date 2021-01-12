@@ -43,6 +43,7 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
     [SerializeField] private TextMeshProUGUI itemType;
     [SerializeField] private TextMeshProUGUI itemPrice;
     [SerializeField] private TextMeshProUGUI itemRarity;
+    [SerializeField] private Image itemIcon;
 
     private void Start()
     {
@@ -262,6 +263,6 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
         itemType.text = currentItem.ItemType;
         itemPrice.text = currentItem.BasePrice.ToString();
         itemRarity.text = currentItem.ItemRarity.ToString();
-        
+        itemIcon.sprite = currentItem.itemSprite;
     }
 }

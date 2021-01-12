@@ -18,7 +18,7 @@ public class MouseController : ShopController, IPointerClickHandler
     //If there is an item to select, call SelectItem to select it. 
     public override void HandleInput()
     {
-        //Debug.Log("1a. Checking for input.");
+        Debug.Log("1a. Checking for input.");
         if (itemToSelect != null)
         {
             //Debug.Log("1b. Select item");

@@ -69,10 +69,10 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
     public void handlePanelForSelectedItem(int index)
     {
+        Debug.Log("handling focus.");
         if (this.gameObject == null)
             return;
 
-        Debug.Log("handling focus.");
 
         if (index == item.ItemIndex)
         {

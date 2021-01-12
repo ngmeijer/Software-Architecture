@@ -24,11 +24,6 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
     [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
 
-    [SerializeField] private Image icon;
-    private Sprite sprite;
-    [SerializeField] private TextMeshProUGUI itemDescriptionText;
-    [SerializeField] private TextMeshProUGUI itemPropertyText;
-
     //Link to the atlas of all the pItem icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
     [SerializeField] private SpriteAtlas iconAtlas;
@@ -41,8 +36,8 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
         //Stores the pItem
         this.Item = pItem;
 
-        // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
-        sprite = iconAtlas.GetSprite(pItem.IconName);
+        Sprite sprite = iconAtlas.GetSprite(Item.IconName);
+        Item.itemSprite = sprite;
 
         updateItemDetailsUI();
 

@@ -1,4 +1,6 @@
-﻿public abstract class Item
+﻿using UnityEngine;
+
+public abstract class Item
 {
     public abstract string Name { get; set; }
     public abstract string Description { get; set; }
@@ -14,4 +16,6 @@
     public abstract EItemRarity ItemRarity { get; set; }
 
     public abstract void generateItemDetails();
+
+    public abstract Sprite itemSprite { get; set; }
 }

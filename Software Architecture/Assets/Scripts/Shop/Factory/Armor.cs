@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Random = System.Random;
+using UnityEngine;
 
 public class Armor : Item
 {
@@ -13,6 +14,8 @@ public class Armor : Item
 
     private string _itemType = "Armor";
     private EItemRarity _itemRarity;
+
+    private Sprite _itemSprite;
 
     private int _protection;
     private int[] _protectionValues = new int[5]
@@ -141,6 +144,13 @@ public class Armor : Item
         get { return _itemRarity; }
         set { _itemRarity = value; }
     }
+
+    public override Sprite itemSprite
+    {
+        get { return _itemSprite; }
+        set { _itemSprite = value; }
+    }
+
 
     #endregion
 
