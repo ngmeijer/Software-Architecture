@@ -38,6 +38,12 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
                                    //this information can be found in a ViewConfig scriptable object, which serves as a configuration file for
                                    //views.
 
+    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI itemDescription;
+    [SerializeField] private TextMeshProUGUI itemType;
+    [SerializeField] private TextMeshProUGUI itemPrice;
+    [SerializeField] private TextMeshProUGUI itemRarity;
+
     private void Start()
     {
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
@@ -47,6 +53,7 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
         InitializeButtons(); //Connect the buttons to the controller
 
         shopModel.Subscribe(this);
+        ShopModel.OnClick += updateDetailsPanel;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -217,27 +224,44 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SwitchToKeyboardControl()
     //------------------------------------------------------------------------------------------------------------------------    
-    private void SwitchToKeyboardControl()
+    protected override void SwitchToKeyboardControl()
     {
-        Destroy(shopController);//Remove the current controller component
         shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);//Create and add a keyboard controller
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
-        buyButton.gameObject.SetActive(false);//Hide the buy button because we only use keyboard
+        buyButton.gameObject.SetActive(false);//Show the buy button for the mouse controller
+        upgradeButton.gameObject.SetActive(false);
+        sellButton.gameObject.SetActive(false);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SwitchToMouseControl()
     //------------------------------------------------------------------------------------------------------------------------ 
-    private void SwitchToMouseControl()
+    protected override void SwitchToMouseControl()
     {
-        Destroy(shopController);//Remove the current controller component
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
+        upgradeButton.gameObject.SetActive(true);
+        sellButton.gameObject.SetActive(true);
     }
 
     public void Update(ShopModel model)
     {
         Debug.Log($"Subscriber has been notified. Size of subscriber list: {shopModel.SubscriberList.Count}");
+    }
+
+    private void updateDetailsPanel(int index)
+    {
+        if (this.gameObject == null)
+            return;
+
+        Item currentItem = shopModel.GetSelectedItem();
+
+        itemName.text = currentItem.Name;
+        itemDescription.text = currentItem.Description;
+        itemType.text = currentItem.ItemType;
+        itemPrice.text = currentItem.BasePrice.ToString();
+        itemRarity.text = currentItem.ItemRarity.ToString();
+        
     }
 }

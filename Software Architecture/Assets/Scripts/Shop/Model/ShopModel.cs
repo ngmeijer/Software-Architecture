@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 ///This class holds the model of our Shop. It contains an inventory, a price modifier, and an index to select the items.
@@ -29,7 +30,7 @@ public abstract class ShopModel
         priceModifier = pPriceModifier;
     }
 
-    public abstract void Subscribe(ISubsciber subsciber);
+    public abstract void Subscribe(ISubsciber subscriber);
     public abstract void Unsubscribe(ISubsciber subscriber);
     public abstract void NotifySubscribers();
     public abstract void MainBussinessLogic();
@@ -76,6 +77,7 @@ public abstract class ShopModel
             {
                 selectedItemIndex = index;
                 OnClick(index);
+                Debug.Log($"index of item:{index}");
             }
         }
     }

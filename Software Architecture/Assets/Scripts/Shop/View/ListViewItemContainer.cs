@@ -17,12 +17,15 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
 
     //Link to the highlight image (set in prefab)
     [SerializeField] private GameObject highLight;
+    [SerializeField] private GameObject infoPanel;
 
-    [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemTypeText;
     [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
+
+    [SerializeField] private Image icon;
+    private Sprite sprite;
     [SerializeField] private TextMeshProUGUI itemDescriptionText;
     [SerializeField] private TextMeshProUGUI itemPropertyText;
 
@@ -39,12 +42,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
         this.Item = pItem;
 
         // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
-        Sprite sprite = iconAtlas.GetSprite(pItem.IconName);
-
-        if (sprite != null)
-        {
-            //icon.sprite = sprite;
-        }
+        sprite = iconAtlas.GetSprite(pItem.IconName);
 
         updateItemDetailsUI();
 
@@ -54,10 +52,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
     public void updateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
-        //itemDescriptionText.text = Item.Description;
-        itemTypeText.text = Item.ItemType;
-        //itemPriceText.text = Item.BasePrice.ToString();
-        //itemPropertyText.text = Item.BaseEnchantmentText + Item.BaseEnchantmentValue;
+        itemPriceText.text = Item.BasePrice.ToString();
         itemRarityText.text = Item.ItemRarity.ToString();
     }
 
@@ -65,8 +60,6 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
     {
         if (this.gameObject == null)
             return;
-
-        Debug.Log("handling focus.");
 
         if (index == Item.ItemIndex)
         {
