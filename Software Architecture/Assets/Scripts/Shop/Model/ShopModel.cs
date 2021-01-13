@@ -90,7 +90,7 @@ public abstract class ShopModel
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Confirm()
     //------------------------------------------------------------------------------------------------------------------------        
-    //Concrete classes to implement 
+    //Concrete classes to implement
     public abstract void ConfirmSelectedItem();
 }
 

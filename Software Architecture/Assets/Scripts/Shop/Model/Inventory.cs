@@ -11,11 +11,17 @@ public class Inventory
     public int Money { get; }//Getter for the money, the views need it to display the amount of money.
     private List<Item> itemList = new List<Item>(); //Items in the inventory
 
+    public delegate void OnMoneyBalanceChanged();
+    public static event OnMoneyBalanceChanged OnMoneyChanged;
+
     //Set up the inventory with item count and money
     public Inventory(int pItemCount, int pMoney)
     {
         PopulateInventory(pItemCount);
         Money = pMoney;
+        if (OnMoneyChanged != null)
+            OnMoneyChanged();
+        else { Debug.Log("Event OnMoneyChanged is null. No methods are subscribed."); }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -86,7 +92,6 @@ public class Inventory
         if (index >= 0 && index < itemList.Count)
         {
             itemList.RemoveAt(index);
-            
         }
     }
 

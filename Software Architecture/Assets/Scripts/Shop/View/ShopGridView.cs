@@ -12,21 +12,17 @@ using UnityEngine.UI;
 public class ShopGridView : ShopView, ISubsciber
 {
     //SUBSCRIBER CLASS!
-    [SerializeField]
-    private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
+    [SerializeField] private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
 
-    [SerializeField]
-    private GameObject itemPrefab; //A prefab to display an item in the view
+    [SerializeField] private GameObject itemPrefab; //A prefab to display an item in the view
 
-    [SerializeField]
-    private List<GameObject> itemList = new List<GameObject>();
-    private List<GameObject> tempItemList = new List<GameObject>();
+    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
 
-    [SerializeField]
-    private Button buyButton;
+    [SerializeField] private Button buyButton;
 
-    [SerializeField]
-    private TextMeshProUGUI instructionText;
+    [SerializeField] private TextMeshProUGUI moneyText;
+
+    [SerializeField] private TextMeshProUGUI instructionText;
 
     private ViewConfig viewConfig; //To set up the grid view, we need to know how many columns the grid view has, in the current setup,
                                    //this information can be found in a ViewConfig scriptable object, which serves as a configuration file for
@@ -41,6 +37,7 @@ public class ShopGridView : ShopView, ISubsciber
         InitializeButtons(); //Connect the buttons to the controller
 
         shopModel.Subscribe(this);
+        Inventory.OnMoneyChanged += updateMoneyPanel;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -181,7 +178,6 @@ public class ShopGridView : ShopView, ISubsciber
                 SwitchToKeyboardControl();
             }
         }
-
         else if (Input.GetMouseButtonUp(0))
         {
             if (shopController is GridViewKeyboardController)
@@ -197,8 +193,9 @@ public class ShopGridView : ShopView, ISubsciber
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SwitchToKeyboardControl()
     //------------------------------------------------------------------------------------------------------------------------    
-    protected override void SwitchToKeyboardControl()
+    protected void SwitchToKeyboardControl()
     {
+        Destroy(shopController);
         shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);//Create and add a keyboard controller
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
         buyButton.gameObject.SetActive(false);//Hide the buy button because we only use keyboard
@@ -207,8 +204,9 @@ public class ShopGridView : ShopView, ISubsciber
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SwitchToMouseControl()
     //------------------------------------------------------------------------------------------------------------------------ 
-    protected override void SwitchToMouseControl()
+    protected void SwitchToMouseControl()
     {
+        Destroy(shopController);
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
@@ -217,5 +215,10 @@ public class ShopGridView : ShopView, ISubsciber
     public void UpdateSubscribers(ShopModel model)
     {
         Debug.Log($"Subscriber has been notified. Size of subscriber list: {shopModel.SubscriberList.Count}");
+    }
+
+    private void updateMoneyPanel()
+    {
+        moneyText.text = shopModel.inventory.Money.ToString();
     }
 }
