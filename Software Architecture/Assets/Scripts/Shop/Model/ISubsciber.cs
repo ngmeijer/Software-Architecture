@@ -1,4 +1,4 @@
 ﻿public interface ISubsciber
 {
-    void Update(ShopModel model);
+    void UpdateSubscribers(ShopModel model);
 }

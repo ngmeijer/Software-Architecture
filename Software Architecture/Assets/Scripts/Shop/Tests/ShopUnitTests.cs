@@ -9,7 +9,7 @@ namespace Tests
 {
     public class ShopUnitTests
     {
-        private ShopGridBuyView gridBuyView;//This is the grid buy view we want to test
+        private ShopGridView gridView;//This is the grid buy view we want to test
 
         //Setup the test scene
         [OneTimeSetUp]
@@ -28,21 +28,21 @@ namespace Tests
 
             //The shop scene only contains one grid buy view, we use Resources.FindObjectsOfTypeAll to get the reference to it,
             //Resources.FFindObjectsOfTypeAll is used instead of GameObject.Find because the later can't find disabled objects
-            gridBuyView = Resources.FindObjectsOfTypeAll<ShopGridBuyView>()[0];
+            gridView = Resources.FindObjectsOfTypeAll<ShopGridView>()[0];
 
-            //Active the gridBuyView game object to initialize the class, if we don't do this 'void Start()' won't be called
+            //Active the gridView game object to initialize the class, if we don't do this 'void Start()' won't be called
             //You should active all the game objects that are involved in the test before testing the functions from their components
-            gridBuyView.gameObject.SetActive(true);
+            gridView.gameObject.SetActive(true);
         }
 
-        // Use meaningful name for your test cases, this case tests if the ShopGridBuyView component has initialized its shopModel property 
+        // Use meaningful name for your test cases, this case tests if the ShopGridView component has initialized its shopModel property 
         [UnityTest]
         public IEnumerator ShopGridBuyViewInitializedShopModel()
         {
             yield return null; //yield return null skips one frame, waits for the Unity scene to load
 
-            //now test if a shopModel is assigned to gridBuyView
-            Assert.IsNotNull(gridBuyView.shopModel, "No BuyModel is assigned in ShopGridBuyView");
+            //now test if a shopModel is assigned to gridView
+            Assert.IsNotNull(gridView.shopModel, "No BuyModel is assigned in ShopGridView");
         }
 
         //This case tests if the grid buy view displays the correct amount of Items
@@ -51,7 +51,7 @@ namespace Tests
         {
             yield return null; //yield return null skips one frame, waits for the Unity scene to load
 
-            //Now that the scene is loaded and the gridBuyView game object was activated in SetupTests(), we can use GameObject.Find
+            //Now that the scene is loaded and the gridView game object was activated in SetupTests(), we can use GameObject.Find
             //to find the game object we want to test
             GameObject gridItemsPanel = GameObject.Find("GridItemsPanel");
 
@@ -59,7 +59,7 @@ namespace Tests
                                                  //so that the view finished updating and rendering everything 
 
             int itemCount = gridItemsPanel.transform.childCount;
-            Assert.AreEqual(gridBuyView.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
+            Assert.AreEqual(gridView.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
         }
 
         //This case tests if the buyModel can throw an ArgumentOutOfRangeException when it's asked to select an item by a negative
@@ -71,12 +71,12 @@ namespace Tests
             //yield return null skips one frame, waits for the Unity scene to load and buyModel to be assigned
             yield return null;
 
-            //Creates a delegate that call gridBuyView.shopModel.SelectItemByIndex(-1), the test runner will run the function, and
+            //Creates a delegate that call gridView.shopModel.SelectItemByIndex(-1), the test runner will run the function, and
             //check if an ArgumentOutOfRangeException is thrown, the unit test would fail if no ArgumentOutOfRangeException
             //was thrown
             Assert.Throws<System.ArgumentOutOfRangeException>(delegate
             {
-                gridBuyView.shopModel.SelectItemByIndex(-1);
+                gridView.shopModel.SelectItemByIndex(-1);
             });
         }
     }

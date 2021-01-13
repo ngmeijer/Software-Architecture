@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopBuyView : MonoBehaviour
+public class ShopView : MonoBehaviour
 {
     public ShopModel shopModel { get; private set; }
     public ShopController shopController { get; protected set; } //Controller in MVC pattern

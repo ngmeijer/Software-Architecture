@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
-public class ShopListBuyView : ShopBuyView, ISubsciber
+public class ShopListView : ShopView, ISubsciber
 {
     //SUBSCRIBER CLASS!
     [SerializeField]
@@ -24,12 +24,6 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
 
     [SerializeField]
     private Button buyButton;
-
-    [SerializeField]
-    private Button upgradeButton;
-
-    [SerializeField]
-    private Button sellButton;
 
     [SerializeField]
     private TextMeshProUGUI instructionText;
@@ -183,20 +177,6 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
                     shopController.ConfirmSelectedItem();
                 }
             );
-
-        upgradeButton.onClick.AddListener(
-            delegate
-                {
-                    shopController.ConfirmSelectedItem();
-                }
-            );
-
-        sellButton.onClick.AddListener(
-            delegate
-                {
-                    shopController.ConfirmSelectedItem();
-                }
-            );
     }
 
     private void Update()
@@ -230,8 +210,6 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
         shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);//Create and add a keyboard controller
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
         buyButton.gameObject.SetActive(false);//Show the buy button for the mouse controller
-        upgradeButton.gameObject.SetActive(false);
-        sellButton.gameObject.SetActive(false);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -242,11 +220,9 @@ public class ShopListBuyView : ShopBuyView, ISubsciber
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
-        upgradeButton.gameObject.SetActive(true);
-        sellButton.gameObject.SetActive(true);
     }
 
-    public void Update(ShopModel model)
+    public void UpdateSubscribers(ShopModel model)
     {
         Debug.Log($"Subscriber has been notified. Size of subscriber list: {shopModel.SubscriberList.Count}");
     }

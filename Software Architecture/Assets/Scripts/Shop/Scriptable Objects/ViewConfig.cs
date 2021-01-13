@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// This scriptable object saves global configuration for views, to use it in a similar way as a singleton, create ViewConfig object and put it in Resources
-/// folder, then classes can use Resources.Load to access the needed values, see examples of this usage in the GridViewKeyboardController and ShopGridBuyView
+/// folder, then classes can use Resources.Load to access the needed values, see examples of this usage in the GridViewKeyboardController and ShopGridView
 /// classes
 /// </summary>
 [CreateAssetMenu]//Allows creating ViewConfig objects in Assets -> Create menu in the Unity Editor

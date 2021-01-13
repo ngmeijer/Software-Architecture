@@ -44,7 +44,7 @@ public class BuyModel : ShopModel
     {
         foreach (ISubsciber s in SubscriberList)
         {
-            s.Update(this);
+            s.UpdateSubscribers(this);
         }
     }
 
