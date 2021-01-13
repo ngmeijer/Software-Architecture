@@ -233,13 +233,6 @@ MonoBehaviour:
   itemTypeText: {fileID: 6553243022573261484}
   itemRarityText: {fileID: 6553243022646068046}
   itemPriceText: {fileID: 3915120382207314250}
-  itemNameTextIF: {fileID: 0}
-  itemTypeTextIF: {fileID: 0}
-  itemRarityTextIF: {fileID: 0}
-  itemPriceTextIF: {fileID: 0}
-  icon: {fileID: 0}
-  itemDescriptionText: {fileID: 0}
-  itemPropertyText: {fileID: 0}
   iconAtlas: {fileID: 4343727234628468602, guid: 61885a51c5dad46cd8f257139ddcc43a,
     type: 2}
 --- !u!1 &6553243021295918077
@@ -276,8 +269,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 172.23, y: -32}
-  m_SizeDelta: {x: 324.45752, y: 64}
+  m_AnchoredPosition: {x: 187.61, y: -32}
+  m_SizeDelta: {x: 355.22058, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6553243021295918016
 CanvasRenderer:
@@ -702,7 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.015481374, g: 0, b: 0.5660378, a: 1}
+  m_Color: {r: 0.5647059, g: 0.11048059, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
