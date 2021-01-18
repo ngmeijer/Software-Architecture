@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
-public class ShopListView : ShopView, ISubsciber
+public class ShopListView : MonoBehaviour, IObserver
 {
     //SUBSCRIBER CLASS!
     [SerializeField] private VerticalLayoutGroup itemLayoutGroup; //Links to a VerticalLayoutGroup in the Unity scene
@@ -43,7 +43,6 @@ public class ShopListView : ShopView, ISubsciber
         PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
 
-        shopModel.Subscribe(this);
         ShopModel.OnClick += updateDetailsPanel;
         Inventory.OnMoneyChanged += updateMoneyPanel;
     }
@@ -77,40 +76,26 @@ public class ShopListView : ShopView, ISubsciber
     //Adds one icon for each item in the shop
     private void PopulateItemIconView(int index)
     {
-        //For some reason, "downcasting" from Item (base class) to, for example, Armor, will throw an InvalidCastException. 
-        //However again, for some reason (while the error is still being thrown), 
-        //the sorting mechanic does work for Armor, but not for Weapon & Potion?
-
-        //UPDATE: trying to downcast is indeed the problem, when using GetItems for the abstract class Item, 
-        //it won't throw the error (but doesn't sort).
-
-        //UPDATE 2: Fixed both the error and sorting problem, but I'm not sure about whether or not the solution is clean enough.
-
         switch (index)
         {
             case 0:
-                foreach (Item item in shopModel.inventory.GetItems())
+                foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
                 {
-                    item.ItemIndex = shopModel.inventory.GetItems().IndexOf(item);
+                    item.ItemIndex = ShopView.Instance.shopModel.inventory.GetItems().IndexOf(item);
                     AddItemToView(item);
                 }
                 break;
 
             case 1:
-                foreach (Item weapon in shopModel.inventory.GetItems())
+                foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetItems())
                 {
-                    //ANY possible better way to check what the itemType is, 
-                    //besides converting to string for better readability? 
-                    //Feel like this isn't very good code.
-
-                    //As tried before, using a foreach with any inherited child of abstract Item gives an InvalidCastException 
                     if (weapon.ItemType == "Weapon")
                         AddItemToView(weapon);
                 }
                 break;
 
             case 2:
-                foreach (Item armor in shopModel.inventory.GetItems())
+                foreach (Item armor in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (armor.ItemType == "Armor")
                         AddItemToView(armor);
@@ -118,7 +103,7 @@ public class ShopListView : ShopView, ISubsciber
                 break;
 
             case 3:
-                foreach (Item potion in shopModel.inventory.GetItems())
+                foreach (Item potion in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (potion.ItemType == "Potion")
                         AddItemToView(potion);
@@ -171,7 +156,7 @@ public class ShopListView : ShopView, ISubsciber
         buyButton.onClick.AddListener(
             delegate
                 {
-                    shopController.ConfirmSelectedItem();
+                    ShopView.Instance.shopController.ConfirmSelectedItem();
                 }
             );
     }
@@ -181,7 +166,7 @@ public class ShopListView : ShopView, ISubsciber
         //Switch between mouse and keyboard controllers
         if (Input.GetKeyUp(KeyCode.K))
         {
-            if (shopController is MouseController)
+            if (ShopView.Instance.shopController is MouseController)
             {
                 SwitchToKeyboardControl();
             }
@@ -189,23 +174,21 @@ public class ShopListView : ShopView, ISubsciber
 
         else if (Input.GetMouseButtonUp(0))
         {
-            if (shopController is GridViewKeyboardController)
+            if (ShopView.Instance.shopController is GridViewKeyboardController)
             {
                 SwitchToMouseControl();
             }
         }
 
         //Let the current controller handle input
-        shopController.HandleInput();
-    }
+        ShopView.Instance.shopController.HandleInput();
+    } 
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SwitchToKeyboardControl()
     //------------------------------------------------------------------------------------------------------------------------    
     protected void SwitchToKeyboardControl()
     {
-        Destroy(shopController);
-        shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);//Create and add a keyboard controller
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
         buyButton.gameObject.SetActive(false);//Show the buy button for the mouse controller
     }
@@ -215,15 +198,13 @@ public class ShopListView : ShopView, ISubsciber
     //------------------------------------------------------------------------------------------------------------------------ 
     protected void SwitchToMouseControl()
     {
-        Destroy(shopController);
-        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
     }
 
-    public void UpdateSubscribers(ShopModel model)
+    public void UpdateObservers(ISubject pSubject)
     {
-        Debug.Log($"Subscriber has been notified. Size of subscriber list: {shopModel.SubscriberList.Count}");
+        updateMoneyPanel();
     }
 
     private void updateDetailsPanel(int index)
@@ -231,18 +212,18 @@ public class ShopListView : ShopView, ISubsciber
         if (this.gameObject == null)
             return;
 
-        Item currentItem = shopModel.GetSelectedItem();
+        //Item currentItem = mainShopView.shopModel.GetSelectedItem();
 
-        itemName.text = currentItem.Name;
-        itemDescription.text = currentItem.Description;
-        itemType.text = currentItem.ItemType;
-        itemPrice.text = currentItem.BasePrice.ToString();
-        itemRarity.text = currentItem.ItemRarity.ToString();
-        itemIcon.sprite = currentItem.itemSprite;
+        //itemName.text = currentItem.Name;
+        //itemDescription.text = currentItem.Description;
+        //itemType.text = currentItem.ItemType;
+        //itemPrice.text = currentItem.BasePrice.ToString();
+        //itemRarity.text = currentItem.ItemRarity.ToString();
+        //itemIcon.sprite = currentItem.itemSprite;
     }
 
     private void updateMoneyPanel()
     {
-        moneyText.text = shopModel.inventory.Money.ToString();
+        //moneyText.text = shopModel.inventory.Money.ToString();
     }
 }

@@ -9,9 +9,10 @@ using UnityEngine.UI;
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
-public class ShopGridView : ShopView, ISubsciber
+public class ShopGridView : MonoBehaviour, IObserver
 {
     //SUBSCRIBER CLASS!
+
     [SerializeField] private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
 
     [SerializeField] private GameObject itemPrefab; //A prefab to display an item in the view
@@ -36,8 +37,7 @@ public class ShopGridView : ShopView, ISubsciber
         PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
 
-        shopModel.Subscribe(this);
-        Inventory.OnMoneyChanged += updateMoneyPanel;
+        //Inventory.OnMoneyChanged += updateMoneyPanel;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -81,15 +81,15 @@ public class ShopGridView : ShopView, ISubsciber
         switch (index)
         {
             case 0:
-                foreach (Item item in shopModel.inventory.GetItems())
+                foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
                 {
-                    item.ItemIndex = shopModel.inventory.GetItems().IndexOf(item);
+                    item.ItemIndex = ShopView.Instance.shopModel.inventory.GetItems().IndexOf(item);
                     AddItemToView(item);
                 }
                 break;
 
             case 1:
-                foreach (Item weapon in shopModel.inventory.GetItems())
+                foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     //ANY possible better way to check what the itemType is, 
                     //besides converting to string for better readability? 
@@ -102,7 +102,7 @@ public class ShopGridView : ShopView, ISubsciber
                 break;
 
             case 2:
-                foreach (Item armor in shopModel.inventory.GetItems())
+                foreach (Item armor in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (armor.ItemType == "Armor")
                         AddItemToView(armor);
@@ -110,7 +110,7 @@ public class ShopGridView : ShopView, ISubsciber
                 break;
 
             case 3:
-                foreach (Item potion in shopModel.inventory.GetItems())
+                foreach (Item potion in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (potion.ItemType == "Potion")
                         AddItemToView(potion);
@@ -163,7 +163,7 @@ public class ShopGridView : ShopView, ISubsciber
         buyButton.onClick.AddListener(
             delegate
                 {
-                    shopController.ConfirmSelectedItem();
+                    ShopView.Instance.shopController.ConfirmSelectedItem();
                 }
             );
     }
@@ -173,21 +173,21 @@ public class ShopGridView : ShopView, ISubsciber
         //Switch between mouse and keyboard controllers
         if (Input.GetKeyUp(KeyCode.K))
         {
-            if (shopController is MouseController)
+            if (ShopView.Instance.shopController is MouseController)
             {
                 SwitchToKeyboardControl();
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (shopController is GridViewKeyboardController)
+            if (ShopView.Instance.shopController is GridViewKeyboardController)
             {
                 SwitchToMouseControl();
             }
         }
 
         //Let the current controller handle input
-        shopController.HandleInput();
+        ShopView.Instance.shopController.HandleInput();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -195,8 +195,6 @@ public class ShopGridView : ShopView, ISubsciber
     //------------------------------------------------------------------------------------------------------------------------    
     protected void SwitchToKeyboardControl()
     {
-        Destroy(shopController);
-        shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);//Create and add a keyboard controller
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
         buyButton.gameObject.SetActive(false);//Hide the buy button because we only use keyboard
     }
@@ -206,19 +204,17 @@ public class ShopGridView : ShopView, ISubsciber
     //------------------------------------------------------------------------------------------------------------------------ 
     protected void SwitchToMouseControl()
     {
-        Destroy(shopController);
-        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Create and add a mouse controller
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
     }
 
-    public void UpdateSubscribers(ShopModel model)
+    public void UpdateObservers(ISubject subject)
     {
-        Debug.Log($"Subscriber has been notified. Size of subscriber list: {shopModel.SubscriberList.Count}");
+        updateMoneyPanel();
     }
 
     private void updateMoneyPanel()
     {
-        moneyText.text = shopModel.inventory.Money.ToString();
+        moneyText.text = ShopView.Instance.shopModel.inventory.Money.ToString();
     }
 }

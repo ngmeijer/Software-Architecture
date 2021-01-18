@@ -4,19 +4,18 @@ using System.Configuration;
 using UnityEngine;
 
 /// <summary>
-/// This is a concrete, empty model for the buy state of the shop for you to implement
+/// BuyModel is one of the Subjects/Publishers for the Observer behavioral pattern.
 /// </summary>
-public class BuyModel : ShopModel
+public class BuyModel : ShopModel, ISubject
 {
-    //PUBLISHER CLASS!
-    public override List<ISubsciber> SubscriberList { get; set; }
+    private List<IObserver> _observerList = new List<IObserver>();
 
-    public override int MainState { get; set; }
+    public int MainState { get; set; } = 0;
 
 
     public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
     {
-        SubscriberList = new List<ISubsciber>();
+        _observerList = new List<IObserver>();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -31,31 +30,28 @@ public class BuyModel : ShopModel
     {
         Debug.Log("removing item.");
         inventory.RemoveItemByIndex(selectedItemIndex);
-        NotifySubscribers();
+        NotifyObservers();
     }
 
-    public override void MainBussinessLogic()
+    public void Attach(IObserver pObserver)
     {
-        //MainState = NewState;
-        NotifySubscribers();
+        this._observerList.Add(pObserver);
+        Debug.Log("Subject: Attached an Observer.");
     }
 
-    public override void NotifySubscribers()
+    public void Detach(IObserver pObserver)
     {
-        foreach (ISubsciber s in SubscriberList)
+        this._observerList.Remove(pObserver);
+        Debug.Log("Subject: Detached an Observer.");
+    }
+
+    public void NotifyObservers()
+    {
+        foreach (IObserver observer in _observerList)
         {
-            s.UpdateSubscribers(this);
+            observer.UpdateObservers(this);
         }
-    }
 
-    public override void Subscribe(ISubsciber subsciber)
-    {
-        SubscriberList.Add(subsciber);
-        NotifySubscribers();
-    }
-
-    public override void Unsubscribe(ISubsciber subscriber)
-    {
-        SubscriberList.Remove(subscriber);
+        Debug.Log("Subject: Notifying Observers...");
     }
 }

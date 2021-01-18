@@ -17,9 +17,6 @@ public abstract class ShopModel
     public delegate void OnItemClicked(int index);
     public static event OnItemClicked OnClick;
 
-    public abstract List<ISubsciber> SubscriberList { get; set; }
-    public abstract int MainState { get; set; }
-
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  shopModel()
     //------------------------------------------------------------------------------------------------------------------------        
@@ -29,11 +26,6 @@ public abstract class ShopModel
 
         priceModifier = pPriceModifier;
     }
-
-    public abstract void Subscribe(ISubsciber subscriber);
-    public abstract void Unsubscribe(ISubsciber subscriber);
-    public abstract void NotifySubscribers();
-    public abstract void MainBussinessLogic();
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  GetSelectedItem()
