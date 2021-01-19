@@ -199,7 +199,7 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject subject)
     {
-        //updateItemList();
+        updateItemList();
         updateMoneyPanel();
     }
 

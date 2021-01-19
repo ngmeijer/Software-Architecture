@@ -215,18 +215,18 @@ public class ShopListView : MonoBehaviour, IObserver
         if (this.gameObject == null)
             return;
 
-        //Item currentItem = mainShopView.shopModel.GetSelectedItem();
+        Item currentItem = ShopView.Instance.shopModel.GetSelectedItem();
 
-        //itemName.text = currentItem.Name;
-        //itemDescription.text = currentItem.Description;
-        //itemType.text = currentItem.ItemType;
-        //itemPrice.text = currentItem.BasePrice.ToString();
-        //itemRarity.text = currentItem.ItemRarity.ToString();
-        //itemIcon.sprite = currentItem.ItemSprite;
+        itemName.text = currentItem.Name;
+        itemDescription.text = currentItem.Description;
+        itemType.text = currentItem.ItemType;
+        itemPrice.text = currentItem.BasePrice.ToString();
+        itemRarity.text = currentItem.ItemRarity.ToString();
+        itemIcon.sprite = currentItem.ItemSprite;
     }
 
     private void updateMoneyPanel()
     {
-        //moneyText.text = shopModel.inventory.Money.ToString();
+        moneyText.text = ShopView.Instance.shopModel.inventory.Money.ToString();
     }
 }

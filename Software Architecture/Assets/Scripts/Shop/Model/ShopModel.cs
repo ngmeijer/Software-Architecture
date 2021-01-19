@@ -37,10 +37,7 @@ public abstract class ShopModel : ISubject
         {
             return inventory.GetItemByIndex(selectedItemIndex);
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
