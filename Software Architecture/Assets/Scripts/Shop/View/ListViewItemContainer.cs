@@ -37,7 +37,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
         this.Item = pItem;
 
         Sprite sprite = iconAtlas.GetSprite(Item.IconName);
-        Item.itemSprite = sprite;
+        Item.ItemSprite = sprite;
 
         updateItemDetailsUI();
 

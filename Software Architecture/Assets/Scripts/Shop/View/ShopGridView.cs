@@ -199,7 +199,7 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject subject)
     {
-        updateItemList();
+        //updateItemList();
         updateMoneyPanel();
     }
 
@@ -209,7 +209,6 @@ public class ShopGridView : MonoBehaviour, IObserver
         itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
-
         Destroy(child.gameObject);
 
         Debug.Log($"Should have removed item with index {removedItemIndex}.");

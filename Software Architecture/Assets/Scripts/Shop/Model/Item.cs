@@ -17,5 +17,5 @@ public abstract class Item
 
     public abstract void generateItemDetails();
 
-    public abstract Sprite itemSprite { get; set; }
+    public abstract Sprite ItemSprite { get; set; }
 }

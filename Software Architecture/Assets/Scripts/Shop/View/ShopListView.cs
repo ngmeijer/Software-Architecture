@@ -222,7 +222,7 @@ public class ShopListView : MonoBehaviour, IObserver
         //itemType.text = currentItem.ItemType;
         //itemPrice.text = currentItem.BasePrice.ToString();
         //itemRarity.text = currentItem.ItemRarity.ToString();
-        //itemIcon.sprite = currentItem.itemSprite;
+        //itemIcon.sprite = currentItem.ItemSprite;
     }
 
     private void updateMoneyPanel()

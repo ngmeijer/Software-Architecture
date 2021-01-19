@@ -146,7 +146,7 @@ public class Weapon : Item
         set { _itemRarity = value; }
     }
 
-    public override Sprite itemSprite
+    public override Sprite ItemSprite
     {
         get { return _itemSprite; }
         set { _itemSprite = value; }

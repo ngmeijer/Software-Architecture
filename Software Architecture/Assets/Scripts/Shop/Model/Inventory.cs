@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Inventory
 {
-    public int Money { get; }//Getter for the money, the views need it to display the amount of money.
+    public int Money { get; private set; }//Getter for the money, the views need it to display the amount of money.
     private List<Item> _itemList = new List<Item>(); //Items in the inventory
 
     public delegate void OnMoneyBalanceChanged();
@@ -91,13 +91,18 @@ public class Inventory
         {
             _itemList.RemoveAt(index);
             _removedItemIndex = index;
-            Debug.Log("remove item from inventory.");
         }
     }
 
     public int GetRemovedItemIndex()
     {
         return _removedItemIndex;
+    }
+
+    public void UpdateInventoryMoneyCount(int index)
+    {
+        Item itemReference = GetItemByIndex(index);
+        Money -= itemReference.BasePrice;
     }
 
 
@@ -126,6 +131,14 @@ public class Inventory
         {
             Item potion = potionFactory.CreateItem();
             _itemList.Add(potion);
+        }
+
+        int itemInstanceIndex = 0;
+
+        foreach (Item item in _itemList)
+        {
+            item.ItemIndex = itemInstanceIndex;
+            itemInstanceIndex++;
         }
     }
     //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.
