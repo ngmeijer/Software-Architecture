@@ -50,7 +50,6 @@ public abstract class ShopController : MonoBehaviour
     //Tells the model to confirm the current selected item
     public void ConfirmSelectedItem()
     {
-        Debug.Log("attempt to select item.");
         model.ConfirmSelectedItem();
     }
 }

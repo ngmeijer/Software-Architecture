@@ -30,39 +30,39 @@ public class Weapon : Item
     {
         //Common
         {
-            "Common weapon 1",
-            "Common weapon 2"
+            "Recruit's Sculptor",
+            "Grasscutter"
         },
         
         //Uncommon
         {
-            "Uncommon weapon 1",
-            "Uncommon weapon 2"
+            "Captain's Iron Broadsword",
+            "Venomshank"
         },
 
         //Rare
         {
-            "Rare weapon 1",
-            "Rare weapon 2"
+            "Nethersbane",
+            "Fury, Reaver of the Talon"
         },
 
         //Epic
         {
-            "Epic weapon 1",
-            "Epic weapon 2"
+            "The Void",
+            "Draughtbane"
         },
 
         //Legendary
         {
-            "Legendary weapon 1",
-            "Legendary weapon 2"
+            "Arched Adamantite Greataxe",
+            "Edge of Death"
         }
     };
     private readonly string[,] _itemDescriptionArrays = new string[5, 2]
     {
         //Common
         {
-            "",
+            "Regular sword used by recruits. Mass-produced and nothing special, but does the job.",
             ""
         },
         

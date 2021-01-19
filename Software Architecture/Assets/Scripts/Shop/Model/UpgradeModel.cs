@@ -15,9 +15,24 @@ public class UpgradeModel : ShopModel
         potionFactory = new PotionFactory();
     }
 
+    public override void Attach(IObserver pObserver)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void ConfirmSelectedItem()
     {
         upgradeSelectedItem();
+    }
+
+    public override void Detach(IObserver pObserver)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void NotifyObservers()
+    {
+        throw new System.NotImplementedException();
     }
 
     private void upgradeSelectedItem()

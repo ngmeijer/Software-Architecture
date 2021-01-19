@@ -29,8 +29,10 @@ public class ShopView : MonoBehaviour
 
     public void Start()
     {
-        shopModel = new BuyModel(2f, 16, 25); //Right now use magic values to set up the shop
+        shopModel = new BuyModel(2f, 16, 251); //Right now use magic values to set up the shop
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
+        
+        OnInputSwitch += SwitchInputMethod;
     }
 
     public void SwitchInputMethod(int index)

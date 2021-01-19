@@ -28,32 +28,32 @@ public class Potion : Item
     {
         //Common
         {
-            "Common potion 1",
-            "Common potion 2"
+            "Flask of the Mountain",
+            "Flask of Ancient Secrets"
         },
         
         //Uncommon
         {
-            "Uncommon potion 1",
-            "Uncommon potion 2"
+            "Draught of sleep Inducement",
+            "Phial of Blank Minds"
         },
 
         //Rare
         {
-            "Rare potion 1",
-            "Rare potion 2"
+            "Philter of Enhanced Senses",
+            "Elixer of the Senses"
         },
 
         //Epic
         {
-            "Epic potion 1",
-            "Epic potion 2"
+            "Phial of Vitality",
+            "Potion of Immortality"
         },
 
         //Legendary
         {
-            "Legendary potion 1",
-            "Legendary potion 2"
+            "Flask of Firepower",
+            "Flask of Brute Force"
         }
     };
     private readonly string[,] _itemDescriptionArrays = new string[5, 2]

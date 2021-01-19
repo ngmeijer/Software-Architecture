@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +38,8 @@ public class ShopGridView : MonoBehaviour, IObserver
         PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
 
-        //Inventory.OnMoneyChanged += updateMoneyPanel;
+        Inventory.OnMoneyChanged += updateMoneyPanel;
+        ShopView.Instance.shopModel.Attach(this);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -69,21 +71,11 @@ public class ShopGridView : MonoBehaviour, IObserver
     //Adds one icon for each item in the shop
     private void PopulateItemIconView(int index)
     {
-        //For some reason, "downcasting" from Item (base class) to, for example, Armor, will throw an InvalidCastException. 
-        //However again, for some reason (while the error is still being thrown), 
-        //the sorting mechanic does work for Armor, but not for Weapon & Potion?
-
-        //UPDATE: trying to downcast is indeed the problem, when using GetItems for the abstract class Item, 
-        //it won't throw the error (but doesn't sort).
-
-        //UPDATE 2: Fixed both the error and sorting problem, but I'm not sure about whether or not the solution is clean enough.
-
         switch (index)
         {
             case 0:
                 foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
                 {
-                    item.ItemIndex = ShopView.Instance.shopModel.inventory.GetItems().IndexOf(item);
                     AddItemToView(item);
                 }
                 break;
@@ -91,11 +83,6 @@ public class ShopGridView : MonoBehaviour, IObserver
             case 1:
                 foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetItems())
                 {
-                    //ANY possible better way to check what the itemType is, 
-                    //besides converting to string for better readability? 
-                    //Feel like this isn't very good code.
-
-                    //As tried before, using a foreach with any inherited child of abstract Item gives an InvalidCastException 
                     if (weapon.ItemType == "Weapon")
                         AddItemToView(weapon);
                 }
@@ -196,7 +183,8 @@ public class ShopGridView : MonoBehaviour, IObserver
     protected void SwitchToKeyboardControl()
     {
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
-        buyButton.gameObject.SetActive(false);//Hide the buy button because we only use keyboard
+        buyButton.gameObject.SetActive(false);
+        ShopView.OnInputSwitch(0);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -205,12 +193,26 @@ public class ShopGridView : MonoBehaviour, IObserver
     protected void SwitchToMouseControl()
     {
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
-        buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
+        buyButton.gameObject.SetActive(true);
+        ShopView.OnInputSwitch(1);
     }
 
     public void UpdateObservers(ISubject subject)
     {
+        updateItemList();
         updateMoneyPanel();
+    }
+
+    private void updateItemList()
+    {
+        int removedItemIndex = ShopView.Instance.shopModel.inventory.GetRemovedItemIndex();
+        itemList.RemoveAt(removedItemIndex);
+
+        Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
+
+        Destroy(child.gameObject);
+
+        Debug.Log($"Should have removed item with index {removedItemIndex}.");
     }
 
     private void updateMoneyPanel()

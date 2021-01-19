@@ -9,10 +9,12 @@ using UnityEngine;
 public class Inventory
 {
     public int Money { get; }//Getter for the money, the views need it to display the amount of money.
-    private List<Item> itemList = new List<Item>(); //Items in the inventory
+    private List<Item> _itemList = new List<Item>(); //Items in the inventory
 
     public delegate void OnMoneyBalanceChanged();
     public static event OnMoneyBalanceChanged OnMoneyChanged;
+
+    private int _removedItemIndex = 0;
 
     //Set up the inventory with item count and money
     public Inventory(int pItemCount, int pMoney)
@@ -30,7 +32,7 @@ public class Inventory
     //Returns a list with all current items in the shop.
     public List<Item> GetItems()
     {
-        return new List<Item>(itemList); //Returns a copy of the list, so the original is kept intact, 
+        return new List<Item>(_itemList); //Returns a copy of the list, so the original is kept intact, 
                                          //however this is shallow copy of the original list, so changes in 
                                          //the original list will likely influence the copy, apply 
                                          //creational patterns like prototype to fix this. 
@@ -42,7 +44,7 @@ public class Inventory
     //Returns the number of items
     public int GetItemCount()
     {
-        return itemList.Count;
+        return _itemList.Count;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -52,14 +54,11 @@ public class Inventory
     //a good idea to return a copy of the original item.
     public Item GetItemByIndex(int index)
     {
-        if (index >= 0 && index < itemList.Count)
+        if (index >= 0 && index < _itemList.Count)
         {
-            return itemList[index];
+            return _itemList[index];
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -68,7 +67,7 @@ public class Inventory
     //Adds an item to the inventory's item list.
     public void AddItem(Item item)
     {
-        itemList.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
+        _itemList.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -77,22 +76,28 @@ public class Inventory
     //Attempts to remove an item, fails silently.
     public void Remove(Item item)
     {
-        if (itemList.Contains(item))
+        if (_itemList.Contains(item))
         {
-            itemList.Remove(item);
+            _itemList.Remove(item);
         }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                 RemoveItemByIndex()
     //------------------------------------------------------------------------------------------------------------------------        
-    //Attempts to remove an item, specified by index, fails silently.
     public void RemoveItemByIndex(int index)
     {
-        if (index >= 0 && index < itemList.Count)
+        if (index >= 0 && index < _itemList.Count)
         {
-            itemList.RemoveAt(index);
+            _itemList.RemoveAt(index);
+            _removedItemIndex = index;
+            Debug.Log("remove item from inventory.");
         }
+    }
+
+    public int GetRemovedItemIndex()
+    {
+        return _removedItemIndex;
     }
 
 
@@ -108,19 +113,19 @@ public class Inventory
         for (int index = 0; index < 6; index++)
         {
             Item weapon = weaponFactory.CreateItem();
-            itemList.Add(weapon);
+            _itemList.Add(weapon);
         }
 
         for (int index = 0; index < 5; index++)
         {
             Item armor = armorFactory.CreateItem();
-            itemList.Add(armor);
+            _itemList.Add(armor);
         }
 
         for (int index = 0; index < 4; index++)
         {
             Item potion = potionFactory.CreateItem();
-            itemList.Add(potion);
+            _itemList.Add(potion);
         }
     }
     //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.

@@ -45,6 +45,7 @@ public class ShopListView : MonoBehaviour, IObserver
 
         ShopModel.OnClick += updateDetailsPanel;
         Inventory.OnMoneyChanged += updateMoneyPanel;
+        ShopView.Instance.shopModel.Attach(this);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -191,6 +192,7 @@ public class ShopListView : MonoBehaviour, IObserver
     {
         instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
         buyButton.gameObject.SetActive(false);//Show the buy button for the mouse controller
+        ShopView.OnInputSwitch(0);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -200,6 +202,7 @@ public class ShopListView : MonoBehaviour, IObserver
     {
         instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
         buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
+        ShopView.OnInputSwitch(1);
     }
 
     public void UpdateObservers(ISubject pSubject)
