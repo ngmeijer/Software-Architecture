@@ -13,7 +13,7 @@ using TMPro;
 /// </summary>
 public class GridViewItemContainer : MonoBehaviour, IItemContainer
 {
-    public Item Item => item;//Public getter for the item, required by IItemContainer interface.
+    public Item Item { get; private set; }
 
     //Link to the highlight image (set in prefab)
     [SerializeField] private GameObject highLight;
@@ -34,7 +34,6 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     [SerializeField] private SpriteAtlas iconAtlas;
 
     //link to the original item (set in Initialize)
-    private Item item;
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
@@ -42,7 +41,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
     public void Initialize(Item item)
     {
         //Stores the item
-        this.item = item;
+        this.Item = item;
 
         // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
         Sprite sprite = iconAtlas.GetSprite(item.IconName);
@@ -59,28 +58,36 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
     private void updateItemDetailsUI()
     {
-        itemNameText.text = item.Name;
-        itemDescriptionText.text = item.Description;
-        itemTypeText.text = item.ItemType;
-        itemPriceText.text = item.BasePrice.ToString();
-        itemPropertyText.text = item.BaseEnchantmentText + item.BaseEnchantmentValue;
-        itemRarityText.text = item.ItemRarity.ToString();
+        itemNameText.text = Item.Name;
+        itemDescriptionText.text = Item.Description;
+        itemTypeText.text = Item.ItemType;
+        itemPriceText.text = Item.BasePrice.ToString();
+        itemPropertyText.text = Item.BaseEnchantmentText + Item.BaseEnchantmentValue;
+        itemRarityText.text = Item.ItemRarity.ToString();
     }
 
     public void handlePanelForSelectedItem(int index)
     {
+        Debug.Log($"Item index is {(Item.ItemIndex)}");
         if (this.gameObject == null)
             return;
 
-        if (index == item.ItemIndex)
+        if (index == Item.ItemIndex)
         {
+            Debug.Log($"Attempting to select item with index {(index)}. Correct index is {(this.Item.ItemIndex)}");
+
             highLight.SetActive(true);
             infoPanel.SetActive(true);
+
+            return;
         }
-        else
-        {
-            highLight.SetActive(false);
-            infoPanel.SetActive(false);
-        }
+
+        highLight.SetActive(false);
+        infoPanel.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        ShopModel.OnClick -= handlePanelForSelectedItem;
     }
 }

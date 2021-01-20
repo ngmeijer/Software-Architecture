@@ -99,7 +99,7 @@ public class Armor : Item
     {
         _itemRarity = pItemRarity;
 
-        generateItemDetails();
+        GenerateItemDetails();
     }
 
     #region Getters & Setters
@@ -154,7 +154,7 @@ public class Armor : Item
 
     #endregion
 
-    public override void generateItemDetails()
+    public override void GenerateItemDetails()
     {
         Random r = new Random();
 

@@ -91,6 +91,14 @@ public class Inventory
         {
             _itemList.RemoveAt(index);
             _removedItemIndex = index;
+            foreach (Item item in _itemList)
+            {
+                if (item.ItemIndex > index)
+                {
+                    item.ItemIndex -= 1;
+                    Debug.Log($"New item indexes: {item.ItemIndex}");
+                }
+            }
         }
     }
 
@@ -141,5 +149,4 @@ public class Inventory
             itemInstanceIndex++;
         }
     }
-    //Think of other necessary functions for the inventory based on your design of the shop. Don't forget to unit test all the functions.
 }

@@ -23,8 +23,6 @@ public class BuyModel : ShopModel
     //                                                 ConfirmSelectedItem()
 
     //------------------------------------------------------------------------------------------------------------------------        
-
-    //Currently it just removes the selected item from the shop's inventory, rewrite this function and don't forget the unit test.
     public override void ConfirmSelectedItem()
     {
         inventory.RemoveItemByIndex(selectedItemIndex);

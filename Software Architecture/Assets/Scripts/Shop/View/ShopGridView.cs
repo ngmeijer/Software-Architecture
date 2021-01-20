@@ -209,6 +209,7 @@ public class ShopGridView : MonoBehaviour, IObserver
         itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
+        GridViewItemContainer container = child.GetComponent<GridViewItemContainer>();
         Destroy(child.gameObject);
 
         Debug.Log($"Should have removed item with index {removedItemIndex}.");

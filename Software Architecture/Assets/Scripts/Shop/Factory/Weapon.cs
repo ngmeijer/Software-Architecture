@@ -95,7 +95,7 @@ public class Weapon : Item
     {
         _itemRarity = pItemRarity;
 
-        generateItemDetails();
+        GenerateItemDetails();
     }
 
     public override string Name
@@ -152,7 +152,7 @@ public class Weapon : Item
         set { _itemSprite = value; }
     }
 
-    public override void generateItemDetails()
+    public override void GenerateItemDetails()
     {
         Random r = new Random();
 
