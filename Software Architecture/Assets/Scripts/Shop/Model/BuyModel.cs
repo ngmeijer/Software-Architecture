@@ -25,8 +25,8 @@ public class BuyModel : ShopModel
     //------------------------------------------------------------------------------------------------------------------------        
     public override void ConfirmSelectedItem()
     {
-        inventory.RemoveItemByIndex(selectedItemIndex);
         inventory.UpdateInventoryMoneyCount(selectedItemIndex);
+        inventory.RemoveItemByIndex(selectedItemIndex);
         NotifyObservers();
     }
 

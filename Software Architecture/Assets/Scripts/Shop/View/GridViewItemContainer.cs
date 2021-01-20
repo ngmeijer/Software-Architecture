@@ -68,14 +68,11 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
 
     public void handlePanelForSelectedItem(int index)
     {
-        Debug.Log($"Item index is {(Item.ItemIndex)}");
         if (this.gameObject == null)
             return;
 
         if (index == Item.ItemIndex)
         {
-            Debug.Log($"Attempting to select item with index {(index)}. Correct index is {(this.Item.ItemIndex)}");
-
             highLight.SetActive(true);
             infoPanel.SetActive(true);
 

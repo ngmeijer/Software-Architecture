@@ -33,9 +33,9 @@ public class Inventory
     public List<Item> GetItems()
     {
         return new List<Item>(_itemList); //Returns a copy of the list, so the original is kept intact, 
-                                         //however this is shallow copy of the original list, so changes in 
-                                         //the original list will likely influence the copy, apply 
-                                         //creational patterns like prototype to fix this. 
+                                          //however this is shallow copy of the original list, so changes in 
+                                          //the original list will likely influence the copy, apply 
+                                          //creational patterns like prototype to fix this. 
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -56,6 +56,7 @@ public class Inventory
     {
         if (index >= 0 && index < _itemList.Count)
         {
+            Debug.Log($"index in GetItemByIndex -- {index} -- ");
             return _itemList[index];
         }
         return null;
@@ -93,10 +94,9 @@ public class Inventory
             _removedItemIndex = index;
             foreach (Item item in _itemList)
             {
-                if (item.ItemIndex > index)
+                if (item.ItemIndex >= index)
                 {
-                    item.ItemIndex -= 1;
-                    Debug.Log($"New item indexes: {item.ItemIndex}");
+                    item.ItemIndex--;
                 }
             }
         }
@@ -110,6 +110,11 @@ public class Inventory
     public void UpdateInventoryMoneyCount(int index)
     {
         Item itemReference = GetItemByIndex(index);
+
+        Debug.Log($"index of purchased item is -- { index } --.\n" +
+                  $"Name of selected item is -- {itemReference.Name}. \n" +
+                  $"Base Price of selected item is -- {itemReference.BasePrice} Gold.");
+
         Money -= itemReference.BasePrice;
     }
 
