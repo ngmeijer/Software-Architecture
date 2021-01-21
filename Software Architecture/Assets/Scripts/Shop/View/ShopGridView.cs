@@ -53,7 +53,7 @@ public class ShopGridView : MonoBehaviour, IObserver
     {
         itemLayoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;//Set the constraint mode of the GridLayoutGroup
         itemLayoutGroup.constraintCount = viewConfig.gridViewColumnCount; //Set the column count according to the ViewConfig object
-        itemLayoutGroup.cellSize = new Vector2(50, 50);
+        itemLayoutGroup.cellSize = new Vector2(75, 75);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
