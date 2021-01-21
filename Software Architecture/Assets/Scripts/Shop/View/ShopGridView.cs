@@ -20,8 +20,6 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     [SerializeField] private List<GameObject> itemList = new List<GameObject>();
 
-    [SerializeField] private Button buyButton;
-
     [SerializeField] private TextMeshProUGUI moneyText;
 
     [SerializeField] private TextMeshProUGUI instructionText;
@@ -36,7 +34,6 @@ public class ShopGridView : MonoBehaviour, IObserver
         Debug.Assert(viewConfig != null);
         SetupItemIconView(); //Setup the grid view's properties
         PopulateItemIconView(0); //Display all items
-        InitializeButtons(); //Connect the buttons to the controller
 
         Inventory.OnMoneyChanged += updateMoneyPanel;
         ShopView.Instance.shopModel.Attach(this);
@@ -139,21 +136,6 @@ public class ShopGridView : MonoBehaviour, IObserver
         itemContainer.Initialize(item);
 
         itemList.Add(newItemInstance);
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  InitializeButtons()
-    //------------------------------------------------------------------------------------------------------------------------        
-    //This method adds a listener to the 'Buy' button. They are forwarded to the controller. Since this is the confirm button of
-    //the buy view, it will just call the controller interface's ConfirmSelectedItem function, the controller will handle the rest.
-    private void InitializeButtons()
-    {
-        buyButton.onClick.AddListener(
-            delegate
-                {
-                    ShopView.Instance.shopController.ConfirmSelectedItem();
-                }
-            );
     }
 
     public void UpdateObservers(ISubject subject)

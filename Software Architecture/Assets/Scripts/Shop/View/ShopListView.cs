@@ -18,8 +18,6 @@ public class ShopListView : MonoBehaviour, IObserver
 
     [SerializeField] private List<GameObject> itemList = new List<GameObject>();
 
-    [SerializeField] private Button buyButton;
-
     [SerializeField] private TextMeshProUGUI moneyText;
 
     private ViewConfig viewConfig; //To set up the grid view, we need to know how many columns the grid view has, in the current setup,
@@ -37,28 +35,13 @@ public class ShopListView : MonoBehaviour, IObserver
     {
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
-        SetupItemIconView(); //Setup the grid view's properties
         PopulateItemIconView(0); //Display all items
-        InitializeButtons(); //Connect the buttons to the controller
 
         ShopView.Instance.shopModel.Attach(this);
 
         ShopModel.OnClick += updateDetailsPanel;
         Inventory.OnMoneyChanged += updateMoneyPanel;
         updateMoneyPanel();
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  SetupItemIconView()
-    //------------------------------------------------------------------------------------------------------------------------        
-    //Setup the grid view according to the ViewConfig object's requirements, right now it just sets the constraint mode and column count,
-    //you can make cosmetic adjustments to the GridLayoutGroup by adding more configurations to ViewConfig and use them adjusting properties
-    //like cellSize, spacing, padding, etc.
-    private void SetupItemIconView()
-    {
-        //itemLayoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;//Set the constraint mode of the GridLayoutGroup
-        //itemLayoutGroup.constraintCount = viewConfig.gridViewColumnCount; //Set the column count according to the ViewConfig object
-        //itemLayoutGroup.cellSize = new Vector2(50, 50);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -144,21 +127,6 @@ public class ShopListView : MonoBehaviour, IObserver
         itemContainer.Initialize(item);
 
         itemList.Add(newItemInstance);
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  InitializeButtons()
-    //------------------------------------------------------------------------------------------------------------------------        
-    //This method adds a listener to the 'Buy' button. They are forwarded to the controller. Since this is the confirm button of
-    //the buy view, it will just call the controller interface's ConfirmSelectedItem function, the controller will handle the rest.
-    private void InitializeButtons()
-    {
-        buyButton.onClick.AddListener(
-            delegate
-                {
-                    ShopView.Instance.shopController.ConfirmSelectedItem();
-                }
-            );
     }
 
     public void UpdateObservers(ISubject pSubject)
