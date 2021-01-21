@@ -156,48 +156,6 @@ public class ShopGridView : MonoBehaviour, IObserver
             );
     }
 
-    private void Update()
-    {
-        //Switch between mouse and keyboard controllers
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            if (ShopView.Instance.shopController is MouseController)
-            {
-                SwitchToKeyboardControl();
-            }
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (ShopView.Instance.shopController is GridViewKeyboardController)
-            {
-                SwitchToMouseControl();
-            }
-        }
-
-        //Let the current controller handle input
-        ShopView.Instance.shopController.HandleInput();
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  SwitchToKeyboardControl()
-    //------------------------------------------------------------------------------------------------------------------------    
-    protected void SwitchToKeyboardControl()
-    {
-        instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
-        buyButton.gameObject.SetActive(false);
-        ShopView.OnInputSwitch(0);
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  SwitchToMouseControl()
-    //------------------------------------------------------------------------------------------------------------------------ 
-    protected void SwitchToMouseControl()
-    {
-        instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
-        buyButton.gameObject.SetActive(true);
-        ShopView.OnInputSwitch(1);
-    }
-
     public void UpdateObservers(ISubject subject)
     {
         updateItemList();

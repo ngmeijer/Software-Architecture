@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopView : MonoBehaviour
@@ -9,7 +10,7 @@ public class ShopView : MonoBehaviour
     public static ShopView Instance;
 
     public ShopModel shopModel { get; private set; }
-    public  ShopController shopController { get; protected set; }
+    public ShopController shopController { get; protected set; }
 
     private void Awake()
     {
@@ -24,29 +25,62 @@ public class ShopView : MonoBehaviour
 
     #endregion
 
-    public delegate void OnInputMethodSwitch(int index);
-    public static OnInputMethodSwitch OnInputSwitch;
+    [SerializeField] private float _priceModifier = 2f;
+    [SerializeField] private int _itemCount = 16;
+    [SerializeField] private int _money = 250;
+
+    [SerializeField] private TextMeshProUGUI instructionText;
 
     public void Start()
     {
-        shopModel = new BuyModel(2f, 16, 251); //Right now use magic values to set up the shop
+        shopModel = new BuyModel(_priceModifier, _itemCount, _money); //Right now use magic values to set up the shop
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
-        
-        OnInputSwitch += SwitchInputMethod;
     }
 
-    public void SwitchInputMethod(int index)
+    private void Update()
     {
-        Destroy(shopController);
-
-        if (index == 0)
+        //Switch between mouse and keyboard controllers
+        if (Input.GetKeyUp(KeyCode.K))
         {
-            shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);
+            if (shopController is MouseController)
+            {
+                SwitchToKeyboardControl();
+            }
         }
 
-        if (index == 1)
+        else if (Input.GetMouseButtonUp(0))
         {
-            shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);
+            if (shopController is GridViewKeyboardController)
+            {
+                SwitchToMouseControl();
+            }
         }
+
+        //Let the current controller handle input
+        shopController.HandleInput();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    //                                                  SwitchToKeyboardControl()
+    //------------------------------------------------------------------------------------------------------------------------    
+    protected void SwitchToKeyboardControl()
+    {
+        instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
+        //buyButton.gameObject.SetActive(false);//Show the buy button for the mouse controller
+        shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);
+        MouseController controller = FindObjectOfType<MouseController>();
+        Destroy(controller);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    //                                                  SwitchToMouseControl()
+    //------------------------------------------------------------------------------------------------------------------------ 
+    protected void SwitchToMouseControl()
+    {
+        instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
+        //buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
+        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);
+        GridViewKeyboardController controller = FindObjectOfType<GridViewKeyboardController>();
+        Destroy(controller);
     }
 }
