@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ShopActions
+{
+    PURCHASED,
+    UPGRADED,
+    SOLD,
+}
+
+
 /// <summary>
 /// This class defines a basic inventory
 /// </summary>
@@ -52,10 +60,8 @@ public class Inventory
     public Item GetItemByIndex(int index)
     {
         if (index >= 0 && index < _itemList.Count)
-        {
-            Debug.Log($"index in GetItemByIndex -- {index} -- ");
             return _itemList[index];
-        }
+
         return null;
     }
 
@@ -104,15 +110,33 @@ public class Inventory
         return _removedItemIndex;
     }
 
-    public void UpdateInventoryMoneyCountAfterPurchase(int index)
+    public void UpdateInventoryMoneyCountAfterTransaction(int index, ShopActions action)
     {
         Item itemReference = GetItemByIndex(index);
 
-        Debug.Log($"index of purchased item is -- { index } --.\n" +
+        Debug.Log($"index of item is -- { index } --.\n" +
                   $"Name of selected item is -- {itemReference.Name}. \n" +
                   $"Base Price of selected item is -- {itemReference.BasePrice} Gold.");
 
-        Money -= itemReference.BasePrice;
+        switch (action)
+        {
+            case ShopActions.PURCHASED:
+                {
+                    Money -= itemReference.BasePrice;
+                    break;
+                }
+            case ShopActions.UPGRADED:
+                {
+                    Money -= itemReference.BasePrice;
+                    break;
+                }
+            case ShopActions.SOLD:
+                {
+                    Money += itemReference.BasePrice;
+                    break;
+                }
+        }
+
         if (OnMoneyChanged != null)
             OnMoneyChanged();
     }
