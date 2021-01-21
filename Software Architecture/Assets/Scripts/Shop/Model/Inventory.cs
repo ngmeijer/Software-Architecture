@@ -21,9 +21,6 @@ public class Inventory
     {
         PopulateInventory(pItemCount);
         Money = pMoney;
-        if (OnMoneyChanged != null)
-            OnMoneyChanged();
-        else { Debug.Log("Event OnMoneyChanged is null. No methods are subscribed."); }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -107,7 +104,7 @@ public class Inventory
         return _removedItemIndex;
     }
 
-    public void UpdateInventoryMoneyCount(int index)
+    public void UpdateInventoryMoneyCountAfterPurchase(int index)
     {
         Item itemReference = GetItemByIndex(index);
 
@@ -116,6 +113,8 @@ public class Inventory
                   $"Base Price of selected item is -- {itemReference.BasePrice} Gold.");
 
         Money -= itemReference.BasePrice;
+        if (OnMoneyChanged != null)
+            OnMoneyChanged();
     }
 
 

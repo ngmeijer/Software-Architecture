@@ -43,9 +43,11 @@ public class ShopListView : MonoBehaviour, IObserver
         PopulateItemIconView(0); //Display all items
         InitializeButtons(); //Connect the buttons to the controller
 
+        ShopView.Instance.shopModel.Attach(this);
+
         ShopModel.OnClick += updateDetailsPanel;
         Inventory.OnMoneyChanged += updateMoneyPanel;
-        ShopView.Instance.shopModel.Attach(this);
+        updateMoneyPanel();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +84,6 @@ public class ShopListView : MonoBehaviour, IObserver
             case 0:
                 foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
                 {
-                    item.ItemIndex = ShopView.Instance.shopModel.inventory.GetItems().IndexOf(item);
                     AddItemToView(item);
                 }
                 break;
@@ -207,6 +208,7 @@ public class ShopListView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
+        updateItemList();
         updateMoneyPanel();
     }
 
@@ -223,6 +225,15 @@ public class ShopListView : MonoBehaviour, IObserver
         itemPrice.text = currentItem.BasePrice.ToString();
         itemRarity.text = currentItem.ItemRarity.ToString();
         itemIcon.sprite = currentItem.ItemSprite;
+    }
+
+    private void updateItemList()
+    {
+        int removedItemIndex = ShopView.Instance.shopModel.inventory.GetRemovedItemIndex();
+        itemList.RemoveAt(removedItemIndex);
+
+        Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
+        Destroy(child.gameObject);
     }
 
     private void updateMoneyPanel()

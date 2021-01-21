@@ -40,6 +40,7 @@ public class ShopGridView : MonoBehaviour, IObserver
 
         Inventory.OnMoneyChanged += updateMoneyPanel;
         ShopView.Instance.shopModel.Attach(this);
+        updateMoneyPanel();
     }
 
     //------------------------------------------------------------------------------------------------------------------------

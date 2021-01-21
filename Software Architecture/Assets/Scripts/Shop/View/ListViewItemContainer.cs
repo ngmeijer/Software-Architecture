@@ -66,4 +66,9 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
             highLight.SetActive(false);
         }
     }
+
+    private void OnDestroy()
+    {
+        ShopModel.OnClick -= handlePanelForSelectedItem;
+    }
 }
