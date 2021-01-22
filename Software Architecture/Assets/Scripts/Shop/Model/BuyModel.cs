@@ -20,13 +20,20 @@ public class BuyModel : ShopModel
 
     //------------------------------------------------------------------------------------------------------------------------
 
-    //                                                 ConfirmSelectedItem()
+    //                                                 ConfirmTransactionSelectedItem()
 
     //------------------------------------------------------------------------------------------------------------------------        
-    public override void ConfirmSelectedItem()
+    public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
-        inventory.UpdateInventoryMoneyCountAfterTransaction(selectedItemIndex, ShopActions.PURCHASED);
-        inventory.RemoveItemByIndex(selectedItemIndex);
+        inventory.UpdateInventoryMoneyCountAfterTransaction(selectedItemIndex, action);
+
+        if (action == ShopActions.PURCHASED || action == ShopActions.SOLD)
+        {
+            Debug.Log("list has changed.");
+            ListHasChanged = true;
+            inventory.RemoveItemByIndex(selectedItemIndex);
+        }
+
         NotifyObservers();
     }
 
@@ -48,6 +55,8 @@ public class BuyModel : ShopModel
         {
             observer.UpdateObservers(this);
         }
+
+        ListHasChanged = false;
 
         Debug.Log("Subject: Notifying Observers...");
     }

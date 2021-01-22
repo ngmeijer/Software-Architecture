@@ -131,7 +131,9 @@ public class ShopListView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
-        updateItemList();
+        if (pSubject.ListHasChanged)
+            updateItemList();
+        
         updateMoneyPanel();
     }
 

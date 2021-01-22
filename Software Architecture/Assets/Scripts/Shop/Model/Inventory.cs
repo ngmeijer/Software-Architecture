@@ -10,7 +10,6 @@ public enum ShopActions
     SOLD,
 }
 
-
 /// <summary>
 /// This class defines a basic inventory
 /// </summary>
@@ -114,10 +113,6 @@ public class Inventory
     {
         Item itemReference = GetItemByIndex(index);
 
-        Debug.Log($"index of item is -- { index } --.\n" +
-                  $"Name of selected item is -- {itemReference.Name}. \n" +
-                  $"Base Price of selected item is -- {itemReference.BasePrice} Gold.");
-
         switch (action)
         {
             case ShopActions.PURCHASED:
@@ -140,7 +135,6 @@ public class Inventory
         if (OnMoneyChanged != null)
             OnMoneyChanged();
     }
-
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateInventory()

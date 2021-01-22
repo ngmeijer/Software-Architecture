@@ -70,10 +70,18 @@ public class GridViewKeyboardController : ShopController
         //Select the item
         SelectItemByIndex(currentItemIndex);
 
-        //Confirm the selected item when K is pressed
+        //Confirm the selected item with the corresponding action when K, U or O is pressed
         if (Input.GetKeyDown(KeyCode.K))
         {
-            ConfirmSelectedItem();
+            ConfirmSelectedItem(ShopActions.PURCHASED);
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ConfirmSelectedItem(ShopActions.UPGRADED);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ConfirmSelectedItem(ShopActions.SOLD);
         }
     }
 }

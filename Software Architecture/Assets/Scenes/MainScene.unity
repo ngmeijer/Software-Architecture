@@ -5279,7 +5279,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 6553243021197451808, guid: 2217ade0fb51b46daa2e279fbf1589d7,
     type: 3}
   itemList: []
-  buyButton: {fileID: 1510759987}
   moneyText: {fileID: 1947464188}
   itemName: {fileID: 7230969415560330353}
   itemDescription: {fileID: 7230969414859308850}
@@ -5445,7 +5444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d65cdeb195c46ea856aabb07167f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemLayoutGroup: {fileID: 180905780}
+  itemLayoutGroup: {fileID: 1929311889}
   itemPrefab: {fileID: 1985633672282538121, guid: f7e4aca495e6b46c1b69e85db31ac803,
     type: 3}
   itemList: []
@@ -8747,11 +8746,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf9c6856c45c7c4bb976bf1d5cd8159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemLayoutGroup: {fileID: 274071970}
+  itemLayoutGroup: {fileID: 998427275}
   itemPrefab: {fileID: 6553243021197451808, guid: 2217ade0fb51b46daa2e279fbf1589d7,
     type: 3}
   itemList: []
-  buyButton: {fileID: 1510759987}
   moneyText: {fileID: 1947464188}
   itemName: {fileID: 7230969415560330353}
   itemDescription: {fileID: 7230969414859308850}

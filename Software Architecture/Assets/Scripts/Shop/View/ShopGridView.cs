@@ -140,7 +140,9 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject subject)
     {
-        updateItemList();
+        if (subject.ListHasChanged)
+            updateItemList();
+
         updateMoneyPanel();
     }
 

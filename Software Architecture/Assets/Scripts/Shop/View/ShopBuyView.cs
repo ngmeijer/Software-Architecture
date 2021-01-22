@@ -14,13 +14,13 @@ public class ShopBuyView : ShopTransactionView
     //                                                  InitializeButtons()
     //------------------------------------------------------------------------------------------------------------------------        
     //This method adds a listener to the 'Buy' button. They are forwarded to the controller. Since this is the confirm button of
-    //the buy view, it will just call the controller interface's ConfirmSelectedItem function, the controller will handle the rest.
+    //the buy view, it will just call the controller interface's ConfirmTransactionSelectedItem function, the controller will handle the rest.
     protected override void InitializeButtons()
     {
         buyButton.onClick.AddListener(
             delegate
             {
-                ShopView.Instance.shopController.ConfirmSelectedItem();
+                ShopView.Instance.shopController.ConfirmSelectedItem(ShopActions.PURCHASED);
             }
         );
     }
