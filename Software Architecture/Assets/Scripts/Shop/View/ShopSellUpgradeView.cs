@@ -32,4 +32,10 @@ public class ShopSellUpgradeView : ShopTransactionView
             }
         );
     }
+
+    private void OnDisable()
+    {
+        upgradeButton.gameObject.SetActive(false);
+        sellButton.gameObject.SetActive(false);
+    }
 }

@@ -31,7 +31,7 @@ public class BuyModel : ShopModel
         {
             Debug.Log("list has changed.");
             ListHasChanged = true;
-            inventory.RemoveItemByIndex(selectedItemIndex);
+            inventory.RemoveItemByIndexShop(selectedItemIndex);
         }
 
         NotifyObservers();

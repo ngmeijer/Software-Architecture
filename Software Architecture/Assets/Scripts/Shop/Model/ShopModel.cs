@@ -38,9 +38,9 @@ public abstract class ShopModel : ISubject
     //Returns the selected item
     public Item GetSelectedItem()
     {
-        if (selectedItemIndex >= 0 && selectedItemIndex < inventory.GetItemCount())
+        if (selectedItemIndex >= 0 && selectedItemIndex < inventory.GetItemCountShop())
         {
-            return inventory.GetItemByIndex(selectedItemIndex);
+            return inventory.GetItemByIndexShop(selectedItemIndex);
         }
         return null;
     }
@@ -51,7 +51,7 @@ public abstract class ShopModel : ISubject
     //Attempts to select the item, specified by 'index', fails silently
     public void SelectItemByIndex(int index)
     {
-        if (index >= 0 && index < inventory.GetItemCount())
+        if (index >= 0 && index < inventory.GetItemCountShop())
         {
             selectedItemIndex = index;
         }
@@ -64,7 +64,7 @@ public abstract class ShopModel : ISubject
     {
         if (item != null)
         {
-            int index = inventory.GetItems().IndexOf(item);
+            int index = inventory.GetShopItems().IndexOf(item);
             if (index >= 0)
             {
                 selectedItemIndex = index;
