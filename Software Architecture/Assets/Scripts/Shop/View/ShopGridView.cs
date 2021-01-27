@@ -24,19 +24,27 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     [SerializeField] private TextMeshProUGUI instructionText;
 
-    private ViewConfig viewConfig; //To set up the grid view, we need to know how many columns the grid view has, in the current setup,
-                                   //this information can be found in a ViewConfig scriptable object, which serves as a configuration file for
-                                   //views.
+    private ViewConfig viewConfig;
+
+    [SerializeField] private int InventoryInstance = 0;
 
     private void Start()
     {
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
         SetupItemIconView(); //Setup the grid view's properties
-        PopulateItemIconView(0); //Display all items
 
         Inventory.OnMoneyChanged += updateMoneyPanel;
-        ShopView.Instance.shopModel.Attach(this);
+        switch (InventoryInstance)
+        {
+            case 0:
+                PopulateItemIconView(0, ShopView.Instance.shopModel); ShopView.Instance.shopModel.Attach(this);
+                break;
+            case 1:
+                PopulateItemIconView(0, ShopView.Instance.shopModelInventory);
+                ShopView.Instance.shopModelInventory.Attach(this);
+                break;
+        }
         updateMoneyPanel();
     }
 
@@ -60,26 +68,26 @@ public class ShopGridView : MonoBehaviour, IObserver
     public void RepopulateItemIconView(int index)
     {
         ClearIconView();
-        PopulateItemIconView(index);
+        //PopulateItemIconView(index);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView(int index)
+    private void PopulateItemIconView(int index, ShopModel model)
     {
         switch (index)
         {
             case 0:
-                foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
+                foreach (Item item in model.inventory.GetItems())
                 {
                     AddItemToView(item);
                 }
                 break;
 
             case 1:
-                foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetItems())
+                foreach (Item weapon in model.inventory.GetItems())
                 {
                     if (weapon.ItemType == "Weapon")
                         AddItemToView(weapon);
@@ -87,7 +95,7 @@ public class ShopGridView : MonoBehaviour, IObserver
                 break;
 
             case 2:
-                foreach (Item armor in ShopView.Instance.shopModel.inventory.GetItems())
+                foreach (Item armor in model.inventory.GetItems())
                 {
                     if (armor.ItemType == "Armor")
                         AddItemToView(armor);
@@ -95,7 +103,7 @@ public class ShopGridView : MonoBehaviour, IObserver
                 break;
 
             case 3:
-                foreach (Item potion in ShopView.Instance.shopModel.inventory.GetItems())
+                foreach (Item potion in model.inventory.GetItems())
                 {
                     if (potion.ItemType == "Potion")
                         AddItemToView(potion);

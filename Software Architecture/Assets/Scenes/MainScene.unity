@@ -5498,6 +5498,7 @@ MonoBehaviour:
   itemList: []
   moneyText: {fileID: 1947464188}
   instructionText: {fileID: 1352417142}
+  InventoryInstance: 1
 --- !u!114 &852296208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10987,6 +10988,9 @@ MonoBehaviour:
   _priceModifier: 2
   _itemCount: 16
   _money: 250
+  _priceModifierInventory: 2
+  _itemCountInventory: 8
+  _moneyInventory: 0
   instructionText: {fileID: 1352417142}
 --- !u!1 &1946878673
 GameObject:
@@ -12850,6 +12854,7 @@ MonoBehaviour:
   itemList: []
   moneyText: {fileID: 1947464188}
   instructionText: {fileID: 1352417142}
+  InventoryInstance: 0
 --- !u!1 &2137417933
 GameObject:
   m_ObjectHideFlags: 0
