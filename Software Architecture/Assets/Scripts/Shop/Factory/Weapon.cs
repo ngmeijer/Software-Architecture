@@ -199,4 +199,17 @@ public class Weapon : Item
                 break;
         }
     }
+
+    public override bool CheckItemLevel()
+    {
+        bool isMaxLevel;
+        isMaxLevel = ItemRarity.Equals(EItemRarity.LEGENDARY);
+
+        return isMaxLevel;
+    }
+
+    public override void UpgradeItem()
+    {
+        GenerateItemDetails();
+    }
 }

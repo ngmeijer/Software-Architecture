@@ -48,8 +48,8 @@ public abstract class ShopController : MonoBehaviour
     //                                                  ConfirmTransactionSelectedItem()
     //------------------------------------------------------------------------------------------------------------------------ 
     //Tells the model to confirm the current selected item
-    public void ConfirmSelectedItem(ShopActions action)
+    public void ConfirmSelectedItem(ShopActions pAction, ShopModel pModel)
     {
-        model.ConfirmTransactionSelectedItem(action);
+        pModel.ConfirmTransactionSelectedItem(pAction);
     }
 }

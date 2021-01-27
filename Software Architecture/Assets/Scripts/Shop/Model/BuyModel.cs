@@ -27,7 +27,7 @@ public class BuyModel : ShopModel
     {
         inventory.UpdateMoneyCountAfterShopTransaction(selectedItemIndex);
         inventory.RemoveItemByIndex(selectedItemIndex);
-        ListHasChanged = true;
+        ListHasDecreasedSize = true;
 
         NotifyObservers();
     }
@@ -51,7 +51,7 @@ public class BuyModel : ShopModel
             observer.UpdateObservers(this);
         }
 
-        ListHasChanged = false;
+        ListHasDecreasedSize = false;
 
         Debug.Log("Subject: Notifying Observers...");
     }

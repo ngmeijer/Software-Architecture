@@ -20,7 +20,7 @@ public class ShopBuyView : ShopTransactionView
         buyButton.onClick.AddListener(
             delegate
             {
-                ShopView.Instance.shopController.ConfirmSelectedItem(ShopActions.PURCHASED);
+                ShopView.Instance.shopController.ConfirmSelectedItem(ShopActions.PURCHASED, ShopView.Instance.shopModel);
             }
         );
     }

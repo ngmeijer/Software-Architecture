@@ -203,8 +203,16 @@ public class Armor : Item
         }
     }
 
-    public int NewProtectionValue(EItemRarity newTier)
+    public override bool CheckItemLevel()
     {
-        return _protectionValues[(int)newTier];
+        bool isMaxLevel;
+        isMaxLevel = ItemRarity.Equals(EItemRarity.LEGENDARY);
+
+        return isMaxLevel;
+    }
+
+    public override void UpgradeItem()
+    {
+        GenerateItemDetails();
     }
 }

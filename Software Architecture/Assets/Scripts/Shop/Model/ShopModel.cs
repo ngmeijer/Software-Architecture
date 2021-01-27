@@ -11,7 +11,8 @@ using UnityEngine;
 public abstract class ShopModel : ISubject
 {
     public Inventory inventory { get; } // Getter of the inventory, the views might need this to set up the display.
-    public bool ListHasChanged { get; set; }
+    public bool ListHasDecreasedSize { get; set; }
+    public bool ListHasItemUpgraded { get; set; }
 
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index

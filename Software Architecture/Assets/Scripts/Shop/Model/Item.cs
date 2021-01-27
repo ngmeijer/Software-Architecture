@@ -16,6 +16,8 @@ public abstract class Item
     public abstract EItemRarity ItemRarity { get; set; }
 
     public abstract void GenerateItemDetails();
+    public abstract bool CheckItemLevel();
+    public abstract void UpgradeItem();
 
     public abstract Sprite ItemSprite { get; set; }
 }

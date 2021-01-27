@@ -17,19 +17,29 @@ public class SellModel : ShopModel
     {
         if (action == ShopActions.SOLD)
         {
-            Debug.Log("list has changed.");
-            ListHasChanged = true;
-            inventory.RemoveItemByIndex(selectedItemIndex);
-            inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex,ShopActions.SOLD);
+            SellItem();
         }
 
         if (action == ShopActions.UPGRADED)
         {
-            inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
-            //
+            UpgradeItem();
         }
 
         NotifyObservers();
+    }
+
+    private void UpgradeItem()
+    {
+        inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
+        Item item = inventory.GetItemByIndex(selectedItemIndex);
+        
+    }
+
+    private void SellItem()
+    {
+        ListHasDecreasedSize = true;
+        inventory.RemoveItemByIndex(selectedItemIndex);
+        inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.SOLD);
     }
 
     public override void Attach(IObserver pObserver)
@@ -51,7 +61,7 @@ public class SellModel : ShopModel
             observer.UpdateObservers(this);
         }
 
-        ListHasChanged = false;
+        ListHasDecreasedSize = false;
 
         Debug.Log("Subject: Notifying Observers...");
     }

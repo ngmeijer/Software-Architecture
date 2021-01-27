@@ -116,8 +116,11 @@ public class ShopListView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
-        if (pSubject.ListHasChanged)
+        if (pSubject.ListHasDecreasedSize)
             updateItemList();
+
+        if(pSubject.ListHasItemUpgraded)
+            updateDetailsPanel(ShopView.Instance.shopModelInventory.GetSelectedItemIndex());
 
         updateMoneyPanel();
     }

@@ -148,13 +148,13 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject subject)
     {
-        if (subject.ListHasChanged)
-            updateItemList();
+        if (subject.ListHasDecreasedSize)
+            RemoveItemFromList();
 
         updateMoneyPanel();
     }
 
-    private void updateItemList()
+    private void RemoveItemFromList()
     {
         int removedItemIndex = ShopView.Instance.shopModel.inventory.GetRemovedItemIndex();
         itemList.RemoveAt(removedItemIndex);
