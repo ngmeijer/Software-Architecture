@@ -22,8 +22,7 @@ public enum InventoryInstance
 public class Inventory
 {
     public int Money { get; private set; }//Getter for the money, the views need it to display the amount of money.
-    private List<Item> _itemListShop = new List<Item>(); //Items in the inventory
-    private List<Item> _itemListInventory = new List<Item>(); //Items in the inventory
+    private List<Item> _itemList = new List<Item>(); //Items in the inventory
 
     public delegate void OnMoneyBalanceChanged();
     public static event OnMoneyBalanceChanged OnMoneyChanged;
@@ -33,8 +32,7 @@ public class Inventory
     //Set up the inventory with item count and money
     public Inventory(int pItemCount, int pMoney)
     {
-        PopulateList(InventoryInstance.SHOP, pItemCount);
-        PopulateList(InventoryInstance.INVENTORY, 16);
+        PopulateList(pItemCount);
         Money = pMoney;
     }
 
@@ -44,15 +42,10 @@ public class Inventory
     //Returns a list with all current items in the shop.
     public List<Item> GetItems()
     {
-        return new List<Item>(_itemListShop); //Returns a copy of the list, so the original is kept intact, 
+        return new List<Item>(_itemList); //Returns a copy of the list, so the original is kept intact, 
                                               //however this is shallow copy of the original list, so changes in 
                                               //the original list will likely influence the copy, apply 
                                               //creational patterns like prototype to fix this. 
-    }
-
-    public List<Item> GetInventoryItems()
-    {
-        return new List<Item>(_itemListInventory);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +54,7 @@ public class Inventory
     //Returns the number of items
     public int GetItemCount()
     {
-        return _itemListShop.Count;
+        return _itemList.Count;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -71,16 +64,8 @@ public class Inventory
     //a good idea to return a copy of the original item.
     public Item GetItemByIndex(int index)
     {
-        if (index >= 0 && index < _itemListShop.Count)
-            return _itemListShop[index];
-
-        return null;
-    }
-
-    public Item GetItemByIndexInventory(int index)
-    {
-        if (index >= 0 && index < _itemListInventory.Count)
-            return _itemListInventory[index];
+        if (index >= 0 && index < _itemList.Count)
+            return _itemList[index];
 
         return null;
     }
@@ -91,7 +76,7 @@ public class Inventory
     //Adds an item to the inventory's item list.
     public void AddItemShop(Item item)
     {
-        _itemListShop.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
+        _itemList.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -100,38 +85,22 @@ public class Inventory
     //Attempts to remove an item, fails silently.
     public void RemoveItemShop(Item item)
     {
-        if (_itemListShop.Contains(item))
+        if (_itemList.Contains(item))
         {
-            _itemListShop.Remove(item);
+            _itemList.Remove(item);
         }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
-    //                                                 RemoveItemByIndexShop()
+    //                                                 RemoveItemByIndex()
     //------------------------------------------------------------------------------------------------------------------------        
-    public void RemoveItemByIndexShop(int index)
+    public void RemoveItemByIndex(int index)
     {
-        if (index >= 0 && index < _itemListShop.Count)
+        if (index >= 0 && index < _itemList.Count)
         {
-            _itemListShop.RemoveAt(index);
+            _itemList.RemoveAt(index);
             _removedItemIndex = index;
-            foreach (Item item in _itemListShop)
-            {
-                if (item.ItemIndex >= index)
-                {
-                    item.ItemIndex--;
-                }
-            }
-        }
-    }
-
-    public void RemoveItemByIndexInventory(int index)
-    {
-        if (index >= 0 && index < _itemListInventory.Count)
-        {
-            _itemListInventory.RemoveAt(index);
-            _removedItemIndex = index;
-            foreach (Item item in _itemListInventory)
+            foreach (Item item in _itemList)
             {
                 if (item.ItemIndex >= index)
                 {
@@ -158,7 +127,7 @@ public class Inventory
 
     public void UpdateMoneyCountAfterInventoryTransaction(int index, ShopActions action)
     {
-        Item itemReference = GetItemByIndexInventory(index);
+        Item itemReference = GetItemByIndex(index);
 
         switch (action)
         {
@@ -181,40 +150,22 @@ public class Inventory
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateList()
     //------------------------------------------------------------------------------------------------------------------------
-    private void PopulateList(InventoryInstance pInstance, int pItemCount)
+    private void PopulateList(int pItemCount)
     {
         WeaponFactory weaponFactory = new WeaponFactory();
         ArmorFactory armorFactory = new ArmorFactory();
         PotionFactory potionFactory = new PotionFactory();
 
-        switch (pInstance)
+        GenerateItems(6, _itemList, weaponFactory);
+        GenerateItems(5, _itemList, armorFactory);
+        GenerateItems(5, _itemList, potionFactory);
+
+        int itemInstanceIndexInventory = 0;
+
+        foreach (Item item in _itemList)
         {
-            case InventoryInstance.SHOP:
-                GenerateItems(6, _itemListShop, weaponFactory);
-                GenerateItems(5, _itemListShop, armorFactory);
-                GenerateItems(5, _itemListShop, potionFactory);
-
-                int itemInstanceIndexShop = 0;
-
-                foreach (Item item in _itemListShop)
-                {
-                    item.ItemIndex = itemInstanceIndexShop;
-                    itemInstanceIndexShop++;
-                }
-                break;
-            case InventoryInstance.INVENTORY:
-                GenerateItems(6, _itemListInventory, weaponFactory);
-                GenerateItems(5, _itemListInventory, armorFactory);
-                GenerateItems(5, _itemListInventory, potionFactory);
-
-                int itemInstanceIndexInventory = 0;
-
-                foreach (Item item in _itemListInventory)
-                {
-                    item.ItemIndex = itemInstanceIndexInventory;
-                    itemInstanceIndexInventory++;
-                }
-                break;
+            item.ItemIndex = itemInstanceIndexInventory;
+            itemInstanceIndexInventory++;
         }
     }
 

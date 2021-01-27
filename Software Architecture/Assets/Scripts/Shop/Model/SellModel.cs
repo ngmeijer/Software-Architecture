@@ -19,7 +19,7 @@ public class SellModel : ShopModel
         {
             Debug.Log("list has changed.");
             ListHasChanged = true;
-            inventory.RemoveItemByIndexShop(selectedItemIndex);
+            inventory.RemoveItemByIndex(selectedItemIndex);
             inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex,ShopActions.SOLD);
         }
 
