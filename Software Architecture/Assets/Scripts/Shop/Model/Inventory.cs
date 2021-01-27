@@ -16,14 +16,6 @@ public enum InventoryInstance
     INVENTORY
 }
 
-public enum ItemTypes
-{
-    WEAPON,
-    ARMOR,
-    POTION
-}
-
-
 /// <summary>
 /// This class defines a basic inventory
 /// </summary>
@@ -42,14 +34,15 @@ public class Inventory
     public Inventory(int pItemCount, int pMoney)
     {
         PopulateList(InventoryInstance.SHOP, pItemCount);
+        PopulateList(InventoryInstance.INVENTORY, 16);
         Money = pMoney;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
-    //                                                  GetShopItems()
+    //                                                  GetItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Returns a list with all current items in the shop.
-    public List<Item> GetShopItems()
+    public List<Item> GetItems()
     {
         return new List<Item>(_itemListShop); //Returns a copy of the list, so the original is kept intact, 
                                               //however this is shallow copy of the original list, so changes in 
@@ -63,25 +56,20 @@ public class Inventory
     }
 
     //------------------------------------------------------------------------------------------------------------------------
-    //                                                  GetItemCountShop()
+    //                                                  GetItemCount()
     //------------------------------------------------------------------------------------------------------------------------        
     //Returns the number of items
-    public int GetItemCountShop()
+    public int GetItemCount()
     {
         return _itemListShop.Count;
     }
 
-    public int GetItemCountInventory()
-    {
-        return _itemListInventory.Count;
-    }
-
     //------------------------------------------------------------------------------------------------------------------------
-    //                                                  GetItemByIndexShop()
+    //                                                  GetItemByIndex()
     //------------------------------------------------------------------------------------------------------------------------        
     //Attempts to get an item, specified by index, returns null if unsuccessful. Depends on how you set up your shop, it might be
     //a good idea to return a copy of the original item.
-    public Item GetItemByIndexShop(int index)
+    public Item GetItemByIndex(int index)
     {
         if (index >= 0 && index < _itemListShop.Count)
             return _itemListShop[index];
@@ -158,17 +146,22 @@ public class Inventory
         return _removedItemIndex;
     }
 
-    public void UpdateInventoryMoneyCountAfterTransaction(int index, ShopActions action)
+    public void UpdateMoneyCountAfterShopTransaction(int index)
     {
-        Item itemReference = GetItemByIndexShop(index);
+        Item itemReference = GetItemByIndex(index);
+
+        Money -= itemReference.BasePrice;
+
+        if (OnMoneyChanged != null)
+            OnMoneyChanged();
+    }
+
+    public void UpdateMoneyCountAfterInventoryTransaction(int index, ShopActions action)
+    {
+        Item itemReference = GetItemByIndexInventory(index);
 
         switch (action)
         {
-            case ShopActions.PURCHASED:
-                {
-                    Money -= itemReference.BasePrice;
-                    break;
-                }
             case ShopActions.UPGRADED:
                 {
                     Money -= itemReference.BasePrice;

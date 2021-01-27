@@ -47,9 +47,9 @@ public class GridViewKeyboardController : ShopController
         if (Input.GetKeyDown(KeyCode.D))
         {
             currentItemIndex++;
-            if (currentItemIndex >= this.Model.inventory.GetItemCountShop())
+            if (currentItemIndex >= this.Model.inventory.GetItemCount())
             {
-                currentItemIndex = this.Model.inventory.GetItemCountShop() - 1;
+                currentItemIndex = this.Model.inventory.GetItemCount() - 1;
             }
         }
 
@@ -63,7 +63,7 @@ public class GridViewKeyboardController : ShopController
         //Move the focus down if possible
         if (Input.GetKeyDown(KeyCode.S))
         {
-;            if (currentItemIndex < this.Model.inventory.GetItemCountShop() - columnCount)
+;            if (currentItemIndex < this.Model.inventory.GetItemCount() - columnCount)
                 currentItemIndex += columnCount;
         }
 

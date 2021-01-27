@@ -54,49 +54,15 @@ public class ShopListView : MonoBehaviour, IObserver
         PopulateItemIconView(index);
     }
 
-    public void RepopulateItemIconView(int counter, int counter2)
-    {
-
-    }
-
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
     private void PopulateItemIconView(int index)
     {
-        switch (index)
+        foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
         {
-            case 0:
-                foreach (Item item in ShopView.Instance.shopModel.inventory.GetShopItems())
-                {
-                    AddItemToView(item);
-                }
-                break;
-
-            case 1:
-                foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetShopItems())
-                {
-                    if (weapon.ItemType == "Weapon")
-                        AddItemToView(weapon);
-                }
-                break;
-
-            case 2:
-                foreach (Item armor in ShopView.Instance.shopModel.inventory.GetShopItems())
-                {
-                    if (armor.ItemType == "Armor")
-                        AddItemToView(armor);
-                }
-                break;
-
-            case 3:
-                foreach (Item potion in ShopView.Instance.shopModel.inventory.GetShopItems())
-                {
-                    if (potion.ItemType == "Potion")
-                        AddItemToView(potion);
-                }
-                break;
+            AddItemToView(item);
         }
     }
 
@@ -138,7 +104,7 @@ public class ShopListView : MonoBehaviour, IObserver
     {
         if (pSubject.ListHasChanged)
             updateItemList();
-        
+
         updateMoneyPanel();
     }
 

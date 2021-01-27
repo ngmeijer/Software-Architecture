@@ -59,7 +59,7 @@ namespace Tests
                                                  //so that the view finished updating and rendering everything 
 
             int itemCount = gridItemsPanel.transform.childCount;
-            Assert.AreEqual(ShopView.Instance.shopModel.inventory.GetItemCountShop(), itemCount, "The generated item count is not equal to shopModel's itemCount");
+            Assert.AreEqual(ShopView.Instance.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
         }
 
         //This case tests if the buyModel can throw an ArgumentOutOfRangeException when it's asked to select an item by a negative

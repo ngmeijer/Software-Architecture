@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// BuyModel is one of the Subjects/Publishers for the Observer behavioral pattern.
-/// </summary>
-public class BuyModel : ShopModel
+public class SellModel : ShopModel
 {
     private List<IObserver> _observerList = new List<IObserver>();
 
     public int MainState { get; set; } = 0;
 
-    public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
+    public SellModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
     {
         _observerList = new List<IObserver>();
         NotifyObservers();
     }
 
-    //------------------------------------------------------------------------------------------------------------------------
-
-    //                                                 ConfirmTransactionSelectedItem()
-
-    //------------------------------------------------------------------------------------------------------------------------
     public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
-        inventory.UpdateMoneyCountAfterShopTransaction(selectedItemIndex);
-        inventory.RemoveItemByIndexShop(selectedItemIndex);
-        ListHasChanged = true;
+        if (action == ShopActions.SOLD)
+        {
+            Debug.Log("list has changed.");
+            ListHasChanged = true;
+            inventory.RemoveItemByIndexShop(selectedItemIndex);
+            inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex,ShopActions.SOLD);
+        }
+
+        if (action == ShopActions.UPGRADED)
+        {
+            inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
+            //
+        }
 
         NotifyObservers();
     }

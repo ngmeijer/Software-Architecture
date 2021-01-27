@@ -72,14 +72,14 @@ public class ShopGridView : MonoBehaviour, IObserver
         switch (index)
         {
             case 0:
-                foreach (Item item in ShopView.Instance.shopModel.inventory.GetShopItems())
+                foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     AddItemToView(item);
                 }
                 break;
 
             case 1:
-                foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetShopItems())
+                foreach (Item weapon in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (weapon.ItemType == "Weapon")
                         AddItemToView(weapon);
@@ -87,7 +87,7 @@ public class ShopGridView : MonoBehaviour, IObserver
                 break;
 
             case 2:
-                foreach (Item armor in ShopView.Instance.shopModel.inventory.GetShopItems())
+                foreach (Item armor in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (armor.ItemType == "Armor")
                         AddItemToView(armor);
@@ -95,7 +95,7 @@ public class ShopGridView : MonoBehaviour, IObserver
                 break;
 
             case 3:
-                foreach (Item potion in ShopView.Instance.shopModel.inventory.GetShopItems())
+                foreach (Item potion in ShopView.Instance.shopModel.inventory.GetItems())
                 {
                     if (potion.ItemType == "Potion")
                         AddItemToView(potion);
