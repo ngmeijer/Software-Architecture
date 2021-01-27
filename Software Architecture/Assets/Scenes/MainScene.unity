@@ -5334,6 +5334,7 @@ MonoBehaviour:
   itemPrice: {fileID: 7033142262411977588}
   itemRarity: {fileID: 3464603553593580141}
   itemIcon: {fileID: 7230969416361129722}
+  InventoryInstance: 0
 --- !u!1 &849412832
 GameObject:
   m_ObjectHideFlags: 0
@@ -8800,12 +8801,13 @@ MonoBehaviour:
     type: 3}
   itemList: []
   moneyText: {fileID: 1947464188}
-  itemName: {fileID: 7230969415560330353}
-  itemDescription: {fileID: 7230969414859308850}
-  itemType: {fileID: 6592142186150724376}
-  itemPrice: {fileID: 7033142262411977588}
-  itemRarity: {fileID: 3464603553593580141}
-  itemIcon: {fileID: 7230969416361129722}
+  itemName: {fileID: 1321353485}
+  itemDescription: {fileID: 587663509}
+  itemType: {fileID: 1992735991}
+  itemPrice: {fileID: 1338981035}
+  itemRarity: {fileID: 640147702}
+  itemIcon: {fileID: 470101550}
+  InventoryInstance: 1
 --- !u!114 &1596009585
 MonoBehaviour:
   m_ObjectHideFlags: 0

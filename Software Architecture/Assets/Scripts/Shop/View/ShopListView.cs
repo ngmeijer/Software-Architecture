@@ -20,10 +20,9 @@ public class ShopListView : MonoBehaviour, IObserver
 
     [SerializeField] private TextMeshProUGUI moneyText;
 
-    private ViewConfig viewConfig; //To set up the grid view, we need to know how many columns the grid view has, in the current setup,
-                                   //this information can be found in a ViewConfig scriptable object, which serves as a configuration file for
-                                   //views.
+    private ViewConfig viewConfig;
 
+    [Header("Details panel")]
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private TextMeshProUGUI itemType;
@@ -31,16 +30,31 @@ public class ShopListView : MonoBehaviour, IObserver
     [SerializeField] private TextMeshProUGUI itemRarity;
     [SerializeField] private Image itemIcon;
 
+    [Space]
+    [SerializeField] private int InventoryInstance = 0;
+
+    private Item currentItem = null;
+
     private void Start()
     {
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
-        PopulateItemIconView(0); //Display all items
 
-        ShopView.Instance.shopModel.Attach(this);
+        Inventory.OnMoneyChanged += updateMoneyPanel;
+
+        switch (InventoryInstance)
+        {
+            case 0:
+                PopulateItemIconView(0, ShopView.Instance.shopModel);
+                ShopView.Instance.shopModel.Attach(this);
+                break;
+            case 1:
+                PopulateItemIconView(0, ShopView.Instance.shopModelInventory);
+                ShopView.Instance.shopModelInventory.Attach(this);
+                break;
+        }
 
         ShopModel.OnClick += updateDetailsPanel;
-        Inventory.OnMoneyChanged += updateMoneyPanel;
         updateMoneyPanel();
     }
 
@@ -51,16 +65,16 @@ public class ShopListView : MonoBehaviour, IObserver
     public void RepopulateItemIconView(int index)
     {
         ClearIconView();
-        PopulateItemIconView(index);
+        //PopulateItemIconView(index);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView(int index)
+    private void PopulateItemIconView(int index, ShopModel model)
     {
-        foreach (Item item in ShopView.Instance.shopModel.inventory.GetItems())
+        foreach (Item item in model.inventory.GetItems())
         {
             AddItemToView(item);
         }
@@ -113,7 +127,15 @@ public class ShopListView : MonoBehaviour, IObserver
         if (this.gameObject == null)
             return;
 
-        Item currentItem = ShopView.Instance.shopModel.GetSelectedItem();
+        switch (InventoryInstance)
+        {
+            case 0:
+                currentItem = ShopView.Instance.shopModel.GetSelectedItem();
+                break;
+            case 1:
+                currentItem = ShopView.Instance.shopModelInventory.GetSelectedItem(); 
+                break;
+        }
 
         itemName.text = currentItem.Name;
         itemDescription.text = currentItem.Description;
