@@ -7,7 +7,7 @@ public class SellModel : ShopModel
 
     public int MainState { get; set; } = 0;
 
-    public SellModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount)
+    public SellModel(float pPriceModifier, int pWeaponCount, int pArmorCount, int pPotionCount) : base(pPriceModifier, pWeaponCount, pArmorCount, pPotionCount)
     {
         _observerList = new List<IObserver>();
         NotifyObservers();
@@ -44,6 +44,7 @@ public class SellModel : ShopModel
     private void SellItem()
     {
         ListHasDecreasedSize = true;
+        Debug.Log($"Selected item index: {selectedItemIndex}");
         inventory.RemoveItemByIndex(selectedItemIndex);
         inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.SOLD);
     }

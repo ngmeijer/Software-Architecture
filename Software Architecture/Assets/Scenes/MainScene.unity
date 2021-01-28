@@ -10988,11 +10988,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _priceModifier: 2
-  _itemCount: 16
-  _money: 250
+  _weaponCountShop: 8
+  _armorCountShop: 8
+  _potionCountShop: 8
   _priceModifierInventory: 2
-  _itemCountInventory: 8
-  _moneyInventory: 0
+  _weaponCountInventory: 8
+  _armorCountInventory: 8
+  _potionCountInventory: 8
+  _money: 250
   instructionText: {fileID: 1352417142}
 --- !u!1 &1946878673
 GameObject:

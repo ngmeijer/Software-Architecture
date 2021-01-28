@@ -8,13 +8,12 @@ using UnityEngine;
 /// </summary>
 public class BuyModel : ShopModel
 {
-    private List<IObserver> _observerList = new List<IObserver>();
+    private readonly List<IObserver> _observerList = new List<IObserver>();
 
     public int MainState { get; set; } = 0;
 
-    public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount)
+    public BuyModel(float pPriceModifier, int pWeaponCount, int pArmorCount, int pPotionCount) : base(pPriceModifier, pWeaponCount, pArmorCount, pPotionCount)
     {
-        _observerList = new List<IObserver>();
         NotifyObservers();
     }
 

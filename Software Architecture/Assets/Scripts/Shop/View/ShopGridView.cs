@@ -77,6 +77,7 @@ public class ShopGridView : MonoBehaviour, IObserver
     //Adds one icon for each item in the shop
     private void PopulateItemIconView(int index, ShopModel model)
     {
+        Debug.Log($"Model item count: {model.inventory.GetItemCount()}");
         switch (index)
         {
             case 0:

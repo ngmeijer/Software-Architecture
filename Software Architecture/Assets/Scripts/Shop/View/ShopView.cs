@@ -30,30 +30,34 @@ public class ShopView : MonoBehaviour
 
     [Header("Shop")]
     [SerializeField] private float _priceModifier = 2f;
-    [SerializeField] private int _itemCount = 16;
-    [SerializeField] private int _money = 250;
+    [Range(0, 50)] [SerializeField] private int _weaponCountShop;
+    [Range(0, 50)] [SerializeField] private int _armorCountShop;
+    [Range(0, 50)] [SerializeField] private int _potionCountShop;
 
     [Header("Inventory")]
     [SerializeField] private float _priceModifierInventory = 2f;
+    [Range(0, 50)] [SerializeField] private int _weaponCountInventory;
+    [Range(0, 50)] [SerializeField] private int _armorCountInventory;
+    [Range(0, 50)] [SerializeField] private int _potionCountInventory;
 
-    [SerializeField] private int _itemCountInventory = 8;
-    [SerializeField] private int _moneyInventory = 0;
+    [Space]
+    [SerializeField] private int _money = 250;
 
     [Space]
     [SerializeField] private TextMeshProUGUI instructionText;
 
     public static int MoneyCount;
 
-
     public void Start()
     {
         MoneyCount = _money;
 
-        shopModel = new BuyModel(_priceModifier, _itemCount, MoneyCount);
+        shopModel = new BuyModel(_priceModifier, _weaponCountShop, _armorCountShop, _potionCountShop);
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
 
-        shopModelInventory = new SellModel(_priceModifier, _itemCount, MoneyCount);
+        shopModelInventory = new SellModel(_priceModifierInventory, _weaponCountInventory, _armorCountInventory, _potionCountInventory);
         shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
+        Debug.Log($"item count: {shopModelInventory.inventory.GetItemCount()}");
     }
 
     private void Update()

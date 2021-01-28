@@ -29,9 +29,9 @@ public class Inventory
     private int _removedItemIndex = 0;
 
     //Set up the inventory with item count and money
-    public Inventory(int pItemCount)
+    public Inventory(int pWeaponCount, int pArmorCount, int pPotionCount)
     {
-        PopulateList(pItemCount);
+        PopulateList(pWeaponCount, pArmorCount, pPotionCount);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -96,12 +96,11 @@ public class Inventory
     {
         if (index >= 0 && index < _itemList.Count)
         {
+            Debug.Log($"item index: {index}.");
             _itemList.RemoveAt(index);
             _removedItemIndex = index;
             foreach (Item item in _itemList)
             {
-                Debug.Log("updating item indexes.");
-
                 if (item.ItemIndex >= index)
                 {
                     item.ItemIndex--;
@@ -112,6 +111,7 @@ public class Inventory
 
     public int GetRemovedItemIndex()
     {
+        Debug.Log($"Removed item index: {_removedItemIndex}");
         return _removedItemIndex;
     }
 
@@ -150,15 +150,15 @@ public class Inventory
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateList()
     //------------------------------------------------------------------------------------------------------------------------
-    private void PopulateList(int pItemCount)
+    private void PopulateList(int pWeaponCount, int pArmorCount, int pPotionCount)
     {
         WeaponFactory weaponFactory = new WeaponFactory();
         ArmorFactory armorFactory = new ArmorFactory();
         PotionFactory potionFactory = new PotionFactory();
 
-        GenerateItems(6, _itemList, weaponFactory);
-        GenerateItems(5, _itemList, armorFactory);
-        GenerateItems(5, _itemList, potionFactory);
+        GenerateItems(pWeaponCount, _itemList, weaponFactory);
+        GenerateItems(pArmorCount, _itemList, armorFactory);
+        GenerateItems(pPotionCount, _itemList, potionFactory);
 
         int itemIndex = 0;
 
