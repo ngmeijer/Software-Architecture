@@ -28,6 +28,8 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     [SerializeField] private int InventoryInstance = 0;
 
+    private ShopModel usedModel;
+
     private void Start()
     {
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
@@ -38,11 +40,14 @@ public class ShopGridView : MonoBehaviour, IObserver
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(0, ShopView.Instance.shopModel); ShopView.Instance.shopModel.Attach(this);
+                PopulateItemIconView(0, ShopView.Instance.shopModel); 
+                ShopView.Instance.shopModel.Attach(this);
+                usedModel = ShopView.Instance.shopModel;
                 break;
             case 1:
                 PopulateItemIconView(0, ShopView.Instance.shopModelInventory);
                 ShopView.Instance.shopModelInventory.Attach(this);
+                usedModel = ShopView.Instance.shopModelInventory;
                 break;
         }
         updateMoneyPanel();
@@ -77,7 +82,6 @@ public class ShopGridView : MonoBehaviour, IObserver
     //Adds one icon for each item in the shop
     private void PopulateItemIconView(int index, ShopModel model)
     {
-        Debug.Log($"Model item count: {model.inventory.GetItemCount()}");
         switch (index)
         {
             case 0:
@@ -149,8 +153,6 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
-        Debug.Log($"Has item upgraded? {pSubject.ListHasItemUpgraded}");
-
         if (pSubject.ListHasDecreasedSize)
             updateItemList();
 
@@ -170,7 +172,8 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     private void updateItemList()
     {
-        int removedItemIndex = ShopView.Instance.shopModel.inventory.GetRemovedItemIndex();
+        Debug.Log($"Removed item index: {usedModel.inventory.RemovedItemIndex}");
+        int removedItemIndex = usedModel.inventory.RemovedItemIndex;
         itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);

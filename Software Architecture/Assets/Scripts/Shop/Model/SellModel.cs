@@ -30,12 +30,12 @@ public class SellModel : ShopModel
 
     private void UpgradeItem()
     {
-        Item item = inventory.GetItemByIndex(selectedItemIndex);
+        Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
         bool isMaxLevel = item.CheckItemLevel();
 
         if (!isMaxLevel)
         {
-            inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
+            inventory.UpdateMoneyCountAfterInventoryTransaction(GetSelectedItemIndex(), ShopActions.UPGRADED);
             item.UpgradeItem();
             ListHasItemUpgraded = true;
         }
@@ -43,10 +43,9 @@ public class SellModel : ShopModel
 
     private void SellItem()
     {
+        inventory.RemoveItemByIndex(GetSelectedItemIndex());
+        inventory.UpdateMoneyCountAfterInventoryTransaction(GetSelectedItemIndex(), ShopActions.SOLD);
         ListHasDecreasedSize = true;
-        Debug.Log($"Selected item index: {selectedItemIndex}");
-        inventory.RemoveItemByIndex(selectedItemIndex);
-        inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.SOLD);
     }
 
     public override void Attach(IObserver pObserver)

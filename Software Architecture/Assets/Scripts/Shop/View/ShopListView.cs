@@ -161,7 +161,7 @@ public class ShopListView : MonoBehaviour, IObserver
 
     private void updateItemList()
     {
-        int removedItemIndex = ShopView.Instance.shopModel.inventory.GetRemovedItemIndex();
+        int removedItemIndex = ShopView.Instance.shopModel.inventory.RemovedItemIndex;
         itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);

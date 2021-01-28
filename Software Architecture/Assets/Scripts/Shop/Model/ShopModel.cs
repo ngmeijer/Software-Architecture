@@ -39,9 +39,10 @@ public abstract class ShopModel : ISubject
     //Returns the selected item
     public Item GetSelectedItem()
     {
-        if (selectedItemIndex >= 0 && selectedItemIndex < inventory.GetItemCount())
+        int index = GetSelectedItemIndex();
+        if (index >= 0 && index < inventory.GetItemCount())
         {
-            return inventory.GetItemByIndex(selectedItemIndex);
+            return inventory.GetItemByIndex(index);
         }
         return null;
     }

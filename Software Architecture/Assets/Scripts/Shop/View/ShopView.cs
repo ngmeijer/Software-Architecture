@@ -57,7 +57,6 @@ public class ShopView : MonoBehaviour
 
         shopModelInventory = new SellModel(_priceModifierInventory, _weaponCountInventory, _armorCountInventory, _potionCountInventory);
         shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
-        Debug.Log($"item count: {shopModelInventory.inventory.GetItemCount()}");
     }
 
     private void Update()

@@ -20,13 +20,13 @@ public enum InventoryInstance
 /// This class defines a basic inventory
 /// </summary>
 public class Inventory
-{ 
+{
     private List<Item> _itemList = new List<Item>(); //Items in the inventory
 
     public delegate void OnMoneyBalanceChanged();
     public static event OnMoneyBalanceChanged OnMoneyChanged;
 
-    private int _removedItemIndex = 0;
+    private int _removedItemIndex { get; set; }
 
     //Set up the inventory with item count and money
     public Inventory(int pWeaponCount, int pArmorCount, int pPotionCount)
@@ -41,9 +41,9 @@ public class Inventory
     public List<Item> GetItems()
     {
         return new List<Item>(_itemList); //Returns a copy of the list, so the original is kept intact, 
-                                              //however this is shallow copy of the original list, so changes in 
-                                              //the original list will likely influence the copy, apply 
-                                              //creational patterns like prototype to fix this. 
+                                          //however this is shallow copy of the original list, so changes in 
+                                          //the original list will likely influence the copy, apply 
+                                          //creational patterns like prototype to fix this. 
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +96,6 @@ public class Inventory
     {
         if (index >= 0 && index < _itemList.Count)
         {
-            Debug.Log($"item index: {index}.");
             _itemList.RemoveAt(index);
             _removedItemIndex = index;
             foreach (Item item in _itemList)
@@ -109,10 +108,10 @@ public class Inventory
         }
     }
 
-    public int GetRemovedItemIndex()
+    public int RemovedItemIndex
     {
-        Debug.Log($"Removed item index: {_removedItemIndex}");
-        return _removedItemIndex;
+        get { return _removedItemIndex; }
+        set { _removedItemIndex = value; }
     }
 
     public void UpdateMoneyCountAfterShopTransaction(int index)
