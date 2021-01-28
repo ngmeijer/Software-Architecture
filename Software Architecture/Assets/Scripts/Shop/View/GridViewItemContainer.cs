@@ -43,20 +43,12 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         //Stores the item
         this.Item = item;
 
-        // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
-        Sprite sprite = iconAtlas.GetSprite(item.IconName);
-
-        if (sprite != null)
-        {
-            icon.sprite = sprite;
-        }
-
         updateItemDetailsUI();
 
         ShopModel.OnClick += handlePanelForSelectedItem;
     }
 
-    private void updateItemDetailsUI()
+    public void updateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
         itemDescriptionText.text = Item.Description;
@@ -64,6 +56,14 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         itemPriceText.text = Item.BasePrice.ToString();
         itemPropertyText.text = Item.BaseEnchantmentText + Item.BaseEnchantmentValue;
         itemRarityText.text = Item.ItemRarity.ToString();
+
+        // Clones the first Sprite in the icon atlas that matches the iconName and uses it as the sprite of the icon image.
+        Sprite sprite = iconAtlas.GetSprite(Item.IconName);
+        if (sprite != null)
+        {
+            icon.sprite = sprite;
+            Item.ItemSprite = sprite;
+        }
     }
 
     public void handlePanelForSelectedItem(int index)

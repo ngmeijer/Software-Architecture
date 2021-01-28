@@ -160,12 +160,12 @@ public class Inventory
         GenerateItems(5, _itemList, armorFactory);
         GenerateItems(5, _itemList, potionFactory);
 
-        int itemInstanceIndexInventory = 0;
+        int itemIndex = 0;
 
         foreach (Item item in _itemList)
         {
-            item.ItemIndex = itemInstanceIndexInventory;
-            itemInstanceIndexInventory++;
+            item.ItemIndex = itemIndex;
+            itemIndex++;
         }
     }
 

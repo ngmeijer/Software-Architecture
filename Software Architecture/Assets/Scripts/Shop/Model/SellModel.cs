@@ -24,15 +24,21 @@ public class SellModel : ShopModel
         {
             UpgradeItem();
         }
-
-        NotifyObservers();
     }
 
     private void UpgradeItem()
     {
         inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
+
         Item item = inventory.GetItemByIndex(selectedItemIndex);
-        
+        bool isMaxLevel = item.CheckItemLevel();
+
+        if(!isMaxLevel) 
+            item.UpgradeItem();
+
+        ListHasItemUpgraded = true;
+
+        NotifyObservers();
     }
 
     private void SellItem()
@@ -40,18 +46,20 @@ public class SellModel : ShopModel
         ListHasDecreasedSize = true;
         inventory.RemoveItemByIndex(selectedItemIndex);
         inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.SOLD);
+
+        NotifyObservers();
     }
 
     public override void Attach(IObserver pObserver)
     {
         this._observerList.Add(pObserver);
-        Debug.Log("Subject: Attached an Observer.");
+        Debug.Log("SellModel subject: Attached an Observer.");
     }
 
     public override void Detach(IObserver pObserver)
     {
         this._observerList.Remove(pObserver);
-        Debug.Log("Subject: Detached an Observer.");
+        Debug.Log("SellModel subject: Detached an Observer.");
     }
 
     public override void NotifyObservers()
@@ -63,6 +71,6 @@ public class SellModel : ShopModel
 
         ListHasDecreasedSize = false;
 
-        Debug.Log("Subject: Notifying Observers...");
+        Debug.Log("SellModel subject: Notifying Observers...");
     }
 }

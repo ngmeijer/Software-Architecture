@@ -116,6 +116,8 @@ public class ShopListView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
+        Debug.Log($"Has item upgraded? {pSubject.ListHasItemUpgraded}");
+
         if (pSubject.ListHasDecreasedSize)
             updateItemList();
 
@@ -127,6 +129,8 @@ public class ShopListView : MonoBehaviour, IObserver
 
     private void updateDetailsPanel(int index)
     {
+        Debug.Log("Item has been upgraded! Updating details now.");
+
         if (this.gameObject == null)
             return;
 

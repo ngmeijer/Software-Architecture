@@ -210,6 +210,7 @@ public class Weapon : Item
 
     public override void UpgradeItem()
     {
+        ItemRarity++;
         GenerateItemDetails();
     }
 }

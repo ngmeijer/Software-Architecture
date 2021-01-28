@@ -146,15 +146,28 @@ public class ShopGridView : MonoBehaviour, IObserver
         itemList.Add(newItemInstance);
     }
 
-    public void UpdateObservers(ISubject subject)
+    public void UpdateObservers(ISubject pSubject)
     {
-        if (subject.ListHasDecreasedSize)
-            RemoveItemFromList();
+        Debug.Log($"Has item upgraded? {pSubject.ListHasItemUpgraded}");
+
+        if (pSubject.ListHasDecreasedSize)
+            updateItemList();
+
+        if (pSubject.ListHasItemUpgraded)
+        {
+            Item item = ShopView.Instance.shopModelInventory.GetSelectedItem();
+
+            GameObject upgradedItem = itemList[ShopView.Instance.shopModelInventory.GetSelectedItemIndex()];
+
+            GridViewItemContainer itemContainer = upgradedItem.GetComponent<GridViewItemContainer>();
+            itemContainer.updateItemDetailsUI();
+        }
 
         updateMoneyPanel();
     }
 
-    private void RemoveItemFromList()
+
+    private void updateItemList()
     {
         int removedItemIndex = ShopView.Instance.shopModel.inventory.GetRemovedItemIndex();
         itemList.RemoveAt(removedItemIndex);
@@ -162,6 +175,7 @@ public class ShopGridView : MonoBehaviour, IObserver
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
     }
+
 
     private void updateMoneyPanel()
     {
