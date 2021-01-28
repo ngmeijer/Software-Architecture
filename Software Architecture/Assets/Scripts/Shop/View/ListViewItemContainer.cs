@@ -36,9 +36,6 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
         //Stores the pItem
         this.Item = pItem;
 
-        Sprite sprite = iconAtlas.GetSprite(Item.IconName);
-        Item.ItemSprite = sprite;
-
         updateItemDetailsUI();
 
         ShopModel.OnClick += handlePanelForSelectedItem;
@@ -50,6 +47,9 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
         itemPriceText.text = Item.BasePrice.ToString();
         itemTypeText.text = Item.ItemType;
         itemRarityText.text = Item.ItemRarity.ToString();
+
+        Sprite sprite = iconAtlas.GetSprite(Item.IconName);
+        Item.ItemSprite = sprite;
     }
 
     public void handlePanelForSelectedItem(int index)

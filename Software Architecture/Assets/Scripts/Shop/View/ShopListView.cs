@@ -121,15 +121,22 @@ public class ShopListView : MonoBehaviour, IObserver
         if (pSubject.ListHasDecreasedSize)
             updateItemList();
 
-        if(pSubject.ListHasItemUpgraded)
-            updateDetailsPanel(ShopView.Instance.shopModelInventory.GetSelectedItemIndex());
+        if (pSubject.ListHasItemUpgraded)
+        {
+            Item item = ShopView.Instance.shopModelInventory.GetSelectedItem();
+
+            GameObject upgradedItem = itemList[ShopView.Instance.shopModelInventory.GetSelectedItemIndex()];
+
+            ListViewItemContainer itemContainer = upgradedItem.GetComponent<ListViewItemContainer>();
+            itemContainer.updateItemDetailsUI();
+        }
 
         updateMoneyPanel();
     }
 
     private void updateDetailsPanel(int index)
     {
-        Debug.Log("Item has been upgraded! Updating details now.");
+        Debug.Log("Item has been upgraded! Updating details now in ShopListView.");
 
         if (this.gameObject == null)
             return;
