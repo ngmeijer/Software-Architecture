@@ -208,6 +208,7 @@ public class Potion : Item
 
     public override void UpgradeItem()
     {
+        ItemRarity++;
         GenerateItemDetails();
     }
 }

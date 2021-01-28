@@ -12,7 +12,7 @@ public class BuyModel : ShopModel
 
     public int MainState { get; set; } = 0;
 
-    public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
+    public BuyModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount)
     {
         _observerList = new List<IObserver>();
         NotifyObservers();

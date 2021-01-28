@@ -26,9 +26,9 @@ public abstract class ShopModel : ISubject
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  shopModel()
     //------------------------------------------------------------------------------------------------------------------------        
-    public ShopModel(float pPriceModifier, int pItemCount, int pMoney)
+    public ShopModel(float pPriceModifier, int pItemCount)
     {
-        inventory = new Inventory(pItemCount, pMoney);
+        inventory = new Inventory(pItemCount);
 
         priceModifier = pPriceModifier;
     }

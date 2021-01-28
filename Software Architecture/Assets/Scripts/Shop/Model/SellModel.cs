@@ -7,7 +7,7 @@ public class SellModel : ShopModel
 
     public int MainState { get; set; } = 0;
 
-    public SellModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount, pMoney)
+    public SellModel(float pPriceModifier, int pItemCount, int pMoney) : base(pPriceModifier, pItemCount)
     {
         _observerList = new List<IObserver>();
         NotifyObservers();
@@ -24,21 +24,21 @@ public class SellModel : ShopModel
         {
             UpgradeItem();
         }
+
+        NotifyObservers();
     }
 
     private void UpgradeItem()
     {
-        inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
-
         Item item = inventory.GetItemByIndex(selectedItemIndex);
         bool isMaxLevel = item.CheckItemLevel();
 
-        if(!isMaxLevel) 
+        if (!isMaxLevel)
+        {
+            inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.UPGRADED);
             item.UpgradeItem();
-
-        ListHasItemUpgraded = true;
-
-        NotifyObservers();
+            ListHasItemUpgraded = true;
+        }
     }
 
     private void SellItem()
@@ -46,8 +46,6 @@ public class SellModel : ShopModel
         ListHasDecreasedSize = true;
         inventory.RemoveItemByIndex(selectedItemIndex);
         inventory.UpdateMoneyCountAfterInventoryTransaction(selectedItemIndex, ShopActions.SOLD);
-
-        NotifyObservers();
     }
 
     public override void Attach(IObserver pObserver)

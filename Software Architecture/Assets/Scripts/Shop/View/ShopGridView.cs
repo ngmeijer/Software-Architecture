@@ -179,6 +179,6 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     private void updateMoneyPanel()
     {
-        moneyText.text = ShopView.Instance.shopModel.inventory.Money.ToString();
+        moneyText.text = ShopView.MoneyCount.ToString();
     }
 }

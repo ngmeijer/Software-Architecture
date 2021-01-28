@@ -20,8 +20,7 @@ public enum InventoryInstance
 /// This class defines a basic inventory
 /// </summary>
 public class Inventory
-{
-    public int Money { get; private set; }//Getter for the money, the views need it to display the amount of money.
+{ 
     private List<Item> _itemList = new List<Item>(); //Items in the inventory
 
     public delegate void OnMoneyBalanceChanged();
@@ -30,10 +29,9 @@ public class Inventory
     private int _removedItemIndex = 0;
 
     //Set up the inventory with item count and money
-    public Inventory(int pItemCount, int pMoney)
+    public Inventory(int pItemCount)
     {
         PopulateList(pItemCount);
-        Money = pMoney;
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -102,6 +100,8 @@ public class Inventory
             _removedItemIndex = index;
             foreach (Item item in _itemList)
             {
+                Debug.Log("updating item indexes.");
+
                 if (item.ItemIndex >= index)
                 {
                     item.ItemIndex--;
@@ -119,7 +119,7 @@ public class Inventory
     {
         Item itemReference = GetItemByIndex(index);
 
-        Money -= itemReference.BasePrice;
+        ShopView.CalculateBalance(-itemReference.BasePrice);
 
         if (OnMoneyChanged != null)
             OnMoneyChanged();
@@ -133,12 +133,12 @@ public class Inventory
         {
             case ShopActions.UPGRADED:
                 {
-                    Money -= itemReference.BasePrice;
+                    ShopView.CalculateBalance(-itemReference.BasePrice);
                     break;
                 }
             case ShopActions.SOLD:
                 {
-                    Money += itemReference.BasePrice;
+                    ShopView.CalculateBalance(+itemReference.BasePrice);
                     break;
                 }
         }

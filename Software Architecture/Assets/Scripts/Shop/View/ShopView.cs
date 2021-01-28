@@ -33,7 +33,7 @@ public class ShopView : MonoBehaviour
     [SerializeField] private int _itemCount = 16;
     [SerializeField] private int _money = 250;
 
-    [Header("Inventory")] 
+    [Header("Inventory")]
     [SerializeField] private float _priceModifierInventory = 2f;
 
     [SerializeField] private int _itemCountInventory = 8;
@@ -42,12 +42,17 @@ public class ShopView : MonoBehaviour
     [Space]
     [SerializeField] private TextMeshProUGUI instructionText;
 
+    public static int MoneyCount;
+
+
     public void Start()
     {
-        shopModel = new BuyModel(_priceModifier, _itemCount, _money); 
+        MoneyCount = _money;
+
+        shopModel = new BuyModel(_priceModifier, _itemCount, MoneyCount);
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
 
-        shopModelInventory = new SellModel(_priceModifier, _itemCount, _money);
+        shopModelInventory = new SellModel(_priceModifier, _itemCount, MoneyCount);
         shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
     }
 
@@ -117,5 +122,12 @@ public class ShopView : MonoBehaviour
         {
             Destroy(controller);
         }
+    }
+
+    public static int CalculateBalance(int change)
+    {
+        MoneyCount += change;
+
+        return MoneyCount;
     }
 }

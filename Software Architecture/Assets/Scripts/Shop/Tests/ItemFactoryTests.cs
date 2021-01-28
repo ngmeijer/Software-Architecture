@@ -54,7 +54,7 @@ public class ItemFactoryTests
     [Test]
     public void CheckItemListSize()
     {
-        Inventory inventory = new Inventory(15, 500);
+        Inventory inventory = new Inventory(15);
         int listItemCount = inventory.GetItems().Count;
         Assert.AreEqual(15, listItemCount);
     }

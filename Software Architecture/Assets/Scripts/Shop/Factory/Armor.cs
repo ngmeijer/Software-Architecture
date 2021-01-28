@@ -213,6 +213,7 @@ public class Armor : Item
 
     public override void UpgradeItem()
     {
+        ItemRarity++;
         GenerateItemDetails();
     }
 }
