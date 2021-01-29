@@ -7,6 +7,8 @@ public class SellModel : ShopModel
 
     public int MainState { get; set; } = 0;
 
+    private Item _currentItem;
+
     public SellModel(float pPriceModifier, int pWeaponCount, int pArmorCount, int pPotionCount) : base(pPriceModifier, pWeaponCount, pArmorCount, pPotionCount)
     {
         _observerList = new List<IObserver>();
@@ -15,6 +17,8 @@ public class SellModel : ShopModel
 
     public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
+        _currentItem = inventory.GetItemByIndex(GetSelectedItemIndex());
+
         if (action == ShopActions.SOLD)
         {
             SellItem();
@@ -30,21 +34,23 @@ public class SellModel : ShopModel
 
     private void UpgradeItem()
     {
-        Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
-        bool isMaxLevel = item.CheckItemLevel();
+        bool isMaxLevel = _currentItem.CheckItemLevel();
 
-        if (!isMaxLevel)
+        if (ShopView.MoneyCount >= _currentItem.BasePrice)
         {
-            inventory.UpdateMoneyCountAfterTransaction(GetSelectedItemIndex(), ShopActions.UPGRADED);
-            item.UpgradeItem();
-            ListHasItemUpgraded = true;
+            if (!isMaxLevel)
+            {
+                inventory.UpdateMoneyCountAfterTransaction(_currentItem, ShopActions.UPGRADED);
+                _currentItem.UpgradeItem();
+                ListHasItemUpgraded = true;
+            }
         }
     }
 
     private void SellItem()
     {
         inventory.RemoveItemByIndex(GetSelectedItemIndex());
-        inventory.UpdateMoneyCountAfterTransaction(GetSelectedItemIndex(), ShopActions.SOLD);
+        inventory.UpdateMoneyCountAfterTransaction(_currentItem, ShopActions.SOLD);
         ListHasDecreasedSize = true;
     }
 

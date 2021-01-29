@@ -2837,8 +2837,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 611.18756, y: 72.92499}
-  m_SizeDelta: {x: 949.996, y: 50}
+  m_AnchoredPosition: {x: 510.4, y: 72.92499}
+  m_SizeDelta: {x: 719.22595, y: 74.43838}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &464273843
 MonoBehaviour:
@@ -6541,8 +6541,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 597.2, y: 167.50002}
-  m_SizeDelta: {x: 403.41217, y: 334.99997}
+  m_AnchoredPosition: {x: 590.7, y: 167.50002}
+  m_SizeDelta: {x: 416.39264, y: 334.99997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1160830011
 MonoBehaviour:
@@ -6569,21 +6569,22 @@ MonoBehaviour:
 
     - Item sorting (Type, Rarity)
 
-    - Console window
-    ("Bought item! etc)
+    - Possible console
+    window ("Bought item! etc)?
+
+    - When selling/buying item. transfer to opposite
+    Inventory.
 
     - Improve UI
 
-    - DRY
+    - DRY/ clean up code
 
-    - Keyboard control
+    - Improve keyboard
+    control
 
-    -
-    Unit tests
+    - More unit tests
 
-    - Comments
-
-    - Prevent action if money balance is not sufficient'
+    - Code comments'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8035,8 +8036,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -110.34, y: 0}
-  m_SizeDelta: {x: -234.37872, y: 0}
+  m_AnchoredPosition: {x: 3.424591, y: -2.7399979}
+  m_SizeDelta: {x: -6.8494873, y: -5.474327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352417142
 MonoBehaviour:

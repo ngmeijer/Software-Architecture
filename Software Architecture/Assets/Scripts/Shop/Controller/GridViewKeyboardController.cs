@@ -68,18 +68,16 @@ public class GridViewKeyboardController : ShopController
         //Move the focus down if possible
         if (Input.GetKeyDown(KeyCode.S))
         {
-            ; if (currentItemIndex < this.Model.inventory.GetItemCount() - columnCount)
+            if (currentItemIndex < this.Model.inventory.GetItemCount() - columnCount)
                 currentItemIndex += columnCount;
             Debug.Log($"Index of selected item: {currentItemIndex}");
         }
 
         //Select the item
         SelectItemByIndex(currentItemIndex);
-
         //Confirm the selected item with the corresponding action when K, U or O is pressed
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Debug.Log("bought item.");
             ConfirmSelectedItem(ShopActions.PURCHASED, ShopView.Instance.shopModel);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))

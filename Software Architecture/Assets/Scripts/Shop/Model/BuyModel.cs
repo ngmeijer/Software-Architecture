@@ -24,11 +24,16 @@ public class BuyModel : ShopModel
     //------------------------------------------------------------------------------------------------------------------------
     public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
-        inventory.UpdateMoneyCountAfterTransaction(GetSelectedItemIndex(), action);
-        inventory.RemoveItemByIndex(GetSelectedItemIndex());
-        ListHasDecreasedSize = true;
+        Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
 
-        NotifyObservers();
+        if (ShopView.MoneyCount >= item.BasePrice)
+        {
+            inventory.UpdateMoneyCountAfterTransaction(item, action);
+            inventory.RemoveItemByIndex(GetSelectedItemIndex());
+            ListHasDecreasedSize = true;
+
+            NotifyObservers();
+        }
     }
 
     public override void Attach(IObserver pObserver)

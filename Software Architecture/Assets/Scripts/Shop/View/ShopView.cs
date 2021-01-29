@@ -100,7 +100,7 @@ public class ShopView : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------    
     protected void SwitchToKeyboardControl()
     {
-        instructionText.text = "Controls: WASD to navigate. 1, 2, 3 to buy, upgrade & sell." +
+        instructionText.text = "Controls: WASD to navigate. \nShop: 1 to buy. Inventory: 2, 3 to upgrade & sell." +
                                "\nLeft Mouse button to switch to MouseControl";
         shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);
         shopControllerInventory = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModelInventory);
