@@ -15,14 +15,13 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
 {
     public Item Item { get; private set; } //Public getter for the pItem, required by IItemContainer interface.
 
-    //Link to the highlight image (set in prefab)
+    //Links to the necessary UI elements
     [SerializeField] private GameObject highLight;
-    [SerializeField] private GameObject infoPanel;
-
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemTypeText;
     [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
+    [SerializeField] private Image icon;
 
     //Link to the atlas of all the pItem icons, use to retrieve sprites for items. For more information of the API check:
     // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
@@ -50,6 +49,8 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
 
         Sprite sprite = iconAtlas.GetSprite(Item.IconName);
         Item.ItemSprite = sprite;
+
+        icon.sprite = Item.ItemSprite;
     }
 
     public void handlePanelForSelectedItem(int index)

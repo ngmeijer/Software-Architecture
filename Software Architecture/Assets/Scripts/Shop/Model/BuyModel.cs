@@ -36,6 +36,8 @@ public class BuyModel : ShopModel
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------------------
+    //                                                  Observer Pattern
     public override void Attach(IObserver pObserver)
     {
         this._observerList.Add(pObserver);
@@ -59,4 +61,6 @@ public class BuyModel : ShopModel
 
         Debug.Log("Subject: Notifying Observers...");
     }
+    //------------------------------------------------------------------------------------------------------------------------
+
 }
