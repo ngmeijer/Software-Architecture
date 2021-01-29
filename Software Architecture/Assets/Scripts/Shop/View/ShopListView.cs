@@ -116,8 +116,6 @@ public class ShopListView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
-        Debug.Log($"Has item upgraded? {pSubject.ListHasItemUpgraded}");
-
         if (pSubject.ListHasDecreasedSize)
             updateItemList();
 

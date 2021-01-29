@@ -35,7 +35,7 @@ public class SellModel : ShopModel
 
         if (!isMaxLevel)
         {
-            inventory.UpdateMoneyCountAfterInventoryTransaction(GetSelectedItemIndex(), ShopActions.UPGRADED);
+            inventory.UpdateMoneyCountAfterTransaction(GetSelectedItemIndex(), ShopActions.UPGRADED);
             item.UpgradeItem();
             ListHasItemUpgraded = true;
         }
@@ -44,7 +44,7 @@ public class SellModel : ShopModel
     private void SellItem()
     {
         inventory.RemoveItemByIndex(GetSelectedItemIndex());
-        inventory.UpdateMoneyCountAfterInventoryTransaction(GetSelectedItemIndex(), ShopActions.SOLD);
+        inventory.UpdateMoneyCountAfterTransaction(GetSelectedItemIndex(), ShopActions.SOLD);
         ListHasDecreasedSize = true;
     }
 

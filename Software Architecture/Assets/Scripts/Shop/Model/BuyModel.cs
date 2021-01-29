@@ -24,7 +24,7 @@ public class BuyModel : ShopModel
     //------------------------------------------------------------------------------------------------------------------------
     public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
-        inventory.UpdateMoneyCountAfterShopTransaction(GetSelectedItemIndex());
+        inventory.UpdateMoneyCountAfterTransaction(GetSelectedItemIndex(), action);
         inventory.RemoveItemByIndex(GetSelectedItemIndex());
         ListHasDecreasedSize = true;
 

@@ -114,22 +114,15 @@ public class Inventory
         set { _removedItemIndex = value; }
     }
 
-    public void UpdateMoneyCountAfterShopTransaction(int index)
-    {
-        Item itemReference = GetItemByIndex(index);
-
-        ShopView.CalculateBalance(-itemReference.BasePrice);
-
-        if (OnMoneyChanged != null)
-            OnMoneyChanged();
-    }
-
-    public void UpdateMoneyCountAfterInventoryTransaction(int index, ShopActions action)
+    public void UpdateMoneyCountAfterTransaction(int index, ShopActions action)
     {
         Item itemReference = GetItemByIndex(index);
 
         switch (action)
         {
+            case ShopActions.PURCHASED:
+                ShopView.CalculateBalance(-itemReference.BasePrice);
+                break;
             case ShopActions.UPGRADED:
                 {
                     ShopView.CalculateBalance(-itemReference.BasePrice);

@@ -27,6 +27,7 @@ public class ShopView : MonoBehaviour
 
     public ShopModel shopModelInventory { get; private set; }
     public ShopController shopControllerInventory { get; protected set; }
+    private ShopController _shopTracker;
 
     [Header("Shop")]
     [SerializeField] private float _priceModifier = 2f;
@@ -46,6 +47,8 @@ public class ShopView : MonoBehaviour
     [Space]
     [SerializeField] private TextMeshProUGUI instructionText;
 
+    public int CurrentActiveShop = 0;
+
     public static int MoneyCount;
 
     public void Start()
@@ -61,15 +64,20 @@ public class ShopView : MonoBehaviour
 
     private void Update()
     {
+        switch (CurrentActiveShop)
+        {
+            case 0:
+                _shopTracker = shopController;
+                break;
+            case 1:
+                _shopTracker = shopControllerInventory;
+                break;
+        }
+
         //Switch between mouse and keyboard controllers
         if (Input.GetKeyUp(KeyCode.K))
         {
-            if (shopController is MouseController)
-            {
-                SwitchToKeyboardControl();
-            }
-
-            if (shopControllerInventory is MouseController)
+            if (_shopTracker is MouseController)
             {
                 SwitchToKeyboardControl();
             }
@@ -77,20 +85,14 @@ public class ShopView : MonoBehaviour
 
         else if (Input.GetMouseButtonUp(0))
         {
-            if (shopController is GridViewKeyboardController)
-            {
-                SwitchToMouseControl();
-            }
-
-            if (shopControllerInventory is GridViewKeyboardController)
+            if (_shopTracker is GridViewKeyboardController)
             {
                 SwitchToMouseControl();
             }
         }
 
         //Let the current controller handle input
-        shopController.HandleInput();
-        shopControllerInventory.HandleInput();
+        _shopTracker.HandleInput();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -131,5 +133,10 @@ public class ShopView : MonoBehaviour
         MoneyCount += change;
 
         return MoneyCount;
+    }
+
+    public void SwitchActiveShop(int index)
+    {
+        CurrentActiveShop = index;
     }
 }

@@ -33,10 +33,6 @@ public class GridViewKeyboardController : ShopController
     //Currently hardcoded to WASD to move focus and K to confirm the selected item
     public override void HandleInput()
     {
-        if (Input.anyKeyDown)
-        {
-            Debug.Log($"Index of selected item: {currentItemIndex}");
-        }
         //Move the focus to the left if possible
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -45,6 +41,8 @@ public class GridViewKeyboardController : ShopController
             {
                 currentItemIndex = 0;
             }
+            Debug.Log($"Index of selected item: {currentItemIndex}");
+
         }
 
         //Move the focus to the right if possible
@@ -55,6 +53,8 @@ public class GridViewKeyboardController : ShopController
             {
                 currentItemIndex = this.Model.inventory.GetItemCount() - 1;
             }
+            Debug.Log($"Index of selected item: {currentItemIndex}");
+
         }
 
         //Move the focus up if possible
@@ -62,13 +62,15 @@ public class GridViewKeyboardController : ShopController
         {
             if (currentItemIndex > columnCount - 1)
                 currentItemIndex -= columnCount;
+            Debug.Log($"Index of selected item: {currentItemIndex}");
         }
 
         //Move the focus down if possible
         if (Input.GetKeyDown(KeyCode.S))
         {
-;            if (currentItemIndex < this.Model.inventory.GetItemCount() - columnCount)
+            ; if (currentItemIndex < this.Model.inventory.GetItemCount() - columnCount)
                 currentItemIndex += columnCount;
+            Debug.Log($"Index of selected item: {currentItemIndex}");
         }
 
         //Select the item
@@ -77,6 +79,7 @@ public class GridViewKeyboardController : ShopController
         //Confirm the selected item with the corresponding action when K, U or O is pressed
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            Debug.Log("bought item.");
             ConfirmSelectedItem(ShopActions.PURCHASED, ShopView.Instance.shopModel);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
