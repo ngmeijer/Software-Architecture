@@ -172,7 +172,6 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     private void updateItemList()
     {
-        Debug.Log($"Removed item index: {usedModel.inventory.RemovedItemIndex}");
         int removedItemIndex = usedModel.inventory.RemovedItemIndex;
         itemList.RemoveAt(removedItemIndex);
 

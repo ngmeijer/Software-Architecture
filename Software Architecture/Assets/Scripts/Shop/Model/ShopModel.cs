@@ -17,8 +17,8 @@ public abstract class ShopModel : ISubject
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index
 
-    public delegate void OnItemClicked(int index);
-    public static event OnItemClicked OnClick;
+    public delegate void OnItemSelected(int index);
+    public static event OnItemSelected OnSelect;
 
     public bool removeItem;
 
@@ -56,6 +56,7 @@ public abstract class ShopModel : ISubject
         if (index >= 0 && index < inventory.GetItemCount())
         {
             selectedItemIndex = index;
+            OnSelect(index);
         }
     }
 
@@ -70,7 +71,7 @@ public abstract class ShopModel : ISubject
             if (index >= 0)
             {
                 selectedItemIndex = index;
-                OnClick(index);
+                OnSelect(index);
             }
         }
     }

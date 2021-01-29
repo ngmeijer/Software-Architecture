@@ -33,6 +33,10 @@ public class GridViewKeyboardController : ShopController
     //Currently hardcoded to WASD to move focus and K to confirm the selected item
     public override void HandleInput()
     {
+        if (Input.anyKeyDown)
+        {
+            Debug.Log($"Index of selected item: {currentItemIndex}");
+        }
         //Move the focus to the left if possible
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -71,15 +75,15 @@ public class GridViewKeyboardController : ShopController
         SelectItemByIndex(currentItemIndex);
 
         //Confirm the selected item with the corresponding action when K, U or O is pressed
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ConfirmSelectedItem(ShopActions.PURCHASED, ShopView.Instance.shopModel);
         }
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ConfirmSelectedItem(ShopActions.UPGRADED, ShopView.Instance.shopModelInventory);
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             ConfirmSelectedItem(ShopActions.SOLD, ShopView.Instance.shopModelInventory);
         }

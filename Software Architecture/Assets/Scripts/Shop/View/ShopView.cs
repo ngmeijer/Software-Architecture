@@ -98,8 +98,8 @@ public class ShopView : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------    
     protected void SwitchToKeyboardControl()
     {
-        instructionText.text = "The current control mode is: Keyboard Control, WASD to select item, press K to buy. Press left mouse button to switch to Mouse Control.";
-        //buyButton.gameObject.SetActive(false);//Show the buy button for the mouse controller
+        instructionText.text = "Controls: WASD to navigate. 1, 2, 3 to buy, upgrade & sell." +
+                               "\nLeft Mouse button to switch to MouseControl";
         shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);
         shopControllerInventory = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModelInventory);
 
@@ -115,8 +115,7 @@ public class ShopView : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------ 
     protected void SwitchToMouseControl()
     {
-        instructionText.text = "The current control mode is: Mouse Control, press 'K' to switch to Keyboard Control.";
-        //buyButton.gameObject.SetActive(true);//Show the buy button for the mouse controller
+        instructionText.text = "Controls: Mouse Control. \nPress 'K' to switch to Keyboard Control.";
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);
         shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
 

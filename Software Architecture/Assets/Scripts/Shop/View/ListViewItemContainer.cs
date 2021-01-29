@@ -38,7 +38,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
 
         updateItemDetailsUI();
 
-        ShopModel.OnClick += handlePanelForSelectedItem;
+        ShopModel.OnSelect += handlePanelForSelectedItem;
     }
 
     public void updateItemDetailsUI()
@@ -69,6 +69,6 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
 
     private void OnDestroy()
     {
-        ShopModel.OnClick -= handlePanelForSelectedItem;
+        ShopModel.OnSelect -= handlePanelForSelectedItem;
     }
 }

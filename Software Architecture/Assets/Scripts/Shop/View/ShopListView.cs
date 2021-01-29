@@ -54,7 +54,7 @@ public class ShopListView : MonoBehaviour, IObserver
                 break;
         }
 
-        ShopModel.OnClick += updateDetailsPanel;
+        ShopModel.OnSelect += updateDetailsPanel;
         updateMoneyPanel();
     }
 
