@@ -40,14 +40,14 @@ public class ShopGridView : MonoBehaviour, IObserver
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(0, ShopView.Instance.shopModel); 
-                ShopView.Instance.shopModel.Attach(this);
-                usedModel = ShopView.Instance.shopModel;
+                PopulateItemIconView(0, ShopCreator.Instance.shopModel); 
+                ShopCreator.Instance.shopModel.Attach(this);
+                usedModel = ShopCreator.Instance.shopModel;
                 break;
             case 1:
-                PopulateItemIconView(0, ShopView.Instance.shopModelInventory);
-                ShopView.Instance.shopModelInventory.Attach(this);
-                usedModel = ShopView.Instance.shopModelInventory;
+                PopulateItemIconView(0, ShopCreator.Instance.shopModelInventory);
+                ShopCreator.Instance.shopModelInventory.Attach(this);
+                usedModel = ShopCreator.Instance.shopModelInventory;
                 break;
         }
         updateMoneyPanel();
@@ -158,9 +158,9 @@ public class ShopGridView : MonoBehaviour, IObserver
 
         if (pSubject.ListHasItemUpgraded)
         {
-            Item item = ShopView.Instance.shopModelInventory.GetSelectedItem();
+            Item item = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
 
-            GameObject upgradedItem = itemList[ShopView.Instance.shopModelInventory.GetSelectedItemIndex()];
+            GameObject upgradedItem = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
 
             GridViewItemContainer itemContainer = upgradedItem.GetComponent<GridViewItemContainer>();
             itemContainer.updateItemDetailsUI();
@@ -182,6 +182,6 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     private void updateMoneyPanel()
     {
-        moneyText.text = ShopView.MoneyCount.ToString();
+        moneyText.text = ShopCreator.MoneyCount.ToString();
     }
 }

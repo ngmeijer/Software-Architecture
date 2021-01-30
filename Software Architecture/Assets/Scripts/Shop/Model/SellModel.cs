@@ -36,7 +36,7 @@ public class SellModel : ShopModel
     {
         bool isMaxLevel = _currentItem.CheckItemLevel();
 
-        if (ShopView.MoneyCount >= _currentItem.BasePrice)
+        if (ShopCreator.MoneyCount >= _currentItem.BasePrice)
         {
             if (!isMaxLevel)
             {

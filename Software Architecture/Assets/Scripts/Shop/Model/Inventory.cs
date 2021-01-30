@@ -119,16 +119,16 @@ public class Inventory
         switch (pAction)
         {
             case ShopActions.PURCHASED:
-                ShopView.CalculateBalance(-pItem.BasePrice);
+                ShopCreator.CalculateBalance(-pItem.BasePrice);
                 break;
             case ShopActions.UPGRADED:
                 {
-                    ShopView.CalculateBalance(-pItem.BasePrice);
+                    ShopCreator.CalculateBalance(-pItem.BasePrice);
                     break;
                 }
             case ShopActions.SOLD:
                 {
-                    ShopView.CalculateBalance(+pItem.BasePrice);
+                    ShopCreator.CalculateBalance(+pItem.BasePrice);
                     break;
                 }
         }

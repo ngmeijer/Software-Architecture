@@ -21,14 +21,14 @@ public class ShopSellUpgradeView : ShopTransactionView
         upgradeButton.onClick.AddListener(
             delegate
             {
-                ShopView.Instance.shopControllerInventory.ConfirmSelectedItem(ShopActions.UPGRADED, ShopView.Instance.shopModelInventory);
+                ShopCreator.Instance.shopControllerInventory.ConfirmSelectedItem(ShopActions.UPGRADED, ShopCreator.Instance.shopModelInventory);
             }
         );
 
         sellButton.onClick.AddListener(
             delegate
             {
-                ShopView.Instance.shopControllerInventory.ConfirmSelectedItem(ShopActions.SOLD, ShopView.Instance.shopModelInventory);
+                ShopCreator.Instance.shopControllerInventory.ConfirmSelectedItem(ShopActions.SOLD, ShopCreator.Instance.shopModelInventory);
             }
         );
     }

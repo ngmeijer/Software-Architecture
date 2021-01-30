@@ -45,12 +45,12 @@ public class ShopListView : MonoBehaviour, IObserver
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(0, ShopView.Instance.shopModel);
-                ShopView.Instance.shopModel.Attach(this);
+                PopulateItemIconView(0, ShopCreator.Instance.shopModel);
+                ShopCreator.Instance.shopModel.Attach(this);
                 break;
             case 1:
-                PopulateItemIconView(0, ShopView.Instance.shopModelInventory);
-                ShopView.Instance.shopModelInventory.Attach(this);
+                PopulateItemIconView(0, ShopCreator.Instance.shopModelInventory);
+                ShopCreator.Instance.shopModelInventory.Attach(this);
                 break;
         }
 
@@ -121,9 +121,9 @@ public class ShopListView : MonoBehaviour, IObserver
 
         if (pSubject.ListHasItemUpgraded)
         {
-            Item item = ShopView.Instance.shopModelInventory.GetSelectedItem();
+            Item item = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
 
-            GameObject upgradedItem = itemList[ShopView.Instance.shopModelInventory.GetSelectedItemIndex()];
+            GameObject upgradedItem = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
 
             ListViewItemContainer itemContainer = upgradedItem.GetComponent<ListViewItemContainer>();
             itemContainer.updateItemDetailsUI();
@@ -142,10 +142,10 @@ public class ShopListView : MonoBehaviour, IObserver
         switch (InventoryInstance)
         {
             case 0:
-                currentItem = ShopView.Instance.shopModel.GetSelectedItem();
+                currentItem = ShopCreator.Instance.shopModel.GetSelectedItem();
                 break;
             case 1:
-                currentItem = ShopView.Instance.shopModelInventory.GetSelectedItem(); 
+                currentItem = ShopCreator.Instance.shopModelInventory.GetSelectedItem(); 
                 break;
         }
 
@@ -159,7 +159,7 @@ public class ShopListView : MonoBehaviour, IObserver
 
     private void updateItemList()
     {
-        int removedItemIndex = ShopView.Instance.shopModel.inventory.RemovedItemIndex;
+        int removedItemIndex = ShopCreator.Instance.shopModel.inventory.RemovedItemIndex;
         itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
@@ -168,6 +168,6 @@ public class ShopListView : MonoBehaviour, IObserver
 
     private void updateMoneyPanel()
     {
-        moneyText.text = ShopView.MoneyCount.ToString();
+        moneyText.text = ShopCreator.MoneyCount.ToString();
     }
 }

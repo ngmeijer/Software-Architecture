@@ -42,7 +42,7 @@ namespace Tests
             yield return null; //yield return null skips one frame, waits for the Unity scene to load
 
             //now test if a shopModel is assigned to gridView
-            Assert.IsNotNull(ShopView.Instance.shopModel, "No BuyModel is assigned in ShopGridView");
+            Assert.IsNotNull(ShopCreator.Instance.shopModel, "No BuyModel is assigned in ShopGridView");
         }
 
         //This case tests if the grid buy view displays the correct amount of Items
@@ -59,7 +59,7 @@ namespace Tests
                                                  //so that the view finished updating and rendering everything 
 
             int itemCount = gridItemsPanel.transform.childCount;
-            Assert.AreEqual(ShopView.Instance.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
+            Assert.AreEqual(ShopCreator.Instance.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
         }
 
         //This case tests if the buyModel can throw an ArgumentOutOfRangeException when it's asked to select an item by a negative
@@ -76,7 +76,7 @@ namespace Tests
             //was thrown
             Assert.Throws<System.ArgumentOutOfRangeException>(delegate
             {
-                ShopView.Instance.shopModel.SelectItemByIndex(-1);
+                ShopCreator.Instance.shopModel.SelectItemByIndex(-1);
             });
         }
     }

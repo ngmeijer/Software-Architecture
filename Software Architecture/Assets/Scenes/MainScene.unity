@@ -3602,7 +3602,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1945168293}
-        m_TargetAssemblyTypeName: ShopView, SAShop
+        m_TargetAssemblyTypeName: ShopCreator, SAShop
         m_MethodName: SwitchActiveShop
         m_Mode: 3
         m_Arguments:
@@ -3612,6 +3612,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1064680426}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &524954760
 MonoBehaviour:
@@ -3855,7 +3867,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1945168293}
-        m_TargetAssemblyTypeName: ShopView, SAShop
+        m_TargetAssemblyTypeName: ShopCreator, SAShop
         m_MethodName: SwitchActiveShop
         m_Mode: 3
         m_Arguments:
@@ -3865,6 +3877,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1064680426}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &548736118
 MonoBehaviour:
@@ -7167,8 +7191,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 590.7, y: 167.50002}
-  m_SizeDelta: {x: 416.39264, y: 334.99997}
+  m_AnchoredPosition: {x: 590.7, y: 118.6}
+  m_SizeDelta: {x: 416.39264, y: 432.7272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1160830011
 MonoBehaviour:
@@ -7212,7 +7236,10 @@ MonoBehaviour:
 
     - Last UML diagram
 
-    - Code comments'
+    - Code comments
+
+    -
+    Code review'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12287,18 +12314,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1945168291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9980ada8d9deb14b81cfdfe3f04bff8, type: 3}
+  m_Script: {fileID: 11500000, guid: fb8a51d779f84854ea455bc0f3696259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _priceModifier: 2
-  _weaponCountShop: 8
-  _armorCountShop: 8
-  _potionCountShop: 8
+  _weaponCountShop: 10
+  _armorCountShop: 10
+  _potionCountShop: 9
   _priceModifierInventory: 2
   _weaponCountInventory: 3
-  _armorCountInventory: 2
-  _potionCountInventory: 2
-  _money: 250
+  _armorCountInventory: 3
+  _potionCountInventory: 5
+  _money: 536
   instructionText: {fileID: 1352417142}
   CurrentActiveShop: 0
 --- !u!1 &1946878673
@@ -12960,7 +12987,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1945168293}
-        m_TargetAssemblyTypeName: ShopView, SAShop
+        m_TargetAssemblyTypeName: ShopCreator, SAShop
         m_MethodName: SwitchActiveShop
         m_Mode: 3
         m_Arguments:
@@ -12970,6 +12997,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1064680426}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1979432070
 MonoBehaviour:
@@ -13479,7 +13518,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1945168293}
-        m_TargetAssemblyTypeName: ShopView, SAShop
+        m_TargetAssemblyTypeName: ShopCreator, SAShop
         m_MethodName: SwitchActiveShop
         m_Mode: 3
         m_Arguments:
@@ -13489,6 +13528,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1064680426}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2029675617
 MonoBehaviour:

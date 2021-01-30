@@ -26,7 +26,7 @@ public class BuyModel : ShopModel
     {
         Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
 
-        if (ShopView.MoneyCount >= item.BasePrice)
+        if (ShopCreator.MoneyCount >= item.BasePrice)
         {
             inventory.UpdateMoneyCountAfterTransaction(item, action);
             inventory.RemoveItemByIndex(GetSelectedItemIndex());
