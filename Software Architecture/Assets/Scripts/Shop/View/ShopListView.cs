@@ -9,18 +9,9 @@ using UnityEngine.UI;
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
-public class ShopListView : MonoBehaviour, IObserver
+public class ShopListView : ShopView
 {
-    //SUBSCRIBER CLASS!
     [SerializeField] private VerticalLayoutGroup itemLayoutGroup; //Links to a VerticalLayoutGroup in the Unity scene
-
-    [SerializeField] private GameObject itemPrefab; //A prefab to display an item in the view
-
-    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
-
-    [SerializeField] private TextMeshProUGUI moneyText;
-
-    private ViewConfig viewConfig;
 
     [Header("Details panel")]
     [SerializeField] private TextMeshProUGUI itemName;
@@ -31,17 +22,10 @@ public class ShopListView : MonoBehaviour, IObserver
     [SerializeField] private Image itemIcon;
 
     [Space]
-    [SerializeField] private int InventoryInstance = 0;
-
     private Item currentItem = null;
 
     private void Start()
     {
-        viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
-        Debug.Assert(viewConfig != null);
-
-        Inventory.OnMoneyChanged += updateMoneyPanel;
-
         switch (InventoryInstance)
         {
             case 0:
@@ -55,17 +39,6 @@ public class ShopListView : MonoBehaviour, IObserver
         }
 
         ShopModel.OnSelect += updateDetailsPanel;
-        updateMoneyPanel();
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  RepopulateItems()
-    //------------------------------------------------------------------------------------------------------------------------        
-    //Clears the grid view and repopulates it with new icons (updates the visible icons)
-    public void RepopulateItemIconView(int index)
-    {
-        ClearIconView();
-        //PopulateItemIconView(index);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -77,23 +50,6 @@ public class ShopListView : MonoBehaviour, IObserver
         foreach (Item item in model.inventory.GetItems())
         {
             AddItemToView(item);
-        }
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-    //                                                  ClearIconView()
-    //------------------------------------------------------------------------------------------------------------------------        
-    //Removes all existing icons in the grid view
-    private void ClearIconView()
-    {
-        itemList.Clear();
-        Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
-        foreach (Transform child in allIcons)
-        {
-            if (child != itemLayoutGroup.transform)
-            {
-                Destroy(child.gameObject);
-            }
         }
     }
 
@@ -114,15 +70,13 @@ public class ShopListView : MonoBehaviour, IObserver
         itemList.Add(newItemInstance);
     }
 
-    public void UpdateObservers(ISubject pSubject)
+    public override void UpdateObservers(ISubject pSubject)
     {
         if (pSubject.ListHasDecreasedSize)
             updateItemList();
 
         if (pSubject.ListHasItemUpgraded)
         {
-            Item item = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
-
             GameObject upgradedItem = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
 
             ListViewItemContainer itemContainer = upgradedItem.GetComponent<ListViewItemContainer>();
@@ -164,10 +118,5 @@ public class ShopListView : MonoBehaviour, IObserver
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
-    }
-
-    private void updateMoneyPanel()
-    {
-        moneyText.text = ShopCreator.MoneyCount.ToString();
     }
 }
