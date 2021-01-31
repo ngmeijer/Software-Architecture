@@ -11,36 +11,20 @@ using TMPro;
 /// the one specified in the Item data, and it enables or disables the infoPanel to indicate if the pItem is selected
 /// and display the details of the pItem.
 /// </summary>
-public class ListViewItemContainer : MonoBehaviour, IItemContainer
+public class ListViewItemContainer : ViewItemContainer
 {
-    public Item Item { get; private set; } //Public getter for the pItem, required by IItemContainer interface.
-
-    //Links to the necessary UI elements
-    [SerializeField] private GameObject highLight;
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private TextMeshProUGUI itemTypeText;
-    [SerializeField] private TextMeshProUGUI itemRarityText;
-    [SerializeField] private TextMeshProUGUI itemPriceText;
-    [SerializeField] private Image icon;
-
-    //Link to the atlas of all the pItem icons, use to retrieve sprites for items. For more information of the API check:
-    // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
-    [SerializeField] private SpriteAtlas iconAtlas;
+    public override Item Item { get; set; } //Public getter for the pItem, required by IItemContainer interface.
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------
-    public void Initialize(Item pItem)
+    public override void Initialize(Item pItem)
     {
-        //Stores the pItem
-        this.Item = pItem;
-
         updateItemDetailsUI();
-
         ShopModel.OnSelect += handlePanelForSelectedItem;
     }
 
-    public void updateItemDetailsUI()
+    public override void updateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
         itemPriceText.text = Item.BasePrice.ToString();
@@ -53,7 +37,7 @@ public class ListViewItemContainer : MonoBehaviour, IItemContainer
         icon.sprite = Item.ItemSprite;
     }
 
-    public void handlePanelForSelectedItem(int index)
+    public override void handlePanelForSelectedItem(int index)
     {
         if (this.gameObject == null)
             return;

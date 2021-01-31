@@ -17,16 +17,15 @@ public class SellModel : ShopModel
     {
         _currentItem = inventory.GetItemByIndex(GetSelectedItemIndex());
 
-        if (action == ShopActions.SOLD)
+        switch (action)
         {
-            SellItem();
+            case ShopActions.SOLD:
+                SellItem();
+                break;
+            case ShopActions.UPGRADED:
+                UpgradeItem();
+                break;
         }
-
-        if (action == ShopActions.UPGRADED)
-        {
-            UpgradeItem();
-        }
-
         NotifyObservers();
     }
 

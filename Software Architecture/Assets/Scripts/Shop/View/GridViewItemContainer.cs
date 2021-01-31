@@ -11,44 +11,26 @@ using TMPro;
 /// the one specified in the Item data, and it enables or disables the infoPanel to indicate if the item is selected
 /// and display the details of the item.
 /// </summary>
-public class GridViewItemContainer : MonoBehaviour, IItemContainer
+public class GridViewItemContainer : ViewItemContainer
 {
-    public Item Item { get; private set; }
-
-    //Link to the highlight image (set in prefab)
-    [SerializeField] private GameObject highLight;
+    public override Item Item { get; set; }
 
     //Link to the infomation panel (set in prefab)
     [SerializeField] private GameObject infoPanel;
-
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private TextMeshProUGUI itemTypeText;
-    [SerializeField] private TextMeshProUGUI itemRarityText;
-    [SerializeField] private TextMeshProUGUI itemPriceText;
     [SerializeField] private TextMeshProUGUI itemDescriptionText;
     [SerializeField] private TextMeshProUGUI itemPropertyText;
-
-    //Link to the atlas of all the item icons, use to retrieve sprites for items. For more information of the API check:
-    // https://docs.unity3d.com/2019.3/Documentation/Manual/class-SpriteAtlas.html
-    [SerializeField] private SpriteAtlas iconAtlas;
-
-    //link to the original item (set in Initialize)
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------
-    public void Initialize(Item item)
+    public override void Initialize(Item pItem)
     {
-        //Stores the item
-        this.Item = item;
-
+        Item = pItem;
         updateItemDetailsUI();
-
         ShopModel.OnSelect += handlePanelForSelectedItem;
     }
 
-    public void updateItemDetailsUI()
+    public override void updateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
         itemDescriptionText.text = Item.Description;
@@ -66,7 +48,7 @@ public class GridViewItemContainer : MonoBehaviour, IItemContainer
         }
     }
 
-    public void handlePanelForSelectedItem(int index)
+    public override void handlePanelForSelectedItem(int index)
     {
         if (this.gameObject == null)
             return;

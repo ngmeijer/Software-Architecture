@@ -308,9 +308,8 @@ MonoBehaviour:
   itemTypeText: {fileID: 6553243022573261484}
   itemRarityText: {fileID: 6553243022646068046}
   itemPriceText: {fileID: 3915120382207314250}
-  icon: {fileID: 1823409932}
-  iconAtlas: {fileID: 4343727234628468602, guid: 61885a51c5dad46cd8f257139ddcc43a,
-    type: 2}
+  itemDescriptionText: {fileID: 0}
+  itemPropertyText: {fileID: 0}
 --- !u!1 &6553243021295918077
 GameObject:
   m_ObjectHideFlags: 0

@@ -524,16 +524,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highLight: {fileID: 4763744946543245952}
-  infoPanel: {fileID: 845423096962593660}
   icon: {fileID: 1985633671483540185}
   itemNameText: {fileID: 4391249473562572445}
   itemTypeText: {fileID: 4983456753740745199}
   itemRarityText: {fileID: 2492011378434963668}
   itemPriceText: {fileID: 6714676216107572490}
-  itemDescriptionText: {fileID: 2360704200307441066}
-  itemPropertyText: {fileID: 1149199481333750879}
   iconAtlas: {fileID: 4343727234628468602, guid: 61885a51c5dad46cd8f257139ddcc43a,
     type: 2}
+  infoPanel: {fileID: 845423096962593660}
+  itemDescriptionText: {fileID: 2360704200307441066}
+  itemPropertyText: {fileID: 1149199481333750879}
 --- !u!222 &7182777043849646237
 CanvasRenderer:
   m_ObjectHideFlags: 0

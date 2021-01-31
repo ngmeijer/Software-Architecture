@@ -19,8 +19,6 @@ public enum ShopActions
 public abstract class ShopModel : ISubject
 {
     public Inventory inventory { get; } // Getter of the inventory, the views might need this to set up the display.
-    public bool ListHasDecreasedSize { get; set; }
-    public bool ListHasItemUpgraded { get; set; }
     public int SubjectState { get; set; }
 
     protected float priceModifier; //Modifies the item's price based on its base price
@@ -28,9 +26,6 @@ public abstract class ShopModel : ISubject
 
     public delegate void OnItemSelected(int index);
     public static event OnItemSelected OnSelect;
-
-    public bool removeItem;
-
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  shopModel()

@@ -18,15 +18,15 @@ public class BuyModel : ShopModel
     //------------------------------------------------------------------------------------------------------------------------
     //                                                 ConfirmTransactionSelectedItem()
     //------------------------------------------------------------------------------------------------------------------------
-    public override void ConfirmTransactionSelectedItem(ShopActions action)
+    public override void ConfirmTransactionSelectedItem(ShopActions pAction)
     {
         Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
 
         if (ShopCreator.MoneyCount >= item.BasePrice)
         {
-            inventory.UpdateMoneyCountAfterTransaction(item, action);
+            inventory.UpdateMoneyCountAfterTransaction(item, pAction);
             inventory.RemoveItemByIndex(GetSelectedItemIndex());
-            SubjectState = (int)ShopActions.PURCHASED;
+            SubjectState = (int)pAction;
 
             NotifyObservers();
         }
