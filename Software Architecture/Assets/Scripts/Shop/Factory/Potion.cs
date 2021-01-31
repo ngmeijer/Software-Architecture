@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Random = System.Random;
 
 public class Potion : Item
 {
@@ -89,6 +88,15 @@ public class Potion : Item
         }
     };
 
+    private readonly string[,] _itemIconNames = new string[5, 2]
+    {
+        {"130", "131"},
+        {"285", "286"},
+        {"135", "136"},
+        {"143", "144"},
+        {"140", "141"}
+    };
+
     public Potion(EItemRarity pItemRarity)
     {
         _itemRarity = pItemRarity;
@@ -152,52 +160,19 @@ public class Potion : Item
 
     public override void GenerateItemDetails()
     {
-        Random r = new Random();
-
-        switch (_itemRarity)
-        {
-            case EItemRarity.COMMON:
-                IconName = "items_285";
-                Name = _itemNameArrays[0, r.Next(_itemNameArrays.GetLength(1))];
-                Description = _itemDescriptionArrays[0, r.Next(_itemDescriptionArrays.GetLength(1))];
-                BaseEnchantmentValue = _healValues[0];
-                BasePrice = 10;
-                break;
-
-            case EItemRarity.UNCOMMON:
-                IconName = "items_132";
-                Name = _itemNameArrays[1, r.Next(_itemNameArrays.GetLength(1))];
-                Description = _itemDescriptionArrays[1, r.Next(_itemDescriptionArrays.GetLength(1))];
-                BaseEnchantmentValue = _healValues[1];
-                BasePrice = 25;
-                break;
-
-            case EItemRarity.RARE:
-                IconName = "items_135";
-                Name = _itemNameArrays[2, r.Next(_itemNameArrays.GetLength(1))];
-                Description = _itemDescriptionArrays[2, r.Next(_itemDescriptionArrays.GetLength(1))];
-                BaseEnchantmentValue = _healValues[2];
-                BasePrice = 50;
-                break;
-
-            case EItemRarity.EPIC:
-                IconName = "items_144";
-                Name = _itemNameArrays[3, r.Next(_itemNameArrays.GetLength(1))];
-                Description = _itemDescriptionArrays[3, r.Next(_itemDescriptionArrays.GetLength(1))];
-                BaseEnchantmentValue = _healValues[3];
-                BasePrice = 80;
-                break;
-
-            case EItemRarity.LEGENDARY:
-                IconName = "items_141";
-                Name = _itemNameArrays[4, r.Next(_itemNameArrays.GetLength(1))];
-                Description = _itemDescriptionArrays[4, r.Next(_itemDescriptionArrays.GetLength(1))];
-                BaseEnchantmentValue = _healValues[4];
-                BasePrice = 125;
-                break;
-        }
+        Name = TakeElementFromArray(_itemNameArrays, (int)_itemRarity);
+        IconName = "items_" + TakeElementFromArray(_itemIconNames, (int)_itemRarity);
+        Description = TakeElementFromArray(_itemDescriptionArrays, 0);
+        BaseEnchantmentValue = _healValues[(int)_itemRarity];
     }
 
+    private string TakeElementFromArray(string[,] array, int index)
+    {
+        string value = "unassigned";
+        float randomIndex = Random.Range(0, array.GetLength(1));
+        value = array[index, (int)randomIndex];
+        return value;
+    }
     public override bool CheckItemLevel()
     {
         bool isMaxLevel;
