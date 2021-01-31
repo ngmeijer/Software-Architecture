@@ -21,6 +21,7 @@ public class Potion : Item
         70,
         100
     };
+
     private string _damageTextValue = "Heal: ";
 
     private readonly string[,] _itemNameArrays = new string[5, 2]
@@ -164,26 +165,6 @@ public class Potion : Item
         IconName = "items_" + TakeElementFromArray(_itemIconNames, (int)_itemRarity);
         Description = TakeElementFromArray(_itemDescriptionArrays, 0);
         BaseEnchantmentValue = _healValues[(int)_itemRarity];
-    }
-
-    private string TakeElementFromArray(string[,] array, int index)
-    {
-        string value = "unassigned";
-        float randomIndex = Random.Range(0, array.GetLength(1));
-        value = array[index, (int)randomIndex];
-        return value;
-    }
-    public override bool CheckItemLevel()
-    {
-        bool isMaxLevel;
-        isMaxLevel = ItemRarity.Equals(EItemRarity.LEGENDARY);
-
-        return isMaxLevel;
-    }
-
-    public override void UpgradeItem()
-    {
-        ItemRarity++;
-        GenerateItemDetails();
+        BasePrice = _prices[(int)_itemRarity];
     }
 }

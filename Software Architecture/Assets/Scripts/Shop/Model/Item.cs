@@ -10,14 +10,42 @@ public abstract class Item
 
     public abstract string BaseEnchantmentText { get; set; }
     public abstract int BaseEnchantmentValue { get; set; }
+    public abstract Sprite ItemSprite { get; set; }
 
     public int ItemIndex = 0;
+
+    protected int[] _prices = new int[5]
+    {
+        10,
+        25,
+        50,
+        100,
+        150
+    };
 
     public abstract EItemRarity ItemRarity { get; set; }
 
     public abstract void GenerateItemDetails();
-    public abstract bool CheckItemLevel();
-    public abstract void UpgradeItem();
 
-    public abstract Sprite ItemSprite { get; set; }
+    protected string TakeElementFromArray(string[,] array, int index)
+    {
+        string value = "unassigned";
+        float randomIndex = Random.Range(0, array.GetLength(1));
+        value = array[index, (int)randomIndex];
+        return value;
+    }
+
+    public bool CheckItemLevel()
+    {
+        bool isMaxLevel;
+        isMaxLevel = ItemRarity.Equals(EItemRarity.LEGENDARY);
+
+        return isMaxLevel;
+    }
+
+    public void UpgradeItem()
+    {
+        ItemRarity++;
+        GenerateItemDetails();
+    }
 }
