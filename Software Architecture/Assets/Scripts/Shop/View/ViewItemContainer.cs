@@ -23,10 +23,7 @@ public abstract class ViewItemContainer : MonoBehaviour, IItemContainer
     //link to the original item (set in Initialize)
     public abstract Item Item { get; set; }
 
-    public virtual void Initialize(Item pItem)
-    {
-        this.Item = pItem;
-    }
+    public abstract void Initialize(Item pItem);
 
     public abstract void updateItemDetailsUI();
     public abstract void handlePanelForSelectedItem(int index);

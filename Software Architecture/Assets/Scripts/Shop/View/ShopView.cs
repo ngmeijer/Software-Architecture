@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class ShopView : MonoBehaviour, IObserver
 {
-    [SerializeField] protected  GameObject itemPrefab; //A prefab to display an item in the view
+    [SerializeField] protected GameObject itemPrefab; //A prefab to display an item in the view
 
     [SerializeField] protected List<GameObject> itemList = new List<GameObject>();
 
-    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] protected TextMeshProUGUI moneyText;
     protected ViewConfig viewConfig;
 
     [SerializeField] protected int InventoryInstance = 0;
+    protected ShopModel usedModel;
 
     private void Start()
     {

@@ -41,8 +41,6 @@ public class GridViewKeyboardController : ShopController
             {
                 currentItemIndex = 0;
             }
-            Debug.Log($"Index of selected item: {currentItemIndex}");
-
         }
 
         //Move the focus to the right if possible
@@ -53,28 +51,27 @@ public class GridViewKeyboardController : ShopController
             {
                 currentItemIndex = this.Model.inventory.GetItemCount() - 1;
             }
-            Debug.Log($"Index of selected item: {currentItemIndex}");
-
         }
 
         //Move the focus up if possible
         if (Input.GetKeyDown(KeyCode.W))
         {
             if (currentItemIndex > columnCount - 1)
-                currentItemIndex -= columnCount;
-            Debug.Log($"Index of selected item: {currentItemIndex}");
+                currentItemIndex -= columnCount + 1;
         }
 
         //Move the focus down if possible
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (currentItemIndex < this.Model.inventory.GetItemCount() - columnCount)
-                currentItemIndex += columnCount;
-            Debug.Log($"Index of selected item: {currentItemIndex}");
+            Debug.Log(columnCount);
+            if (currentItemIndex < this.Model.inventory.GetItemCount())
+                currentItemIndex += columnCount + 1;
         }
 
         //Select the item
-        SelectItemByIndex(currentItemIndex);
+        if (Input.anyKeyDown)
+            SelectItemByIndex(currentItemIndex);
+
         //Confirm the selected item with the corresponding action when K, U or O is pressed
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

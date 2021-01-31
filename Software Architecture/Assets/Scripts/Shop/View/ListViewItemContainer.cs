@@ -20,6 +20,7 @@ public class ListViewItemContainer : ViewItemContainer
     //------------------------------------------------------------------------------------------------------------------------
     public override void Initialize(Item pItem)
     {
+        Item = pItem;
         updateItemDetailsUI();
         ShopModel.OnSelect += handlePanelForSelectedItem;
     }

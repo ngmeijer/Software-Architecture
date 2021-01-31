@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ShopListView : ShopView
 {
-    [SerializeField] private VerticalLayoutGroup itemLayoutGroup; //Links to a VerticalLayoutGroup in the Unity scene
+    [SerializeField] protected VerticalLayoutGroup itemLayoutGroup;
 
     [Header("Details panel")]
     [SerializeField] private TextMeshProUGUI itemName;

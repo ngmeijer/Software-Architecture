@@ -10,23 +10,9 @@ using UnityEngine.UI;
 /// information outside of the BuyModel, for example, the money amount from the player's inventory, then you need to either keep a
 /// reference to all the related models, or make this class an observer/event subscriber of the related models.
 /// </summary>
-public class ShopGridView : MonoBehaviour, IObserver
+public class ShopGridView : ShopView
 {
-    [SerializeField] private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
-
-    [SerializeField] private GameObject itemPrefab; //A prefab to display an item in the view
-
-    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
-
-    [SerializeField] private TextMeshProUGUI moneyText;
-
-    [SerializeField] private TextMeshProUGUI instructionText;
-
-    private ViewConfig viewConfig;
-
-    [SerializeField] private int InventoryInstance = 0;
-
-    private ShopModel usedModel;
+    [SerializeField] protected GridLayoutGroup itemLayoutGroup;
 
     private void Start()
     {
@@ -38,12 +24,12 @@ public class ShopGridView : MonoBehaviour, IObserver
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(0, ShopCreator.Instance.shopModel);
+                PopulateItemIconView(ShopCreator.Instance.shopModel);
                 ShopCreator.Instance.shopModel.Attach(this);
                 usedModel = ShopCreator.Instance.shopModel;
                 break;
             case 1:
-                PopulateItemIconView(0, ShopCreator.Instance.shopModelInventory);
+                PopulateItemIconView(ShopCreator.Instance.shopModelInventory);
                 ShopCreator.Instance.shopModelInventory.Attach(this);
                 usedModel = ShopCreator.Instance.shopModelInventory;
                 break;
@@ -78,42 +64,14 @@ public class ShopGridView : MonoBehaviour, IObserver
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView(int index, ShopModel model)
+    private void PopulateItemIconView(ShopModel model)
     {
-        switch (index)
+        foreach (Item item in model.inventory.GetItems())
         {
-            case 0:
-                foreach (Item item in model.inventory.GetItems())
-                {
-                    AddItemToView(item);
-                }
-                break;
-
-            case 1:
-                foreach (Item weapon in model.inventory.GetItems())
-                {
-                    if (weapon.ItemType == "Weapon")
-                        AddItemToView(weapon);
-                }
-                break;
-
-            case 2:
-                foreach (Item armor in model.inventory.GetItems())
-                {
-                    if (armor.ItemType == "Armor")
-                        AddItemToView(armor);
-                }
-                break;
-
-            case 3:
-                foreach (Item potion in model.inventory.GetItems())
-                {
-                    if (potion.ItemType == "Potion")
-                        AddItemToView(potion);
-                }
-                break;
+            AddItemToView(item);
         }
     }
+
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  ClearIconView()
@@ -149,7 +107,7 @@ public class ShopGridView : MonoBehaviour, IObserver
         itemList.Add(newItemInstance);
     }
 
-    public void UpdateObservers(ISubject pSubject)
+    public override void UpdateObservers(ISubject pSubject)
     {
         if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
             updateItemList();
@@ -178,11 +136,5 @@ public class ShopGridView : MonoBehaviour, IObserver
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
-    }
-
-
-    private void updateMoneyPanel()
-    {
-        moneyText.text = ShopCreator.MoneyCount.ToString();
     }
 }
