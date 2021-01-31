@@ -12,8 +12,6 @@ using UnityEngine.UI;
 /// </summary>
 public class ShopGridView : MonoBehaviour, IObserver
 {
-    //SUBSCRIBER CLASS!
-
     [SerializeField] private GridLayoutGroup itemLayoutGroup; //Links to a GridLayoutGroup in the Unity scene
 
     [SerializeField] private GameObject itemPrefab; //A prefab to display an item in the view
@@ -40,7 +38,7 @@ public class ShopGridView : MonoBehaviour, IObserver
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(0, ShopCreator.Instance.shopModel); 
+                PopulateItemIconView(0, ShopCreator.Instance.shopModel);
                 ShopCreator.Instance.shopModel.Attach(this);
                 usedModel = ShopCreator.Instance.shopModel;
                 break;
@@ -153,10 +151,13 @@ public class ShopGridView : MonoBehaviour, IObserver
 
     public void UpdateObservers(ISubject pSubject)
     {
-        if (pSubject.ListHasDecreasedSize)
+        if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
             updateItemList();
 
-        if (pSubject.ListHasItemUpgraded)
+        if (pSubject.SubjectState == (int)ShopActions.SOLD)
+            updateItemList();
+
+        if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
             Item item = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
 

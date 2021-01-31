@@ -1,7 +1,6 @@
 ﻿public interface ISubject
 {
-    bool ListHasDecreasedSize { get; set; }
-    bool ListHasItemUpgraded { get; set; }
+    int SubjectState { get; set; }
 
     void Attach(IObserver  pObserver);
 

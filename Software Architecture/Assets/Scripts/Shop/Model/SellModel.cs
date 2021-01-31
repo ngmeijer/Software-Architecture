@@ -5,8 +5,6 @@ public class SellModel : ShopModel
 {
     private List<IObserver> _observerList = new List<IObserver>();
 
-    public int MainState { get; set; } = 0;
-
     private Item _currentItem;
 
     public SellModel(float pPriceModifier, int pWeaponCount, int pArmorCount, int pPotionCount) : base(pPriceModifier, pWeaponCount, pArmorCount, pPotionCount)
@@ -40,18 +38,18 @@ public class SellModel : ShopModel
         {
             if (!isMaxLevel)
             {
-                inventory.UpdateMoneyCountAfterTransaction(_currentItem, ShopActions.UPGRADED);
+                SubjectState = (int)ShopActions.UPGRADED;
+                inventory.UpdateMoneyCountAfterTransaction(_currentItem, (ShopActions)SubjectState);
                 _currentItem.UpgradeItem();
-                ListHasItemUpgraded = true;
             }
         }
     }
 
     private void SellItem()
     {
+        SubjectState = (int)ShopActions.SOLD;
         inventory.RemoveItemByIndex(GetSelectedItemIndex());
-        inventory.UpdateMoneyCountAfterTransaction(_currentItem, ShopActions.SOLD);
-        ListHasDecreasedSize = true;
+        inventory.UpdateMoneyCountAfterTransaction(_currentItem, (ShopActions)SubjectState);
     }
 
     public override void Attach(IObserver pObserver)
@@ -73,7 +71,7 @@ public class SellModel : ShopModel
             observer.UpdateObservers(this);
         }
 
-        ListHasDecreasedSize = false;
+        SubjectState = (int)ShopActions.DEFAULT;
 
         Debug.Log("SellModel subject: Notifying Observers...");
     }

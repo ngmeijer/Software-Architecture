@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ShopActions
+{
+    DEFAULT,
+    PURCHASED,
+    UPGRADED,
+    SOLD
+}
+
 /// <summary>
 ///This class holds the model of our Shop. It contains an inventory, a price modifier, and an index to select the items.
 ///In its current setup, view and controller need to get data via polling. Advisable is, to apply observer pattern or
@@ -13,6 +21,7 @@ public abstract class ShopModel : ISubject
     public Inventory inventory { get; } // Getter of the inventory, the views might need this to set up the display.
     public bool ListHasDecreasedSize { get; set; }
     public bool ListHasItemUpgraded { get; set; }
+    public int SubjectState { get; set; }
 
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index

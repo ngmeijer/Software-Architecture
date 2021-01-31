@@ -10,17 +10,13 @@ public class BuyModel : ShopModel
 {
     private readonly List<IObserver> _observerList = new List<IObserver>();
 
-    public int MainState { get; set; } = 0;
-
     public BuyModel(float pPriceModifier, int pWeaponCount, int pArmorCount, int pPotionCount) : base(pPriceModifier, pWeaponCount, pArmorCount, pPotionCount)
     {
         NotifyObservers();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
-
     //                                                 ConfirmTransactionSelectedItem()
-
     //------------------------------------------------------------------------------------------------------------------------
     public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
@@ -30,7 +26,7 @@ public class BuyModel : ShopModel
         {
             inventory.UpdateMoneyCountAfterTransaction(item, action);
             inventory.RemoveItemByIndex(GetSelectedItemIndex());
-            ListHasDecreasedSize = true;
+            SubjectState = (int)ShopActions.PURCHASED;
 
             NotifyObservers();
         }
@@ -57,7 +53,7 @@ public class BuyModel : ShopModel
             observer.UpdateObservers(this);
         }
 
-        ListHasDecreasedSize = false;
+        SubjectState = (int)ShopActions.DEFAULT;
 
         Debug.Log("Subject: Notifying Observers...");
     }

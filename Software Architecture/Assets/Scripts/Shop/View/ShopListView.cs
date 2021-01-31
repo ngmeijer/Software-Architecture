@@ -72,10 +72,13 @@ public class ShopListView : ShopView
 
     public override void UpdateObservers(ISubject pSubject)
     {
-        if (pSubject.ListHasDecreasedSize)
+        if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
             updateItemList();
 
-        if (pSubject.ListHasItemUpgraded)
+        if (pSubject.SubjectState == (int)ShopActions.SOLD)
+            updateItemList();
+
+        if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
             GameObject upgradedItem = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
 
@@ -99,7 +102,7 @@ public class ShopListView : ShopView
                 currentItem = ShopCreator.Instance.shopModel.GetSelectedItem();
                 break;
             case 1:
-                currentItem = ShopCreator.Instance.shopModelInventory.GetSelectedItem(); 
+                currentItem = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
                 break;
         }
 
