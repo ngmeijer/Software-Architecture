@@ -68,6 +68,7 @@ public class Inventory
     public void AddItemShop(Item item)
     {
         _itemList.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
+        Debug.Log("added item to inventory.");
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -112,8 +113,10 @@ public class Inventory
         switch (pAction)
         {
             case ShopActions.PURCHASED:
-                ShopCreator.CalculateBalance(-pItem.BasePrice);
-                break;
+                {
+                    ShopCreator.CalculateBalance(-pItem.BasePrice);
+                    break;
+                }
             case ShopActions.UPGRADED:
                 {
                     ShopCreator.CalculateBalance(-pItem.BasePrice);

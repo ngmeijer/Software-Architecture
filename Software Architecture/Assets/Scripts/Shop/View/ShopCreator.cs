@@ -55,25 +55,19 @@ public class ShopCreator : MonoBehaviour
     {
         MoneyCount = _money;
 
+        Debug.Log("executing ShopCreator first.");
+
         shopModel = new BuyModel(_priceModifier, _weaponCountShop, _armorCountShop, _potionCountShop);
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
 
         shopModelInventory = new SellModel(_priceModifierInventory, _weaponCountInventory, _armorCountInventory, _potionCountInventory);
         shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
+
+        SwitchActiveShop(0);
     }
 
     private void Update()
     {
-        switch (CurrentActiveShop)
-        {
-            case 0:
-                _shopTracker = shopController;
-                break;
-            case 1:
-                _shopTracker = shopControllerInventory;
-                break;
-        }
-
         //Switch between mouse and keyboard controllers
         if (Input.GetKeyUp(KeyCode.K))
         {
@@ -138,5 +132,15 @@ public class ShopCreator : MonoBehaviour
     public void SwitchActiveShop(int index)
     {
         CurrentActiveShop = index;
+
+        switch (CurrentActiveShop)
+        {
+            case 0:
+                _shopTracker = shopController;
+                break;
+            case 1:
+                _shopTracker = shopControllerInventory;
+                break;
+        }
     }
 }

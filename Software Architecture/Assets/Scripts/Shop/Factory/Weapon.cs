@@ -45,13 +45,13 @@ public class Weapon : Item
 
         //Epic
         {
-            "The Void",
-            "Draughtbane"
+            "The Void's Poison",
+            "Blade of the Void"
         },
 
         //Legendary
         {
-            "Arched Adamantite Greataxe",
+            "Dawnbreaker",
             "Edge of Death"
         }
     };
@@ -78,14 +78,14 @@ public class Weapon : Item
 
         //Epic
         {
-            "",
+            "It is said that those who are struck by this blade have no hope of surviving. Their physical body, that is. Their soul will be trapped forever in the Void.",
             ""
         },
 
         //Legendary
         {
-            "'",
-            ""
+            "Wielded by the Dwarven King, during the Battle of The Black Mountain. No enemy is worthy enough to withstand its power.'",
+            "Forged in the depths of Hell by the Khan Maykr herself, it contains a part of the very core of all Nine Circles."
         }
     };
 

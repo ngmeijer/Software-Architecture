@@ -107,6 +107,11 @@ public class ShopGridView : ShopView
         itemList.Add(newItemInstance);
     }
 
+    public void AcceptTransferredItem(Item item)
+    {
+        AddItemToView(item);
+    }
+
     public override void UpdateObservers(ISubject pSubject)
     {
         if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
@@ -117,11 +122,11 @@ public class ShopGridView : ShopView
 
         if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
-            Item item = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
+            Item upgradedItem = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
 
-            GameObject upgradedItem = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
+            GameObject itemInstance = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
 
-            GridViewItemContainer itemContainer = upgradedItem.GetComponent<GridViewItemContainer>();
+            GridViewItemContainer itemContainer = itemInstance.GetComponent<GridViewItemContainer>();
             itemContainer.updateItemDetailsUI();
         }
 

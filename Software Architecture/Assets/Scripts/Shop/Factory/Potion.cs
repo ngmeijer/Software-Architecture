@@ -60,7 +60,7 @@ public class Potion : Item
     {
         //Common
         {
-            "",
+            "You'll get really high and think you are ",
             ""
         },
         
@@ -72,7 +72,7 @@ public class Potion : Item
 
         //Rare
         {
-            "",
+            "Gives you a short moment of clarity. Use when you feel unfocused.",
             ""
         },
 
