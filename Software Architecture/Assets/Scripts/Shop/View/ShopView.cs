@@ -7,8 +7,6 @@ public abstract class ShopView : MonoBehaviour, IObserver
 {
     [SerializeField] protected GameObject itemPrefab; //A prefab to display an item in the view
 
-    [SerializeField] protected List<GameObject> itemList = new List<GameObject>();
-
     [SerializeField] protected TextMeshProUGUI moneyText;
     protected ViewConfig viewConfig;
 

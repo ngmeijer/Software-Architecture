@@ -14,26 +14,31 @@ public class ShopGridView : ShopView
 {
     [SerializeField] protected GridLayoutGroup itemLayoutGroup;
 
-    private void Start()
+    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
+
+    private void Awake()
     {
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
         SetupItemIconView(); //Setup the grid view's properties
 
         Inventory.OnMoneyChanged += updateMoneyPanel;
+
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(ShopCreator.Instance.shopModel);
                 ShopCreator.Instance.shopModel.Attach(this);
                 usedModel = ShopCreator.Instance.shopModel;
                 break;
             case 1:
-                PopulateItemIconView(ShopCreator.Instance.shopModelInventory);
-                ShopCreator.Instance.shopModelInventory.Attach(this);
-                usedModel = ShopCreator.Instance.shopModelInventory;
+                ShopCreator.Instance.inventoryModel.Attach(this);
+                usedModel = ShopCreator.Instance.inventoryModel;
                 break;
         }
+    }
+
+    private void Start()
+    {
         updateMoneyPanel();
     }
 
@@ -54,24 +59,23 @@ public class ShopGridView : ShopView
     //                                                  RepopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Clears the grid view and repopulates it with new icons (updates the visible icons)
-    public void RepopulateItemIconView(int index)
+    public void RepopulateItemIconView()
     {
         ClearIconView();
-        //PopulateItemIconView(index);
+        PopulateItemIconView();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView(ShopModel model)
+    private void PopulateItemIconView()
     {
-        foreach (Item item in model.inventory.GetItems())
+        foreach (Item item in usedModel.inventory.GetItems())
         {
             AddItemToView(item);
         }
     }
-
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  ClearIconView()
@@ -107,11 +111,6 @@ public class ShopGridView : ShopView
         itemList.Add(newItemInstance);
     }
 
-    public void AcceptTransferredItem(Item item)
-    {
-        AddItemToView(item);
-    }
-
     public override void UpdateObservers(ISubject pSubject)
     {
         if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
@@ -122,9 +121,7 @@ public class ShopGridView : ShopView
 
         if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
-            Item upgradedItem = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
-
-            GameObject itemInstance = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
+            GameObject itemInstance = itemList[ShopCreator.Instance.inventoryModel.GetSelectedItemIndex()];
 
             GridViewItemContainer itemContainer = itemInstance.GetComponent<GridViewItemContainer>();
             itemContainer.updateItemDetailsUI();
@@ -141,5 +138,17 @@ public class ShopGridView : ShopView
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        if (usedModel != null)
+        {
+            RepopulateItemIconView();
+        }
+        else
+        {
+            Debug.Log("usedModel is null");
+        }
     }
 }

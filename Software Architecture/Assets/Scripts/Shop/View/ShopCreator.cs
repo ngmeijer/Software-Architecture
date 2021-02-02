@@ -18,6 +18,16 @@ public class ShopCreator : MonoBehaviour
         }
 
         Instance = this;
+
+        MoneyCount = _money;
+
+        shopModel = new BuyModel(_priceModifier, _weaponCountShop, _armorCountShop, _potionCountShop);
+        inventoryModel = new SellModel(_priceModifierInventory, _weaponCountInventory, _armorCountInventory, _potionCountInventory);
+
+        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
+        inventoryController = gameObject.AddComponent<MouseController>().Initialize(inventoryModel);
+
+        SetActiveShop(0);
     }
 
     #endregion
@@ -25,8 +35,8 @@ public class ShopCreator : MonoBehaviour
     public ShopModel shopModel { get; private set; }
     public ShopController shopController { get; protected set; }
 
-    public ShopModel shopModelInventory { get; private set; }
-    public ShopController shopControllerInventory { get; protected set; }
+    public ShopModel inventoryModel { get; private set; }
+    public ShopController inventoryController { get; protected set; }
     private ShopController _shopTracker;
 
     [Header("Shop")]
@@ -50,19 +60,6 @@ public class ShopCreator : MonoBehaviour
     public int CurrentActiveShop = 0;
 
     public static int MoneyCount;
-
-    public void Start()
-    {
-        MoneyCount = _money;
-
-        shopModel = new BuyModel(_priceModifier, _weaponCountShop, _armorCountShop, _potionCountShop);
-        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
-
-        shopModelInventory = new SellModel(_priceModifierInventory, _weaponCountInventory, _armorCountInventory, _potionCountInventory);
-        shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
-
-        SwitchActiveShop(0);
-    }
 
     private void Update()
     {
@@ -95,7 +92,7 @@ public class ShopCreator : MonoBehaviour
         instructionText.text = "Controls: WASD to navigate. \nShop: 1 to buy. Inventory: 2, 3 to upgrade & sell." +
                                "\nLeft Mouse button to switch to MouseControl";
         shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);
-        shopControllerInventory = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModelInventory);
+        inventoryController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(inventoryModel);
 
         MouseController[] controllersFound = FindObjectsOfType<MouseController>();
         foreach (MouseController controller in controllersFound)
@@ -111,7 +108,7 @@ public class ShopCreator : MonoBehaviour
     {
         instructionText.text = "Controls: Mouse Control. \nPress 'K' to switch to Keyboard Control.";
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);
-        shopControllerInventory = gameObject.AddComponent<MouseController>().Initialize(shopModelInventory);
+        inventoryController = gameObject.AddComponent<MouseController>().Initialize(inventoryModel);
 
         GridViewKeyboardController[] controllersFound = FindObjectsOfType<GridViewKeyboardController>();
         foreach (GridViewKeyboardController controller in controllersFound)
@@ -127,7 +124,7 @@ public class ShopCreator : MonoBehaviour
         return MoneyCount;
     }
 
-    public void SwitchActiveShop(int index)
+    public void SetActiveShop(int index)
     {
         CurrentActiveShop = index;
 
@@ -137,7 +134,7 @@ public class ShopCreator : MonoBehaviour
                 _shopTracker = shopController;
                 break;
             case 1:
-                _shopTracker = shopControllerInventory;
+                _shopTracker = inventoryController;
                 break;
         }
     }

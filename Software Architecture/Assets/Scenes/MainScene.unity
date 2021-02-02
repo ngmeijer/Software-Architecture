@@ -3615,7 +3615,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1099974799}
         m_TargetAssemblyTypeName: ShopCreator, SAShop
-        m_MethodName: SwitchActiveShop
+        m_MethodName: SetActiveShop
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3880,7 +3880,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1099974799}
         m_TargetAssemblyTypeName: ShopCreator, SAShop
-        m_MethodName: SwitchActiveShop
+        m_MethodName: SetActiveShop
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5433,7 +5433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 6553243021197451808, guid: 2217ade0fb51b46daa2e279fbf1589d7,
     type: 3}
-  itemList: []
   moneyText: {fileID: 1947464188}
   InventoryInstance: 0
   itemLayoutGroup: {fileID: 274071970}
@@ -5443,6 +5442,7 @@ MonoBehaviour:
   itemPrice: {fileID: 7033142262411977588}
   itemRarity: {fileID: 3464603553593580141}
   itemIcon: {fileID: 7230969416361129722}
+  itemList: []
 --- !u!1 &849412832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5603,10 +5603,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1985633672282538121, guid: f7e4aca495e6b46c1b69e85db31ac803,
     type: 3}
-  itemList: []
   moneyText: {fileID: 1947464188}
   InventoryInstance: 1
   itemLayoutGroup: {fileID: 1929311889}
+  itemList: []
 --- !u!222 &852296209
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6856,13 +6856,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _priceModifier: 2
-  _weaponCountShop: 6
-  _armorCountShop: 8
-  _potionCountShop: 7
+  _weaponCountShop: 2
+  _armorCountShop: 2
+  _potionCountShop: 2
   _priceModifierInventory: 2
-  _weaponCountInventory: 3
-  _armorCountInventory: 3
-  _potionCountInventory: 5
+  _weaponCountInventory: 2
+  _armorCountInventory: 2
+  _potionCountInventory: 2
   _money: 536
   instructionText: {fileID: 1352417142}
   CurrentActiveShop: 0
@@ -9896,7 +9896,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 6553243021197451808, guid: 2217ade0fb51b46daa2e279fbf1589d7,
     type: 3}
-  itemList: []
   moneyText: {fileID: 1947464188}
   InventoryInstance: 1
   itemLayoutGroup: {fileID: 998427275}
@@ -9906,6 +9905,7 @@ MonoBehaviour:
   itemPrice: {fileID: 1338981035}
   itemRarity: {fileID: 640147702}
   itemIcon: {fileID: 470101550}
+  itemList: []
 --- !u!222 &1596009586
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12340,10 +12340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0066e623ae48c3e48999a50d3bab1294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shopGridView: {fileID: 2131558514}
-  _shopListView: {fileID: 822572999}
-  _inventoryGridView: {fileID: 852296207}
-  _inventoryListView: {fileID: 1596009584}
+  _shopView: {fileID: 2131558514}
+  _inventoryView: {fileID: 852296207}
 --- !u!1 &1946878673
 GameObject:
   m_ObjectHideFlags: 0
@@ -13016,7 +13014,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1099974799}
         m_TargetAssemblyTypeName: ShopCreator, SAShop
-        m_MethodName: SwitchActiveShop
+        m_MethodName: SetActiveShop
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13547,7 +13545,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1099974799}
         m_TargetAssemblyTypeName: ShopCreator, SAShop
-        m_MethodName: SwitchActiveShop
+        m_MethodName: SetActiveShop
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13952,10 +13950,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1985633672282538121, guid: f7e4aca495e6b46c1b69e85db31ac803,
     type: 3}
-  itemList: []
   moneyText: {fileID: 1947464188}
   InventoryInstance: 0
   itemLayoutGroup: {fileID: 180905780}
+  itemList: []
 --- !u!1 &2137417933
 GameObject:
   m_ObjectHideFlags: 0

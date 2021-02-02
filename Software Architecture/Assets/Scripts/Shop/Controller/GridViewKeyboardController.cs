@@ -79,11 +79,11 @@ public class GridViewKeyboardController : ShopController
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ConfirmSelectedItem(ShopActions.UPGRADED, ShopCreator.Instance.shopModelInventory);
+            ConfirmSelectedItem(ShopActions.UPGRADED, ShopCreator.Instance.inventoryModel);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            ConfirmSelectedItem(ShopActions.SOLD, ShopCreator.Instance.shopModelInventory);
+            ConfirmSelectedItem(ShopActions.SOLD, ShopCreator.Instance.inventoryModel);
         }
     }
 }

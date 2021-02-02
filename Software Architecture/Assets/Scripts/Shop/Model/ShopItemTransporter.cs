@@ -4,42 +4,39 @@ using UnityEngine;
 
 public class ShopItemTransporter : MonoBehaviour, IObserver
 {
-    [SerializeField] private ShopGridView _shopGridView;
-    [SerializeField] private ShopListView _shopListView;
+    [SerializeField] private ShopGridView _shopView;
 
     [Space(10)]
-    [SerializeField] private ShopGridView _inventoryGridView;
-    [SerializeField] private ShopListView _inventoryListView;
+    [SerializeField] private ShopGridView _inventoryView;
 
     private int index;
     private Item item;
+    private ShopModel usedModel;
+
 
     private void Start()
     {
         ShopCreator.Instance.shopModel.Attach(this);
-        ShopCreator.Instance.shopModelInventory.Attach(this);
+        ShopCreator.Instance.inventoryModel.Attach(this);
     }
 
     public void UpdateObservers(ISubject pSubject)
     {
         item = pSubject.tradedItem;
 
-        if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
+        if (pSubject.SubjectState == (int) ShopActions.PURCHASED)
         {
-            index = ShopCreator.Instance.shopModel.inventory.RemovedItemIndex;
-
-            ShopCreator.Instance.shopModelInventory.inventory.AddItemShop(item);
-            _inventoryGridView.AcceptTransferredItem(item);
-            _inventoryListView.AcceptTransferredItem(item);
+            usedModel = ShopCreator.Instance.inventoryModel;
         }
 
         if (pSubject.SubjectState == (int) ShopActions.SOLD)
         {
-            index = ShopCreator.Instance.shopModelInventory.inventory.RemovedItemIndex;
-
-            ShopCreator.Instance.shopModel.inventory.AddItemShop(item);
-            _shopGridView.AcceptTransferredItem(item);
-            _shopListView.AcceptTransferredItem(item);
+            usedModel = ShopCreator.Instance.shopModel;
         }
+
+        usedModel.inventory.AddItemShop(item);
+
+        _shopView.RepopulateItemIconView();
+        _inventoryView.RepopulateItemIconView();
     }
 }

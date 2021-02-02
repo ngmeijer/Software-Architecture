@@ -24,19 +24,20 @@ public class ShopListView : ShopView
     [Space]
     private Item currentItem = null;
 
-    private void Start()
+    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
+
+
+    private void Awake()
     {
         switch (InventoryInstance)
         {
             case 0:
-                PopulateItemIconView(0, ShopCreator.Instance.shopModel);
                 ShopCreator.Instance.shopModel.Attach(this);
                 usedModel = ShopCreator.Instance.shopModel;
                 break;
             case 1:
-                PopulateItemIconView(0, ShopCreator.Instance.shopModelInventory);
-                ShopCreator.Instance.shopModelInventory.Attach(this);
-                usedModel = ShopCreator.Instance.shopModelInventory;
+                ShopCreator.Instance.inventoryModel.Attach(this);
+                usedModel = ShopCreator.Instance.inventoryModel;
                 break;
         }
 
@@ -44,14 +45,41 @@ public class ShopListView : ShopView
     }
 
     //------------------------------------------------------------------------------------------------------------------------
+    //                                                  RepopulateItems()
+    //------------------------------------------------------------------------------------------------------------------------        
+    //Clears the grid view and repopulates it with new icons (updates the visible icons)
+    public void RepopulateItemIconView()
+    {
+        ClearIconView();
+        PopulateItemIconView();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView(int index, ShopModel model)
+    private void PopulateItemIconView()
     {
-        foreach (Item item in model.inventory.GetItems())
+        foreach (Item item in usedModel.inventory.GetItems())
         {
             AddItemToView(item);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    //                                                  ClearIconView()
+    //------------------------------------------------------------------------------------------------------------------------        
+    //Removes all existing icons in the grid view
+    private void ClearIconView()
+    {
+        itemList.Clear();
+        Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform child in allIcons)
+        {
+            if (child != itemLayoutGroup.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
@@ -71,11 +99,6 @@ public class ShopListView : ShopView
 
         itemList.Add(newItemInstance);
     }
-    
-    public void AcceptTransferredItem(Item item)
-    {
-        AddItemToView(item);
-    }
 
     public override void UpdateObservers(ISubject pSubject)
     {
@@ -87,7 +110,7 @@ public class ShopListView : ShopView
 
         if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
-            GameObject upgradedItem = itemList[ShopCreator.Instance.shopModelInventory.GetSelectedItemIndex()];
+            GameObject upgradedItem = itemList[ShopCreator.Instance.inventoryModel.GetSelectedItemIndex()];
 
             ListViewItemContainer itemContainer = upgradedItem.GetComponent<ListViewItemContainer>();
             itemContainer.updateItemDetailsUI();
@@ -98,8 +121,6 @@ public class ShopListView : ShopView
 
     private void updateDetailsPanel(int index)
     {
-        Debug.Log("Item has been upgraded! Updating details now in ShopListView.");
-
         if (this.gameObject == null)
             return;
 
@@ -109,7 +130,7 @@ public class ShopListView : ShopView
                 currentItem = ShopCreator.Instance.shopModel.GetSelectedItem();
                 break;
             case 1:
-                currentItem = ShopCreator.Instance.shopModelInventory.GetSelectedItem();
+                currentItem = ShopCreator.Instance.inventoryModel.GetSelectedItem();
                 break;
         }
 
@@ -128,5 +149,13 @@ public class ShopListView : ShopView
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        if (usedModel != null)
+        {
+            RepopulateItemIconView();
+        }
     }
 }
