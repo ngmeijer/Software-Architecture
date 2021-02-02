@@ -6856,9 +6856,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _priceModifier: 2
-  _weaponCountShop: 30
-  _armorCountShop: 24
-  _potionCountShop: 25
+  _weaponCountShop: 6
+  _armorCountShop: 8
+  _potionCountShop: 7
   _priceModifierInventory: 2
   _weaponCountInventory: 3
   _armorCountInventory: 3

@@ -31,10 +31,12 @@ public class ShopListView : ShopView
             case 0:
                 PopulateItemIconView(0, ShopCreator.Instance.shopModel);
                 ShopCreator.Instance.shopModel.Attach(this);
+                usedModel = ShopCreator.Instance.shopModel;
                 break;
             case 1:
                 PopulateItemIconView(0, ShopCreator.Instance.shopModelInventory);
                 ShopCreator.Instance.shopModelInventory.Attach(this);
+                usedModel = ShopCreator.Instance.shopModelInventory;
                 break;
         }
 
@@ -121,7 +123,7 @@ public class ShopListView : ShopView
 
     private void updateItemList()
     {
-        int removedItemIndex = ShopCreator.Instance.shopModel.inventory.RemovedItemIndex;
+        int removedItemIndex = usedModel.inventory.RemovedItemIndex;
         itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);

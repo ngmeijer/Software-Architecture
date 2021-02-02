@@ -75,7 +75,7 @@ public abstract class ShopModel : ISubject
             if (index >= 0)
             {
                 selectedItemIndex = index;
-                Debug.Log($"index of clicked item: {index}. 2nd index of item: {item.ItemIndex}");
+                Debug.Log($"1st index of selected item: {selectedItemIndex}. 2nd index: {item.ItemIndex}");
                 OnSelect(index);
             }
         }
