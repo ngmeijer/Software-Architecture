@@ -55,7 +55,6 @@ public abstract class ShopModel : ISubject
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SelectItemByIndex()
     //------------------------------------------------------------------------------------------------------------------------        
-    //Attempts to select the item, specified by 'index', fails silently
     public void SelectItemByIndex(int index)
     {
         if (index >= 0 && index < inventory.GetItemCount())
@@ -76,6 +75,7 @@ public abstract class ShopModel : ISubject
             if (index >= 0)
             {
                 selectedItemIndex = index;
+                Debug.Log($"index of clicked item: {index}. 2nd index of item: {item.ItemIndex}");
                 OnSelect(index);
             }
         }

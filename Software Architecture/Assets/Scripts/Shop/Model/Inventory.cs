@@ -68,7 +68,7 @@ public class Inventory
     public void AddItemShop(Item item)
     {
         _itemList.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
-        Debug.Log($"added {item.Name} to inventory.");
+        item.ItemIndex = _itemList.Count - 1;
     }
 
     //------------------------------------------------------------------------------------------------------------------------

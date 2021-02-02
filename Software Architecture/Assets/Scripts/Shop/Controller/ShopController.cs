@@ -29,7 +29,7 @@ public abstract class ShopController : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SelectItem()
     //------------------------------------------------------------------------------------------------------------------------ 
-    //Called when a certain item is selected
+    //Called when a certain item is selected. Only used by Mouse control.
     public void SelectItem(Item item)
     {
         model.SelectItem(item);
@@ -38,7 +38,7 @@ public abstract class ShopController : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SelectItemByIndex()
     //------------------------------------------------------------------------------------------------------------------------ 
-    //Select an item by its index
+    //Select an item by its index. Only used by Keyboard control.
     public void SelectItemByIndex(int index)
     {
         model.SelectItemByIndex(index);
