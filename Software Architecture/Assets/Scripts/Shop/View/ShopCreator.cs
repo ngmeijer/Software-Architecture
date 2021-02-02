@@ -94,7 +94,7 @@ public class ShopCreator : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------    
     protected void SwitchToKeyboardControl()
     {
-        instructionText.text = "Controls: WASD to navigate. \nShop: 1 to buy. Inventory: 2, 3 to upgrade & sell." + "\nRight Mouse button to switch to MouseControl";
+        instructionText.text = "Controls: WASD to navigate. \nShop: 1 to buy. Inventory: 2, 3 to upgrade & sell." + "\nRight Mouse button to switch to MouseControl. Press TAB to switch to next view.";
 
         _shopTracker = gameObject.AddComponent<GridViewKeyboardController>().Initialize(_modelTracker);
 

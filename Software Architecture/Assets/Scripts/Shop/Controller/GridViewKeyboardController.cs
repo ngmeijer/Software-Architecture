@@ -13,6 +13,9 @@ public class GridViewKeyboardController : ShopController
 
     private int currentItemIndex = 0;//The current item index is changed whenever the focus is moved with keyboard keys
 
+    private ViewSwitchHandler _viewSwitchHandler;
+    private int _viewIndex;
+
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  Initialize()
     //------------------------------------------------------------------------------------------------------------------------
@@ -24,6 +27,7 @@ public class GridViewKeyboardController : ShopController
         viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
         columnCount = viewConfig.gridViewColumnCount;//Try to set up the column count, fails silently
+        _viewSwitchHandler = FindObjectOfType<ViewSwitchHandler>();
         return this;
     }
 
@@ -32,6 +36,13 @@ public class GridViewKeyboardController : ShopController
     //------------------------------------------------------------------------------------------------------------------------
     //Currently hardcoded to WASD to move focus and K to confirm the selected item
     public override void HandleInput()
+    {
+        MoveFocus();
+        PerformTransaction();
+        SwitchView();
+    }
+
+    private void MoveFocus()
     {
         //Move the focus to the left if possible
         if (Input.GetKeyDown(KeyCode.A))
@@ -70,7 +81,10 @@ public class GridViewKeyboardController : ShopController
         //Select the item
         if (Input.anyKeyDown)
             SelectItemByIndex(currentItemIndex);
+    }
 
+    private void PerformTransaction()
+    {
         //Confirm the selected item with the corresponding action when K, U or O is pressed
         if (Input.GetKeyDown(KeyCode.Alpha1) || (Input.GetKeyDown(KeyCode.Keypad1)))
         {
@@ -84,5 +98,20 @@ public class GridViewKeyboardController : ShopController
         {
             ConfirmSelectedItem(ShopActions.SOLD, ShopCreator.Instance.inventoryModel);
         }
+    }
+
+    private void SwitchView()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _viewIndex++;
+            if (_viewIndex > 3)
+            {
+                _viewIndex = 0;
+            }
+
+            _viewSwitchHandler.SwitchView(_viewIndex);
+        }
+        Debug.Log(_viewIndex);
     }
 }
