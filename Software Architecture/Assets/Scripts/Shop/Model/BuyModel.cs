@@ -24,6 +24,7 @@ public class BuyModel : ShopModel
 
         if (ShopCreator.MoneyCount >= item.BasePrice)
         {
+            tradedItem = item;
             inventory.UpdateMoneyCountAfterTransaction(item, pAction);
             inventory.RemoveItemByIndex(GetSelectedItemIndex());
             SubjectState = (int)pAction;
@@ -37,13 +38,11 @@ public class BuyModel : ShopModel
     public override void Attach(IObserver pObserver)
     {
         this._observerList.Add(pObserver);
-        Debug.Log("Subject: Attached an Observer.");
     }
 
     public override void Detach(IObserver pObserver)
     {
         this._observerList.Remove(pObserver);
-        Debug.Log("Subject: Detached an Observer.");
     }
 
     public override void NotifyObservers()
@@ -54,8 +53,6 @@ public class BuyModel : ShopModel
         }
 
         SubjectState = (int)ShopActions.DEFAULT;
-
-        Debug.Log("Subject: Notifying Observers...");
     }
     //------------------------------------------------------------------------------------------------------------------------
 

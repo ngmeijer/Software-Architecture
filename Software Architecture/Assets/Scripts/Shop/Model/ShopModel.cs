@@ -20,6 +20,7 @@ public abstract class ShopModel : ISubject
 {
     public Inventory inventory { get; } // Getter of the inventory, the views might need this to set up the display.
     public int SubjectState { get; set; }
+    public Item tradedItem { get; set; }
 
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index

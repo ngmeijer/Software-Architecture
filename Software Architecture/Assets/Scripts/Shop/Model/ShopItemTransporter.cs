@@ -13,29 +13,21 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
 
     private void Start()
     {
-        Debug.Log("executing ShopItemTransporter first.");
         ShopCreator.Instance.shopModel.Attach(this);
         ShopCreator.Instance.shopModelInventory.Attach(this);
     }
 
     public void UpdateObservers(ISubject pSubject)
     {
-        //if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
-        //{
-        //    ShopModel model = ShopCreator.Instance.shopModel;
-        //    Item item = model.GetSelectedItem();
+        if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
+        {
+            int index = ShopCreator.Instance.shopModel.inventory.RemovedItemIndex;
 
-        //    Debug.Log($"Name of bought item: {item.Name}");
+            Item item = pSubject.tradedItem;
 
-
-        //    ShopCreator.Instance.shopModelInventory.inventory.AddItemShop(item);
-
-        //    _inventoryGridView.AcceptTransferredItem(item);
-        //}
-
-        //if (pSubject.SubjectState == (int)ShopActions.SOLD)
-        //{
-
-        //}
+            ShopCreator.Instance.shopModelInventory.inventory.AddItemShop(item);
+            _inventoryGridView.AcceptTransferredItem(item);
+            _inventoryListView.AcceptTransferredItem(item);
+        }
     }
 }

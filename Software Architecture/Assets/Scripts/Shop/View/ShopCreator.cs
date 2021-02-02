@@ -55,8 +55,6 @@ public class ShopCreator : MonoBehaviour
     {
         MoneyCount = _money;
 
-        Debug.Log("executing ShopCreator first.");
-
         shopModel = new BuyModel(_priceModifier, _weaponCountShop, _armorCountShop, _potionCountShop);
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
 

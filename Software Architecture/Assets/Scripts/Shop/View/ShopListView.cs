@@ -69,6 +69,11 @@ public class ShopListView : ShopView
 
         itemList.Add(newItemInstance);
     }
+    
+    public void AcceptTransferredItem(Item item)
+    {
+        AddItemToView(item);
+    }
 
     public override void UpdateObservers(ISubject pSubject)
     {

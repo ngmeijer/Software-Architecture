@@ -54,13 +54,11 @@ public class SellModel : ShopModel
     public override void Attach(IObserver pObserver)
     {
         this._observerList.Add(pObserver);
-        Debug.Log("SellModel subject: Attached an Observer.");
     }
 
     public override void Detach(IObserver pObserver)
     {
         this._observerList.Remove(pObserver);
-        Debug.Log("SellModel subject: Detached an Observer.");
     }
 
     public override void NotifyObservers()
@@ -71,7 +69,5 @@ public class SellModel : ShopModel
         }
 
         SubjectState = (int)ShopActions.DEFAULT;
-
-        Debug.Log("SellModel subject: Notifying Observers...");
     }
 }
