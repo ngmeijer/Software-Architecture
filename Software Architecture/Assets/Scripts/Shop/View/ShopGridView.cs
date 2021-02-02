@@ -34,6 +34,9 @@ public class ShopGridView : ShopView
                 ShopCreator.Instance.inventoryModel.Attach(this);
                 usedModel = ShopCreator.Instance.inventoryModel;
                 break;
+            default:
+                usedModel = ShopCreator.Instance.shopModel;
+                break;
         }
     }
 
@@ -142,6 +145,21 @@ public class ShopGridView : ShopView
 
     private void OnEnable()
     {
+        switch (InventoryInstance)
+        {
+            case 0:
+                ShopCreator.Instance.shopModel.Attach(this);
+                usedModel = ShopCreator.Instance.shopModel;
+                break;
+            case 1:
+                ShopCreator.Instance.inventoryModel.Attach(this);
+                usedModel = ShopCreator.Instance.inventoryModel;
+                break;
+            default:
+                usedModel = ShopCreator.Instance.shopModel;
+                break;
+        }
+
         if (usedModel != null)
         {
             RepopulateItemIconView();

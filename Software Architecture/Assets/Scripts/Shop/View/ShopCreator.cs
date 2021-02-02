@@ -26,8 +26,6 @@ public class ShopCreator : MonoBehaviour
 
         shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);//Set the default controller to be the mouse controller
         inventoryController = gameObject.AddComponent<MouseController>().Initialize(inventoryModel);
-
-        SetActiveShop(0);
     }
 
     #endregion
@@ -38,6 +36,7 @@ public class ShopCreator : MonoBehaviour
     public ShopModel inventoryModel { get; private set; }
     public ShopController inventoryController { get; protected set; }
     private ShopController _shopTracker;
+    private ShopModel _modelTracker;
 
     [Header("Shop")]
     [SerializeField] private float _priceModifier = 2f;
@@ -61,6 +60,12 @@ public class ShopCreator : MonoBehaviour
 
     public static int MoneyCount;
 
+    private void Start()
+    {
+        SetActiveShop(0);
+    }
+
+
     private void Update()
     {
         //Switch between mouse and keyboard controllers
@@ -72,7 +77,7 @@ public class ShopCreator : MonoBehaviour
             }
         }
 
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(1))
         {
             if (_shopTracker is GridViewKeyboardController)
             {
@@ -89,10 +94,9 @@ public class ShopCreator : MonoBehaviour
     //------------------------------------------------------------------------------------------------------------------------    
     protected void SwitchToKeyboardControl()
     {
-        instructionText.text = "Controls: WASD to navigate. \nShop: 1 to buy. Inventory: 2, 3 to upgrade & sell." +
-                               "\nLeft Mouse button to switch to MouseControl";
-        shopController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(shopModel);
-        inventoryController = gameObject.AddComponent<GridViewKeyboardController>().Initialize(inventoryModel);
+        instructionText.text = "Controls: WASD to navigate. \nShop: 1 to buy. Inventory: 2, 3 to upgrade & sell." + "\nRight Mouse button to switch to MouseControl";
+
+        _shopTracker = gameObject.AddComponent<GridViewKeyboardController>().Initialize(_modelTracker);
 
         MouseController[] controllersFound = FindObjectsOfType<MouseController>();
         foreach (MouseController controller in controllersFound)
@@ -107,10 +111,10 @@ public class ShopCreator : MonoBehaviour
     protected void SwitchToMouseControl()
     {
         instructionText.text = "Controls: Mouse Control. \nPress 'K' to switch to Keyboard Control.";
-        shopController = gameObject.AddComponent<MouseController>().Initialize(shopModel);
-        inventoryController = gameObject.AddComponent<MouseController>().Initialize(inventoryModel);
 
-        GridViewKeyboardController[] controllersFound = FindObjectsOfType<GridViewKeyboardController>();
+        _shopTracker = gameObject.AddComponent<MouseController>().Initialize(_modelTracker);
+
+        GridViewKeyboardController[] controllersFound = GetComponents<GridViewKeyboardController>();
         foreach (GridViewKeyboardController controller in controllersFound)
         {
             Destroy(controller);
@@ -132,9 +136,11 @@ public class ShopCreator : MonoBehaviour
         {
             case 0:
                 _shopTracker = shopController;
+                _modelTracker = shopModel;
                 break;
             case 1:
                 _shopTracker = inventoryController;
+                _modelTracker = inventoryModel;
                 break;
         }
     }

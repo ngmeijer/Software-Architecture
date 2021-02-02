@@ -13,7 +13,6 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
     private Item item;
     private ShopModel usedModel;
 
-
     private void Start()
     {
         ShopCreator.Instance.shopModel.Attach(this);
@@ -24,17 +23,17 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
     {
         item = pSubject.tradedItem;
 
-        if (pSubject.SubjectState == (int) ShopActions.PURCHASED)
+        if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
         {
             usedModel = ShopCreator.Instance.inventoryModel;
+            usedModel.inventory.AddItemShop(item);
         }
 
-        if (pSubject.SubjectState == (int) ShopActions.SOLD)
+        if (pSubject.SubjectState == (int)ShopActions.SOLD)
         {
             usedModel = ShopCreator.Instance.shopModel;
+            usedModel.inventory.AddItemShop(item);
         }
-
-        usedModel.inventory.AddItemShop(item);
 
         _shopView.RepopulateItemIconView();
         _inventoryView.RepopulateItemIconView();
