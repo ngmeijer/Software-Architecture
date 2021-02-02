@@ -5,8 +5,6 @@ public class SellModel : ShopModel
 {
     private List<IObserver> _observerList = new List<IObserver>();
 
-    private Item _currentItem;
-
     public SellModel(float pPriceModifier, int pWeaponCount, int pArmorCount, int pPotionCount) : base(pPriceModifier, pWeaponCount, pArmorCount, pPotionCount)
     {
         _observerList = new List<IObserver>();
@@ -15,7 +13,7 @@ public class SellModel : ShopModel
 
     public override void ConfirmTransactionSelectedItem(ShopActions action)
     {
-        _currentItem = inventory.GetItemByIndex(GetSelectedItemIndex());
+        tradedItem = inventory.GetItemByIndex(GetSelectedItemIndex());
 
         switch (action)
         {
@@ -31,15 +29,15 @@ public class SellModel : ShopModel
 
     private void UpgradeItem()
     {
-        bool isMaxLevel = _currentItem.CheckItemLevel();
+        bool isMaxLevel = tradedItem.CheckItemLevel();
 
-        if (ShopCreator.MoneyCount >= _currentItem.BasePrice)
+        if (ShopCreator.MoneyCount >= tradedItem.BasePrice)
         {
             if (!isMaxLevel)
             {
                 SubjectState = (int)ShopActions.UPGRADED;
-                inventory.UpdateMoneyCountAfterTransaction(_currentItem, (ShopActions)SubjectState);
-                _currentItem.UpgradeItem();
+                inventory.UpdateMoneyCountAfterTransaction(tradedItem, (ShopActions)SubjectState);
+                tradedItem.UpgradeItem();
             }
         }
     }
@@ -48,7 +46,7 @@ public class SellModel : ShopModel
     {
         SubjectState = (int)ShopActions.SOLD;
         inventory.RemoveItemByIndex(GetSelectedItemIndex());
-        inventory.UpdateMoneyCountAfterTransaction(_currentItem, (ShopActions)SubjectState);
+        inventory.UpdateMoneyCountAfterTransaction(tradedItem, (ShopActions)SubjectState);
     }
 
     public override void Attach(IObserver pObserver)

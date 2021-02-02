@@ -37,9 +37,9 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
         {
             index = ShopCreator.Instance.shopModelInventory.inventory.RemovedItemIndex;
 
-            //ShopCreator.Instance.shopModel.inventory.AddItemShop(item);
-            //_shopGridView.AcceptTransferredItem(item);
-            //_shopListView.AcceptTransferredItem(item);
+            ShopCreator.Instance.shopModel.inventory.AddItemShop(item);
+            _shopGridView.AcceptTransferredItem(item);
+            _shopListView.AcceptTransferredItem(item);
         }
     }
 }
