@@ -12,6 +12,12 @@ public class ArmorFactory : IItemFactory
         return armorInstance;
     }
 
+    public Item CreateItemUnitTest(EItemRarity rarity)
+    {
+        Armor armorInstance = new Armor(rarity);
+        return armorInstance;
+    }
+
     public EItemRarity ReturnRarity()
     {
         EItemRarity rarity = (EItemRarity)Random.Range((float)EItemRarity.COMMON, (float)EItemRarity.LEGENDARY + 1);

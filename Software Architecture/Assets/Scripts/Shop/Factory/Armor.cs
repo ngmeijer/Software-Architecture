@@ -15,7 +15,7 @@ public class Armor : Item
     private Sprite _itemSprite;
 
     private int _protection;
-    private int[] _protectionValues = new int[5]
+    public int[] _protectionValues = new int[5]
     {
         10,
         30,
@@ -79,7 +79,7 @@ public class Armor : Item
 
         //Epic
         {
-            "Created and worn by the Dark Elves of the North, the Faero. This armor is infused with magic, making it nearly impenetrable.",
+            "Forged and worn by the Dark Elves of the North, the Faero. This armor is infused with black magic, making it nearly impenetrable.",
             "..."
         },
 

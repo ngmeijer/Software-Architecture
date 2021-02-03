@@ -7005,14 +7005,11 @@ MonoBehaviour:
     - DRY/ clean up code
 
     -
-    Improve keyboard control
-
-    - More unit tests
+    More unit tests
 
     - Last UML diagram
 
-    -
-    Code comments
+    - Code comments
 
     - Code review'
   m_isRightToLeft: 0

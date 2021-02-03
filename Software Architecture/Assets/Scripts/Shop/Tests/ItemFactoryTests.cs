@@ -7,58 +7,42 @@ namespace Tests
 {
     public class ItemFactoryTests
     {
-        #region Armor
-
-        [Test]
-        public void DisplayCorrectArmorName()
-        {
-            ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItem();
-            Assert.That(armorInstance.Name, Is.EqualTo("Silk Vest of Hallowed Hell"));
-        }
-
-        [Test]
-        public void DisplayCorrectArmorSpriteName()
-        {
-            ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItem();
-            Assert.That(armorInstance.IconName, Is.EqualTo("items_109"));
-        }
-
-        [Test]
-        public void DisplayCorrectArmorBasePrice()
-        {
-            ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItem();
-            Assert.That(armorInstance.BasePrice, Is.EqualTo(125));
-        }
-
-        [Test]
-        public void DisplayCorrectArmorProtectionValue()
-        {
-            ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItem();
-            Assert.That(armorInstance.BaseEnchantmentValue, Is.EqualTo(50));
-        }
-
-        [Test]
-        public void DisplayCorrectArmorItemDescription()
-        {
-            ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItem();
-            Assert.That(armorInstance.Description, Is.EqualTo("Piece of cloth, commonly used " +
-                                                              "by the lower Demons in Hell. Bloody, " +
-                                                              "but offers some protection."));
-        }
-
-        #endregion
-
         [Test]
         public void CheckItemListSize()
         {
             Inventory inventory = new Inventory(5, 5, 5);
             int listItemCount = inventory.GetItems().Count;
             Assert.AreEqual(15, listItemCount);
+        }
+
+        
+        [Test]
+        public void DisplayCorrectArmorBasePrice()
+        {
+            ArmorFactory factoryInstance = new ArmorFactory();
+            Item armorInstance = factoryInstance.CreateItemUnitTest(EItemRarity.LEGENDARY);
+            Assert.That(armorInstance.BasePrice, Is.EqualTo(150));
+        }
+
+        [Test]
+        public void CheckItemUpgradeProcess()
+        {
+            ArmorFactory factoryInstance = new ArmorFactory();
+            Item armorInstance = factoryInstance.CreateItem();
+            EItemRarity previousRarity = armorInstance.ItemRarity;
+            armorInstance.UpgradeItem();
+
+            Assert.That(armorInstance.ItemRarity, Is.EqualTo(previousRarity + 1));
+        }
+
+        [Test]
+        public void CheckItemPropertyValue()
+        {
+            ArmorFactory factoryInstance = new ArmorFactory();
+            EItemRarity rarity = EItemRarity.LEGENDARY;
+            Item armorInstance = factoryInstance.CreateItemUnitTest(rarity);
+
+            Assert.That(armorInstance.BaseEnchantmentValue, Is.EqualTo(100));
         }
     }
 }
