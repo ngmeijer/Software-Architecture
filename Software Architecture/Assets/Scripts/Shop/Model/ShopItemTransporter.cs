@@ -9,9 +9,7 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
     [Space(10)]
     [SerializeField] private ShopGridView _inventoryView;
 
-    private int index;
     private Item item;
-    private ShopModel usedModel;
 
     private void Start()
     {
@@ -25,17 +23,14 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
 
         if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
         {
-            usedModel = ShopCreator.Instance.inventoryModel;
-            usedModel.inventory.AddItemShop(item);
+            //ShopCreator.Instance.shopModel.inventory.RemoveItemShop(item);
+            ShopCreator.Instance.inventoryModel.inventory.AddItemShop(item);
         }
 
         if (pSubject.SubjectState == (int)ShopActions.SOLD)
         {
-            usedModel = ShopCreator.Instance.shopModel;
-            usedModel.inventory.AddItemShop(item);
+            //ShopCreator.Instance.inventoryModel.inventory.RemoveItemShop(item);
+            ShopCreator.Instance.shopModel.inventory.AddItemShop(item);
         }
-
-        _shopView.RepopulateItemIconView();
-        _inventoryView.RepopulateItemIconView();
     }
 }

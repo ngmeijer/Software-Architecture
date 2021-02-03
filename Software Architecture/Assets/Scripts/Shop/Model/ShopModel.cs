@@ -55,6 +55,7 @@ public abstract class ShopModel : ISubject
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SelectItemByIndex()
     //------------------------------------------------------------------------------------------------------------------------        
+    //Only used by keyboard control
     public void SelectItemByIndex(int index)
     {
         if (index >= 0 && index < inventory.GetItemCount())
@@ -67,6 +68,7 @@ public abstract class ShopModel : ISubject
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  SelectItem(Item item)
     //------------------------------------------------------------------------------------------------------------------------
+    //Only used by mouse control
     public void SelectItem(Item item)
     {
         if (item != null)

@@ -112,6 +112,5 @@ public class GridViewKeyboardController : ShopController
 
             _viewSwitchHandler.SwitchView(_viewIndex);
         }
-        Debug.Log(_viewIndex);
     }
 }

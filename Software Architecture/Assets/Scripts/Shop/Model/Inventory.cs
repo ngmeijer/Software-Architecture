@@ -74,12 +74,20 @@ public class Inventory
     //------------------------------------------------------------------------------------------------------------------------
     //                                                 RemoveItem()
     //------------------------------------------------------------------------------------------------------------------------        
-    //Attempts to remove an item, fails silently.
     public void RemoveItemShop(Item item)
     {
         if (_itemList.Contains(item))
         {
             _itemList.Remove(item);
+            int index = item.ItemIndex;
+
+            foreach (Item itemInstance in _itemList)
+            {
+                if (itemInstance.ItemIndex > index)
+                {
+                    itemInstance.ItemIndex--;
+                }
+            }
         }
     }
 

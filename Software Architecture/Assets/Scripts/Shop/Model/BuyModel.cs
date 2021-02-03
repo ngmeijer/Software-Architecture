@@ -21,7 +21,6 @@ public class BuyModel : ShopModel
     public override void ConfirmTransactionSelectedItem(ShopActions pAction)
     {
         Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
-
         if (ShopCreator.MoneyCount >= item.BasePrice)
         {
             tradedItem = item;

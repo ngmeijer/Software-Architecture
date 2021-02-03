@@ -34,9 +34,6 @@ public class ShopGridView : ShopView
                 ShopCreator.Instance.inventoryModel.Attach(this);
                 usedModel = ShopCreator.Instance.inventoryModel;
                 break;
-            default:
-                usedModel = ShopCreator.Instance.shopModel;
-                break;
         }
     }
 
@@ -116,8 +113,11 @@ public class ShopGridView : ShopView
 
     public override void UpdateObservers(ISubject pSubject)
     {
-        if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
+        if (pSubject.SubjectState == (int) ShopActions.PURCHASED)
+        {
             updateItemList();
+            Debug.Log($"updating list. Size is now {itemList.Count}");
+        }
 
         if (pSubject.SubjectState == (int)ShopActions.SOLD)
             updateItemList();
@@ -138,28 +138,12 @@ public class ShopGridView : ShopView
     {
         int removedItemIndex = usedModel.inventory.RemovedItemIndex;
         itemList.RemoveAt(removedItemIndex);
-
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
     }
 
     private void OnEnable()
     {
-        switch (InventoryInstance)
-        {
-            case 0:
-                ShopCreator.Instance.shopModel.Attach(this);
-                usedModel = ShopCreator.Instance.shopModel;
-                break;
-            case 1:
-                ShopCreator.Instance.inventoryModel.Attach(this);
-                usedModel = ShopCreator.Instance.inventoryModel;
-                break;
-            default:
-                usedModel = ShopCreator.Instance.shopModel;
-                break;
-        }
-
         if (usedModel != null)
         {
             RepopulateItemIconView();
