@@ -18,7 +18,8 @@ public class ShopGridView : ShopView
 
     private void Awake()
     {
-        viewConfig = Resources.Load<ViewConfig>("ViewConfig");//Load the ViewConfig scriptable object from the Resources folder
+        viewConfig =
+            Resources.Load<ViewConfig>("ViewConfig"); //Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
         SetupItemIconView(); //Setup the grid view's properties
 
@@ -50,8 +51,10 @@ public class ShopGridView : ShopView
     //like cellSize, spacing, padding, etc.
     private void SetupItemIconView()
     {
-        itemLayoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;//Set the constraint mode of the GridLayoutGroup
-        itemLayoutGroup.constraintCount = viewConfig.gridViewColumnCount; //Set the column count according to the ViewConfig object
+        itemLayoutGroup.constraint =
+            GridLayoutGroup.Constraint.Flexible; //Set the constraint mode of the GridLayoutGroup
+        itemLayoutGroup.constraintCount =
+            viewConfig.gridViewColumnCount; //Set the column count according to the ViewConfig object
         itemLayoutGroup.cellSize = new Vector2(75, 75);
     }
 
@@ -77,7 +80,12 @@ public class ShopGridView : ShopView
         }
     }
 
-    //------------------------------------------------------------------------------------------------------------------------
+    public int GetGridItemListCount()
+    {
+        return itemList.Count;
+    }
+
+//------------------------------------------------------------------------------------------------------------------------
     //                                                  ClearIconView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Removes all existing icons in the grid view
@@ -114,10 +122,7 @@ public class ShopGridView : ShopView
     public override void UpdateObservers(ISubject pSubject)
     {
         if (pSubject.SubjectState == (int) ShopActions.PURCHASED)
-        {
             updateItemList();
-            Debug.Log($"updating list. Size is now {itemList.Count}");
-        }
 
         if (pSubject.SubjectState == (int)ShopActions.SOLD)
             updateItemList();

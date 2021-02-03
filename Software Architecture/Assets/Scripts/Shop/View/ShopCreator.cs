@@ -58,7 +58,7 @@ public class ShopCreator : MonoBehaviour
 
     public int CurrentActiveShop = 0;
 
-    public static int MoneyCount;
+    public static int MoneyCount { get; private set; }
 
     private void Start()
     {
@@ -121,9 +121,14 @@ public class ShopCreator : MonoBehaviour
         }
     }
 
-    public static int CalculateBalance(int change)
+    /// <summary>
+    /// Calculate the balance of your player. Simply adds the change to the MoneyCount. This means a positive event (gained money) on the players' "wallet" should result in a negative parameter value. Having purchased something  (spending money) requires the parameter to be negative.
+    /// </summary>
+    /// <param name="pChange"></param>
+    /// <returns></returns>
+    public static int CalculateBalance(int pChange)
     {
-        MoneyCount += change;
+        MoneyCount += pChange;
 
         return MoneyCount;
     }

@@ -63,6 +63,10 @@ public abstract class ShopModel : ISubject
             selectedItemIndex = index;
             OnSelect(index);
         }
+        else
+        {
+            throw new ArgumentOutOfRangeException($"{nameof(index)} must be positive and within the Inventory list range.");
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -79,6 +83,15 @@ public abstract class ShopModel : ISubject
                 selectedItemIndex = index;
                 OnSelect(index);
             }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(index)} must be positive and within the Inventory list range.");
+            }
+        }
+        else
+        {
+            throw new NullReferenceException(
+                $"{nameof(item)} is null. Use a valid Item of type Weapon, Armor or Potion as parameter.");
         }
     }
 

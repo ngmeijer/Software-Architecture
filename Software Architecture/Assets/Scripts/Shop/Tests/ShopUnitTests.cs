@@ -9,7 +9,7 @@ namespace Tests
 {
     public class ShopUnitTests
     {
-        private ShopGridView gridView;//This is the grid buy view we want to test
+        private ShopGridView gridView; //This is the grid buy view we want to test
 
         //Setup the test scene
         [OneTimeSetUp]
@@ -24,7 +24,8 @@ namespace Tests
         [UnitySetUp]
         public IEnumerator SetupTests()
         {
-            yield return null; //yield return null skips one frame, this is to make sure that this happens after the scene is loaded
+            yield return
+                null; //yield return null skips one frame, this is to make sure that this happens after the scene is loaded
 
             //The shop scene only contains one grid buy view, we use Resources.FindObjectsOfTypeAll to get the reference to it,
             //Resources.FFindObjectsOfTypeAll is used instead of GameObject.Find because the later can't find disabled objects
@@ -55,11 +56,13 @@ namespace Tests
             //to find the game object we want to test
             GameObject gridItemsPanel = GameObject.Find("GridItemsPanel");
 
-            yield return new WaitForEndOfFrame();//Since we are testing how many items are displayed, we should use WaitForEndOfFrame to wait until the end of the frame,
-                                                 //so that the view finished updating and rendering everything 
+            yield return
+                new WaitForEndOfFrame(); //Since we are testing how many items are displayed, we should use WaitForEndOfFrame to wait until the end of the frame,
+            //so that the view finished updating and rendering everything 
 
             int itemCount = gridItemsPanel.transform.childCount;
-            Assert.AreEqual(ShopCreator.Instance.shopModel.inventory.GetItemCount(), itemCount, "The generated item count is not equal to shopModel's itemCount");
+            Assert.AreEqual(ShopCreator.Instance.shopModel.inventory.GetItemCount(), itemCount,
+                "The generated item count is not equal to shopModel's itemCount");
         }
 
         //This case tests if the buyModel can throw an ArgumentOutOfRangeException when it's asked to select an item by a negative
@@ -78,6 +81,98 @@ namespace Tests
             {
                 ShopCreator.Instance.shopModel.SelectItemByIndex(-1);
             });
+        }
+
+        [UnityTest]
+        public IEnumerator InventoryThrowsExceptionsWhenSelectingNegativeIndex()
+        {
+            yield return null;
+
+            Assert.Throws<System.ArgumentOutOfRangeException>(delegate
+            {
+                ShopCreator.Instance.shopModel.inventory.GetItemByIndex(-1);
+            });
+        }
+
+        [UnityTest]
+        public IEnumerator BuyModelThrowsExceptionWhenPriceTooHigh()
+        {
+            yield return null;
+
+
+        }
+
+        [UnityTest]
+        public IEnumerator ShopViewUpdateItemListAfterPurchase()
+        {
+            yield return null;
+
+            //Find the ShopGridView GameObject & component.
+            ShopGridView gridView = GameObject.Find("ShopGridView").GetComponent<ShopGridView>();
+
+            //Store the ListCount before performing any altering actions
+            int countBeforeTransaction = gridView.GetGridItemListCount();
+
+            //Pass on correct Shop Action parameter
+            ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
+
+            //Store the ListCount after performing the ListCount-altering action.
+            int countAfterTransaction = gridView.GetGridItemListCount();
+
+            //Compare the 2 ListCounts, saying that 2nd ListCount is 1 less than the 1st.
+            Assert.That(countAfterTransaction, Is.EqualTo(countBeforeTransaction - 1));
+        }
+
+        [UnityTest]
+        public IEnumerator ShopViewUpdateItemListAfterSell()
+        {
+            yield return null;
+
+            //Find the InventoryGridView GameObject & ShopGridView component.
+            ShopGridView gridView = GameObject.Find("InventoryGridView").GetComponent<ShopGridView>();
+
+            //Store the ListCount before performing any altering actions
+            int countBeforeTransaction = gridView.GetGridItemListCount();
+
+            //Pass on correct Shop Action parameter to Inventory Model (which has the "selling" functionality)
+            ShopCreator.Instance.inventoryModel.ConfirmTransactionSelectedItem(ShopActions.SOLD);
+
+            //Store the ListCount after performing the ListCount-altering action.
+            int countAfterTransaction = gridView.GetGridItemListCount();
+
+            //Compare the 2 ListCounts, saying that 2nd ListCount is 1 less than the 1st.
+            Assert.That(countAfterTransaction, Is.EqualTo(countBeforeTransaction - 1));
+        }
+
+        [UnityTest]
+        public IEnumerator ShopViewUpdateMoneyBalanceAfterPurchase()
+        {
+            yield return null;
+
+            //Store balance before purchase
+            int balanceBeforePurchase = ShopCreator.MoneyCount;
+
+            //Select an item to purchase.
+            ShopCreator.Instance.shopModel.SelectItemByIndex(1);
+
+            //Get index of that item, for the sake of testing the procedure.
+            int index = ShopCreator.Instance.shopModel.GetSelectedItemIndex();
+
+            //Returns the correct item, from which we can store the price (= the change for the Money Balance)
+            Item item = ShopCreator.Instance.shopModel.inventory.GetItemByIndex(index);
+            int itemPrice = item.BasePrice;
+
+            //Execute the transaction.
+            ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
+
+            //Update the Money Balance.
+            ShopCreator.CalculateBalance(-itemPrice);
+
+            //Store balance after purchase
+            int balanceAferPurchase = ShopCreator.MoneyCount;
+
+            //Execute check
+
         }
     }
 }

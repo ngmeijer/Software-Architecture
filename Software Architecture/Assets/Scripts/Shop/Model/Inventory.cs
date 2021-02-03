@@ -57,8 +57,10 @@ public class Inventory
     {
         if (index >= 0 && index < _itemList.Count)
             return _itemList[index];
-
-        return null;
+        else
+        {
+            throw new ArgumentOutOfRangeException($"{nameof(index)} must be positive and within the Inventory list range.");
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -67,8 +69,12 @@ public class Inventory
     //Adds an item to the inventory's item list.
     public void AddItemShop(Item item)
     {
-        _itemList.Add(item);//In your setup, what would happen if you add an item that's already existed in the list?
-        item.ItemIndex = _itemList.Count - 1;
+        if (!_itemList.Contains(item))
+        {
+            _itemList.Add(
+                item);
+            item.ItemIndex = _itemList.Count - 1;
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
