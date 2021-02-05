@@ -104,7 +104,7 @@ namespace Tests
             Assert.Throws<System.ArgumentOutOfRangeException>(delegate
             {
                 //Get item with an index that will never be part of the list.
-                ShopCreator.Instance.shopModel.inventory.GetItemByIndex(itemCount + 1);
+                ShopCreator.Instance.shopModel.SelectItemByIndex(itemCount + 1);
             });
         }
 
@@ -204,18 +204,25 @@ namespace Tests
         {
             yield return null;
 
+            //Find inventory view, set active to be sure, find script on GO
             GameObject inventoryView = GameObject.Find("InventoryGridView");
             inventoryView.SetActive(true);
-
             ShopGridView inventoryGrid = inventoryView.GetComponent<ShopGridView>();
 
+            //Store itemCount before trying to add an item to the grid
             int itemCountBefore = inventoryGrid.GetGridItemListCount();
 
+            //Perform buying operation
             ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
 
+            //Update icon view, should be with the bought item
+            inventoryGrid.RepopulateItemIconView();
+
+            //Store the new item count
             int itemCountAfter = inventoryGrid.GetGridItemListCount();
 
-            Assert.That(itemCountAfter, Is.EqualTo(itemCountBefore));
+            //Execute assert
+            Assert.That(itemCountAfter, Is.EqualTo(itemCountBefore + 1));
         }
 
         [UnityTest]
@@ -251,7 +258,18 @@ namespace Tests
         {
             yield return null;
 
+            int moneyBefore = ShopCreator.MoneyCount;
 
+            ShopCreator.Instance.inventoryModel.SelectItemByIndex(0);
+            Item itemSold = ShopCreator.Instance.inventoryModel.GetSelectedItem();
+            ShopCreator.Instance.inventoryModel.ConfirmTransactionSelectedItem(ShopActions.SOLD);
+
+            int moneyAfter = ShopCreator.MoneyCount;
+
+            Assert.That(moneyAfter, Is.EqualTo(moneyBefore + itemSold.BasePrice));
+
+            //Reset balance to not mess up other tests.
+            ShopCreator.CalculateBalance(moneyBefore);
         }
 
         [UnityTest]
@@ -259,7 +277,33 @@ namespace Tests
         {
             yield return null;
 
+            //Store balance before purchase
+            int balanceBefore = ShopCreator.MoneyCount;
 
+            //Select an item to purchase.
+            ShopCreator.Instance.inventoryModel.SelectItemByIndex(1);
+
+            //Get index of that item, for the sake of testing the procedure.
+            int index = ShopCreator.Instance.inventoryModel.GetSelectedItemIndex();
+
+            //Returns the correct item, from which we can store the price (= the change for the Money Balance)
+            Item item = ShopCreator.Instance.inventoryModel.inventory.GetItemByIndex(index);
+            int itemPrice = item.BasePrice;
+
+            //Execute the transaction. This also executes the CalculateBalance method in the Inventory.
+            ShopCreator.Instance.inventoryModel.ConfirmTransactionSelectedItem(ShopActions.UPGRADED);
+
+            //Store balance after purchase
+            int balanceAferPurchase = ShopCreator.MoneyCount;
+
+            //Execute check
+            Assert.That(balanceAferPurchase, Is.EqualTo(balanceBefore - itemPrice));
+        }
+
+        [UnityTest]
+        public IEnumerator KeyboardControlSelectItem()
+        {
+            yield return null;
         }
     }
 }
