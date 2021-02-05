@@ -114,10 +114,10 @@ namespace Tests
             yield return null;
 
             //Retrieve current balance
-            int moneyBeforeTransaction = ShopCreator.MoneyCount;
+            int moneyBefore = ShopCreator.MoneyCount;
 
             //Make sure we don't have any money.
-            ShopCreator.CalculateBalance(-moneyBeforeTransaction);
+            ShopCreator.CalculateBalance(-moneyBefore);
 
             Assert.Throws<System.ArgumentException>(delegate
             {
@@ -126,7 +126,7 @@ namespace Tests
             });
 
             //Reset balance to not mess up other tests.
-            ShopCreator.CalculateBalance(moneyBeforeTransaction);
+            ShopCreator.CalculateBalance(moneyBefore);
         }
 
         [UnityTest]
@@ -138,16 +138,16 @@ namespace Tests
             ShopGridView gridView = GameObject.Find("ShopGridView").GetComponent<ShopGridView>();
 
             //Store the ListCount before performing any altering actions
-            int countBeforeTransaction = gridView.GetGridItemListCount();
+            int countBefore = gridView.GetGridItemListCount();
 
             //Pass on correct Shop Action parameter
             ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
 
             //Store the ListCount after performing the ListCount-altering action.
-            int countAfterTransaction = gridView.GetGridItemListCount();
+            int countAfter = gridView.GetGridItemListCount();
 
             //Compare the 2 ListCounts, saying that 2nd ListCount is 1 less than the 1st.
-            Assert.That(countAfterTransaction, Is.EqualTo(countBeforeTransaction - 1));
+            Assert.That(countAfter, Is.EqualTo(countBefore - 1));
         }
 
         [UnityTest]
@@ -169,6 +169,53 @@ namespace Tests
 
             //Compare the 2 ListCounts, saying that 2nd ListCount is 1 less than the 1st.
             Assert.That(countAfterTransaction, Is.EqualTo(countBeforeTransaction - 1));
+        }
+
+        [UnityTest]
+        public IEnumerator ShopListUpdateItemListAfterSell()
+        {
+            yield return null;
+
+            int inventoryItemCountBefore = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
+
+            ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
+
+            int inventoryItemCountAfter = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
+
+            Assert.That(inventoryItemCountAfter, Is.EqualTo(inventoryItemCountBefore + 1));
+        }
+
+        [UnityTest]
+        public IEnumerator InventoryListUpdateItemListAfterPurchase()
+        {
+            yield return null;
+
+            int itemCountBefore = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
+
+            ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
+
+            int itemCountAfter = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
+
+            Assert.That(itemCountAfter, Is.EqualTo(itemCountBefore + 1));
+        }
+
+        [UnityTest]
+        public IEnumerator InventoryViewUpdateItemListAfterPurchase()
+        {
+            yield return null;
+
+            GameObject inventoryView = GameObject.Find("InventoryGridView");
+            inventoryView.SetActive(true);
+
+            ShopGridView inventoryGrid = inventoryView.GetComponent<ShopGridView>();
+
+            int itemCountBefore = inventoryGrid.GetGridItemListCount();
+
+            ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
+
+            int itemCountAfter = inventoryGrid.GetGridItemListCount();
+
+            Assert.That(itemCountAfter, Is.EqualTo(itemCountBefore));
         }
 
         [UnityTest]
@@ -197,6 +244,22 @@ namespace Tests
 
             //Execute check
             Assert.That(balanceAferPurchase, Is.EqualTo(balanceBeforePurchase - itemPrice));
+        }
+
+        [UnityTest]
+        public IEnumerator ShopViewUpdateMoneyBalanceAfterSell()
+        {
+            yield return null;
+
+
+        }
+
+        [UnityTest]
+        public IEnumerator ShopViewUpdateMoneyBalanceAfterUpgrade()
+        {
+            yield return null;
+
+
         }
     }
 }

@@ -27,11 +27,10 @@ public abstract class Item
 
     public abstract void GenerateItemDetails();
 
-    protected string TakeElementFromArray(string[,] array, int index)
+    protected string TakeElementFromArray(string[,] array, int itemRarityIndex)
     {
-        string value = "unassigned";
         float randomIndex = Random.Range(0, array.GetLength(1) - 1);
-        value = array[index, (int)randomIndex];
+        string value = array[itemRarityIndex, (int)randomIndex];
         return value;
     }
 

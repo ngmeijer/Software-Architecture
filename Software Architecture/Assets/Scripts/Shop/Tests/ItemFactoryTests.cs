@@ -28,7 +28,7 @@ namespace Tests
         public void CheckItemUpgradeProcess()
         {
             ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItem();
+            Item armorInstance = factoryInstance.CreateItemUnitTest(EItemRarity.COMMON);
             EItemRarity previousRarity = armorInstance.ItemRarity;
             armorInstance.UpgradeItem();
 
