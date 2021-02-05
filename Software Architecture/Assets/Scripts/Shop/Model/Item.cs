@@ -30,7 +30,7 @@ public abstract class Item
     protected string TakeElementFromArray(string[,] array, int index)
     {
         string value = "unassigned";
-        float randomIndex = Random.Range(0, array.GetLength(1));
+        float randomIndex = Random.Range(0, array.GetLength(1) - 1);
         value = array[index, (int)randomIndex];
         return value;
     }

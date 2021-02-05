@@ -58,7 +58,7 @@ public class ShopCreator : MonoBehaviour
 
     public int CurrentActiveShop = 0;
 
-    public static int MoneyCount { get; private set; }
+    public static int MoneyCount { get; set; }
 
     private void Start()
     {

@@ -95,11 +95,38 @@ namespace Tests
         }
 
         [UnityTest]
+        public IEnumerator InventoryThrowsExceptionsWhenSelectingExceedingIndex()
+        {
+            yield return null;
+
+            int itemCount = ShopCreator.Instance.shopModel.inventory.GetItemCount();
+
+            Assert.Throws<System.ArgumentOutOfRangeException>(delegate
+            {
+                //Get item with an index that will never be part of the list.
+                ShopCreator.Instance.shopModel.inventory.GetItemByIndex(itemCount + 1);
+            });
+        }
+
+        [UnityTest]
         public IEnumerator BuyModelThrowsExceptionWhenPriceTooHigh()
         {
             yield return null;
 
+            //Retrieve current balance
+            int moneyBeforeTransaction = ShopCreator.MoneyCount;
 
+            //Make sure we don't have any money.
+            ShopCreator.CalculateBalance(-moneyBeforeTransaction);
+
+            Assert.Throws<System.ArgumentException>(delegate
+            {
+                //Perform transaction
+                ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
+            });
+
+            //Reset balance to not mess up other tests.
+            ShopCreator.CalculateBalance(moneyBeforeTransaction);
         }
 
         [UnityTest]
@@ -162,17 +189,14 @@ namespace Tests
             Item item = ShopCreator.Instance.shopModel.inventory.GetItemByIndex(index);
             int itemPrice = item.BasePrice;
 
-            //Execute the transaction.
+            //Execute the transaction. This also executes the CalculateBalance method in the Inventory.
             ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
-
-            //Update the Money Balance.
-            ShopCreator.CalculateBalance(-itemPrice);
 
             //Store balance after purchase
             int balanceAferPurchase = ShopCreator.MoneyCount;
 
             //Execute check
-
+            Assert.That(balanceAferPurchase, Is.EqualTo(balanceBeforePurchase - itemPrice));
         }
     }
 }

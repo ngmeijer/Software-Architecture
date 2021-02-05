@@ -29,7 +29,11 @@ public class BuyModel : ShopModel
             SubjectState = (int)pAction;
 
             NotifyObservers();
+
+            return;
         }
+
+        throw new ArgumentException("Money balance is not sufficient enough to purchase this item.");
     }
 
     //------------------------------------------------------------------------------------------------------------------------
