@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ShopCreator is the masterclass, which creates the 2 different instances of the Shop/Inventory. 
+/// </summary>
 public class ShopCreator : MonoBehaviour
 {
-    #region Singleton
-
     public static ShopCreator Instance;
 
     private void Awake()
@@ -28,7 +29,7 @@ public class ShopCreator : MonoBehaviour
         inventoryController = gameObject.AddComponent<MouseController>().Initialize(inventoryModel);
     }
 
-    #endregion
+    public int CurrentActiveShop = 0;
 
     public ShopModel shopModel { get; private set; }
     public ShopController shopController { get; protected set; }
@@ -56,15 +57,12 @@ public class ShopCreator : MonoBehaviour
     [Space]
     [SerializeField] private TextMeshProUGUI instructionText;
 
-    public int CurrentActiveShop = 0;
-
     public static int MoneyCount { get; set; }
 
     private void Start()
     {
         SetActiveShop(0);
     }
-
 
     private void Update()
     {
@@ -133,6 +131,7 @@ public class ShopCreator : MonoBehaviour
         return MoneyCount;
     }
 
+    //Coupled to the UI buttons left of the Shop/Inventory. Makes sure the correct ShopController & Model are active.
     public void SetActiveShop(int index)
     {
         CurrentActiveShop = index;

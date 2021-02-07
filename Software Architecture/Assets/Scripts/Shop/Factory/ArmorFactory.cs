@@ -23,9 +23,4 @@ public class ArmorFactory : IItemFactory
         EItemRarity rarity = (EItemRarity)Random.Range((float)EItemRarity.COMMON, (float)EItemRarity.LEGENDARY + 1);
         return rarity;
     }
-
-    public void UpgradeItem(Item item)
-    {
-        throw new System.NotImplementedException();
-    }
 }

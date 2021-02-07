@@ -8,12 +8,9 @@ public class Armor : Item
     private string _description;
     private string _iconName;
     private int _price;
-
     private string _itemType = "Armor";
     private EItemRarity _itemRarity;
-
     private Sprite _itemSprite;
-
     private int _protection;
     public int[] _protectionValues = new int[5]
     {
@@ -162,10 +159,13 @@ public class Armor : Item
 
     public override void GenerateItemDetails()
     {
+        //Select correct array for the used attribute, and pass rarity.
         Name = TakeElementFromArray(_itemNameArrays, (int)_itemRarity);
         IconName = "items_" + TakeElementFromArray(_itemIconNames, (int)_itemRarity);
         Description = TakeElementFromArray(_itemDescriptionArrays, 0);
         BaseEnchantmentValue = _protectionValues[(int)_itemRarity];
+
+        //Select price based on rarity.
         BasePrice = _prices[(int)_itemRarity];
     }
 }

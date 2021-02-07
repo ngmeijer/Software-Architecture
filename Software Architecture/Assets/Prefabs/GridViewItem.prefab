@@ -531,9 +531,9 @@ MonoBehaviour:
   itemPriceText: {fileID: 6714676216107572490}
   iconAtlas: {fileID: 4343727234628468602, guid: 61885a51c5dad46cd8f257139ddcc43a,
     type: 2}
-  infoPanel: {fileID: 845423096962593660}
-  itemDescriptionText: {fileID: 2360704200307441066}
-  itemPropertyText: {fileID: 1149199481333750879}
+  _infoPanel: {fileID: 845423096962593660}
+  _itemDescriptionText: {fileID: 2360704200307441066}
+  _itemPropertyText: {fileID: 1149199481333750879}
 --- !u!222 &7182777043849646237
 CanvasRenderer:
   m_ObjectHideFlags: 0

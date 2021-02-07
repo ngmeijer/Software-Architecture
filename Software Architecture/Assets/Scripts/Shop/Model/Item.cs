@@ -34,7 +34,7 @@ public abstract class Item
         return value;
     }
 
-    public bool CheckItemLevel()
+    public bool IsMaxLevel()
     {
         bool isMaxLevel;
         isMaxLevel = ItemRarity.Equals(EItemRarity.LEGENDARY);

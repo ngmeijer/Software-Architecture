@@ -11,24 +11,24 @@ using UnityEngine.UI;
 /// </summary>
 public class ShopListView : ShopView
 {
+    //Wanted to use LayoutGroup so I can relocate it to ShopView but as it seems, VerticalLayoutGroup does not inherit from LayoutGroup -,- 
     [SerializeField] protected VerticalLayoutGroup itemLayoutGroup;
 
+    //Panel components on the right side of the screen.
     [Header("Details panel")]
-    [SerializeField] private TextMeshProUGUI itemName;
-    [SerializeField] private TextMeshProUGUI itemDescription;
-    [SerializeField] private TextMeshProUGUI itemType;
-    [SerializeField] private TextMeshProUGUI itemPrice;
-    [SerializeField] private TextMeshProUGUI itemRarity;
-    [SerializeField] private Image itemIcon;
+    [SerializeField] private TextMeshProUGUI _itemName;
+    [SerializeField] private TextMeshProUGUI _itemDescription;
+    [SerializeField] private TextMeshProUGUI _itemType;
+    [SerializeField] private TextMeshProUGUI _itemPrice;
+    [SerializeField] private TextMeshProUGUI _itemRarity;
+    [SerializeField] private Image _itemIcon;
 
-    [Space]
-    private Item currentItem = null;
-
-    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
-
+    //Equal to the currently selected item in models.
+    [Space] private Item _currentItem = null;
 
     private void Awake()
     {
+        //Switch between the correct ShopModels. Is this an ShopView (0), or an InventoryView (1)?
         switch (InventoryInstance)
         {
             case 0:
@@ -48,21 +48,21 @@ public class ShopListView : ShopView
     //                                                  RepopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Clears the grid view and repopulates it with new icons (updates the visible icons)
-    public void RepopulateItemIconView()
+    public override void RepopulateItemIconView()
     {
-        ClearIconView();
-        PopulateItemIconView();
+        clearIconView();
+        populateItemIconView();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView()
+    protected override void populateItemIconView()
     {
         foreach (Item item in usedModel.inventory.GetItems())
         {
-            AddItemToView(item);
+            addItemToView(item);
         }
     }
 
@@ -70,9 +70,9 @@ public class ShopListView : ShopView
     //                                                  ClearIconView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Removes all existing icons in the grid view
-    private void ClearIconView()
+    protected override void clearIconView()
     {
-        itemList.Clear();
+        _itemList.Clear();
         Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
         foreach (Transform child in allIcons)
         {
@@ -87,7 +87,7 @@ public class ShopListView : ShopView
     //                                                  AddItemToView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds a new item container to the view, each view can have its way of displaying items
-    private void AddItemToView(Item item)
+    protected override void addItemToView(Item item)
     {
         GameObject newItemInstance = GameObject.Instantiate(itemPrefab);
         newItemInstance.transform.SetParent(itemLayoutGroup.transform);
@@ -97,11 +97,12 @@ public class ShopListView : ShopView
         Debug.Assert(itemContainer != null);
         itemContainer.Initialize(item);
 
-        itemList.Add(newItemInstance);
+        _itemList.Add(newItemInstance);
     }
 
     public override void UpdateObservers(ISubject pSubject)
     {
+        //Separated the SOLD & PURCHASED actions, should a feature implementation in the future apply for one but not for the other.
         if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
             updateItemList();
 
@@ -110,12 +111,13 @@ public class ShopListView : ShopView
 
         if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
-            GameObject upgradedItem = itemList[ShopCreator.Instance.inventoryModel.GetSelectedItemIndex()];
+            GameObject upgradedItem = _itemList[ShopCreator.Instance.inventoryModel.GetSelectedItemIndex()];
 
             ListViewItemContainer itemContainer = upgradedItem.GetComponent<ListViewItemContainer>();
-            itemContainer.updateItemDetailsUI();
+            itemContainer.UpdateItemDetailsUI();
         }
 
+        //Whatever happens, always update the money counter.
         updateMoneyPanel();
     }
 
@@ -127,25 +129,25 @@ public class ShopListView : ShopView
         switch (InventoryInstance)
         {
             case 0:
-                currentItem = ShopCreator.Instance.shopModel.GetSelectedItem();
+                _currentItem = ShopCreator.Instance.shopModel.GetSelectedItem();
                 break;
             case 1:
-                currentItem = ShopCreator.Instance.inventoryModel.GetSelectedItem();
+                _currentItem = ShopCreator.Instance.inventoryModel.GetSelectedItem();
                 break;
         }
 
-        itemName.text = currentItem.Name;
-        itemDescription.text = currentItem.Description;
-        itemType.text = currentItem.ItemType;
-        itemPrice.text = currentItem.BasePrice.ToString();
-        itemRarity.text = currentItem.ItemRarity.ToString();
-        itemIcon.sprite = currentItem.ItemSprite;
+        _itemName.text = _currentItem.Name;
+        _itemDescription.text = _currentItem.Description;
+        _itemType.text = _currentItem.ItemType;
+        _itemPrice.text = _currentItem.BasePrice.ToString();
+        _itemRarity.text = _currentItem.ItemRarity.ToString();
+        _itemIcon.sprite = _currentItem.ItemSprite;
     }
 
-    private void updateItemList()
+    protected override void updateItemList()
     {
         int removedItemIndex = usedModel.inventory.RemovedItemIndex;
-        itemList.RemoveAt(removedItemIndex);
+        _itemList.RemoveAt(removedItemIndex);
 
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);

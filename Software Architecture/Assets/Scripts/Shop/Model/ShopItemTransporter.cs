@@ -23,13 +23,13 @@ public class ShopItemTransporter : MonoBehaviour, IObserver
 
         if (pSubject.SubjectState == (int)ShopActions.PURCHASED)
         {
-            //ShopCreator.Instance.shopModel.inventory.RemoveItemShop(item);
+            //Add the item to the opposing view (Inventory, because it was bought)
             ShopCreator.Instance.inventoryModel.inventory.AddItemShop(item);
         }
 
         if (pSubject.SubjectState == (int)ShopActions.SOLD)
         {
-            //ShopCreator.Instance.inventoryModel.inventory.RemoveItemShop(item);
+            //Add the item to the opposing view (Shop, because it was sold)
             ShopCreator.Instance.shopModel.inventory.AddItemShop(item);
         }
     }

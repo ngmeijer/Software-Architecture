@@ -73,6 +73,7 @@ public class Inventory
         {
             _itemList.Add(
                 item);
+            //Makes sure the item (which gets added at the end of the view) also has the last index of the list.
             item.ItemIndex = _itemList.Count - 1;
         }
     }
@@ -106,6 +107,8 @@ public class Inventory
         {
             _itemList.RemoveAt(index);
             _removedItemIndex = index;
+
+            //Updates the indexes of items that were after the removed item in the list. Otherwise their index will remain the same which causes problems when selecting them.
             foreach (Item item in _itemList)
             {
                 if (item.ItemIndex >= index)
@@ -122,6 +125,7 @@ public class Inventory
         set { _removedItemIndex = value; }
     }
 
+    //Handles de/incremention of the money balance.
     public void UpdateMoneyCountAfterTransaction(Item pItem, ShopActions pAction)
     {
         switch (pAction)
@@ -160,8 +164,8 @@ public class Inventory
         GenerateItems(pArmorCount, _itemList, armorFactory);
         GenerateItems(pPotionCount, _itemList, potionFactory);
 
+        //Give each item an unique index.
         int itemIndex = 0;
-
         foreach (Item item in _itemList)
         {
             item.ItemIndex = itemIndex;
@@ -169,6 +173,7 @@ public class Inventory
         }
     }
 
+    //Method for creating any method with the passed amount, list and factory.
     private void GenerateItems(int pItemCount, List<Item> pItemList, IItemFactory pFactory)
     {
         for (int index = 0; index < pItemCount; index++)

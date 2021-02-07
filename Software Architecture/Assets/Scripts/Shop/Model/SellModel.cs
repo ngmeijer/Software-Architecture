@@ -11,11 +11,11 @@ public class SellModel : ShopModel
         NotifyObservers();
     }
 
-    public override void ConfirmTransactionSelectedItem(ShopActions action)
+    public override void ConfirmTransactionSelectedItem(ShopActions pAction)
     {
         tradedItem = inventory.GetItemByIndex(GetSelectedItemIndex());
 
-        switch (action)
+        switch (pAction)
         {
             case ShopActions.SOLD:
                 SellItem();
@@ -29,10 +29,11 @@ public class SellModel : ShopModel
 
     private void UpgradeItem()
     {
-        bool isMaxLevel = tradedItem.CheckItemLevel();
-
+        //Check if you have enough money.
         if (ShopCreator.MoneyCount >= tradedItem.BasePrice)
         {
+            bool isMaxLevel = tradedItem.IsMaxLevel();
+            //Checks if the item isn't already rarity LEGENDARY
             if (!isMaxLevel)
             {
                 SubjectState = (int)ShopActions.UPGRADED;

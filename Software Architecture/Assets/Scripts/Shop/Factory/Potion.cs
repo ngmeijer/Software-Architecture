@@ -6,12 +6,9 @@ public class Potion : Item
     private string _description;
     private string _iconName;
     private int _price;
-
     private string _itemType = "Potion";
     private EItemRarity _itemRarity;
-
     private Sprite _itemSprite;
-
     private int _heal;
     private int[] _healValues = new int[5]
     {
@@ -22,7 +19,7 @@ public class Potion : Item
         100
     };
 
-    private string _damageTextValue = "Heal: ";
+    private string _healTextValue = "Heal: ";
 
     private readonly string[,] _itemNameArrays = new string[5, 2]
     {
@@ -88,7 +85,6 @@ public class Potion : Item
             ""
         }
     };
-
     private readonly string[,] _itemIconNames = new string[5, 2]
     {
         {"130", "131"},
@@ -137,8 +133,8 @@ public class Potion : Item
 
     public override string BaseEnchantmentText
     {
-        get { return _damageTextValue; }
-        set { _damageTextValue = value; }
+        get { return _healTextValue; }
+        set { _healTextValue = value; }
     }
 
     public override int BaseEnchantmentValue

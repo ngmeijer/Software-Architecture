@@ -11,11 +11,8 @@ public enum EItemRarity
     LEGENDARY
 };
 
-
 public interface IItemFactory
 {
     Item CreateItem();
     EItemRarity ReturnRarity();
-
-    void UpgradeItem(Item item);
 }

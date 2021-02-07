@@ -12,6 +12,7 @@ public abstract class ShopView : MonoBehaviour, IObserver
 
     [SerializeField] protected int InventoryInstance = 0;
     protected ShopModel usedModel;
+    protected List<GameObject> _itemList = new List<GameObject>();
 
     private void Start()
     {
@@ -29,4 +30,10 @@ public abstract class ShopView : MonoBehaviour, IObserver
     {
         moneyText.text = ShopCreator.MoneyCount.ToString();
     }
+
+    public abstract void RepopulateItemIconView();
+    protected abstract void populateItemIconView();
+    protected abstract void clearIconView();
+    protected abstract void addItemToView(Item item);
+    protected abstract void updateItemList();
 }

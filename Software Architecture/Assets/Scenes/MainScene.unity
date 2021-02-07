@@ -6615,6 +6615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8a51d779f84854ea455bc0f3696259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentActiveShop: 0
   _priceModifier: 2
   _weaponCountShop: 2
   _armorCountShop: 2
@@ -6625,7 +6626,6 @@ MonoBehaviour:
   _potionCountInventory: 2
   _money: 536
   instructionText: {fileID: 1352417142}
-  CurrentActiveShop: 0
 --- !u!4 &1099974800
 Transform:
   m_ObjectHideFlags: 0

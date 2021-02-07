@@ -7,7 +7,7 @@ public enum ShopActions
     DEFAULT,
     PURCHASED,
     UPGRADED,
-    SOLD
+    SOLD,
 }
 
 /// <summary>
@@ -19,12 +19,13 @@ public enum ShopActions
 public abstract class ShopModel : ISubject
 {
     public Inventory inventory { get; } // Getter of the inventory, the views might need this to set up the display.
-    public int SubjectState { get; set; }
-    public Item tradedItem { get; set; }
+    public int SubjectState { get; set; } //Connected to ShopActions, to communicate with Observers without having any specific knowledge of them, only their existence.
+    public Item tradedItem { get; set; } //Storage for the selected item, so that observers can get the details of the item.
 
     protected float priceModifier; //Modifies the item's price based on its base price
     protected int selectedItemIndex = 0; //selected item index
 
+    //Notifies subscribers of event when Item is clicked.
     public delegate void OnItemSelected(int index);
     public static event OnItemSelected OnSelect;
 
@@ -105,7 +106,7 @@ public abstract class ShopModel : ISubject
     //                                                  Confirm()
     //------------------------------------------------------------------------------------------------------------------------        
     //Concrete classes to implement
-    public abstract void ConfirmTransactionSelectedItem(ShopActions action);
+    public abstract void ConfirmTransactionSelectedItem(ShopActions pAction);
 
     public abstract void Attach(IObserver pObserver);
 

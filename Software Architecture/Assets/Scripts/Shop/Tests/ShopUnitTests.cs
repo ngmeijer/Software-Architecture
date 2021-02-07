@@ -301,9 +301,21 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator KeyboardControlSelectItem()
+        public IEnumerator InventoryPopulation()
         {
             yield return null;
+
+            int weaponCount = 2;
+            int armorCount = 7;
+            int potionCount = 9;
+
+            int expectedItemCount = weaponCount + armorCount + potionCount;
+
+            Inventory inventory = new Inventory(weaponCount,armorCount,potionCount);
+
+            int actualItemCount = inventory.GetItemCount();
+
+            Assert.That(expectedItemCount, Is.EqualTo(actualItemCount));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿public interface ISubject
 {
+    //Coupled to ShopActions enum
     int SubjectState { get; set; }
 
     Item tradedItem { get; set; }

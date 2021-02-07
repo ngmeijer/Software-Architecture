@@ -21,11 +21,11 @@ public class ListViewItemContainer : ViewItemContainer
     public override void Initialize(Item pItem)
     {
         Item = pItem;
-        updateItemDetailsUI();
-        ShopModel.OnSelect += handlePanelForSelectedItem;
+        UpdateItemDetailsUI();
+        ShopModel.OnSelect += HandlePanelForSelectedItem;
     }
 
-    public override void updateItemDetailsUI()
+    public override void UpdateItemDetailsUI()
     {
         itemNameText.text = Item.Name;
         itemPriceText.text = Item.BasePrice.ToString();
@@ -38,7 +38,7 @@ public class ListViewItemContainer : ViewItemContainer
         icon.sprite = Item.ItemSprite;
     }
 
-    public override void handlePanelForSelectedItem(int index)
+    public override void HandlePanelForSelectedItem(int index)
     {
         if (this.gameObject == null)
             return;
@@ -55,6 +55,6 @@ public class ListViewItemContainer : ViewItemContainer
 
     private void OnDestroy()
     {
-        ShopModel.OnSelect -= handlePanelForSelectedItem;
+        ShopModel.OnSelect -= HandlePanelForSelectedItem;
     }
 }

@@ -18,22 +18,29 @@ public class BuyModel : ShopModel
     //------------------------------------------------------------------------------------------------------------------------
     //                                                 ConfirmTransactionSelectedItem()
     //------------------------------------------------------------------------------------------------------------------------
+    //Should we want the BuyModel to perform any other actions that involve buying an item, we can easily extend 
     public override void ConfirmTransactionSelectedItem(ShopActions pAction)
     {
         Item item = inventory.GetItemByIndex(GetSelectedItemIndex());
-        if (ShopCreator.MoneyCount >= item.BasePrice)
+
+        if (pAction == ShopActions.PURCHASED)
         {
-            tradedItem = item;
-            inventory.UpdateMoneyCountAfterTransaction(item, pAction);
-            inventory.RemoveItemByIndex(GetSelectedItemIndex());
-            SubjectState = (int)pAction;
+            if (ShopCreator.MoneyCount >= item.BasePrice)
+            {
+                tradedItem = item;
+                inventory.UpdateMoneyCountAfterTransaction(item, pAction);
+                inventory.RemoveItemByIndex(GetSelectedItemIndex());
+                SubjectState = (int) pAction;
 
-            NotifyObservers();
+                NotifyObservers();
 
-            return;
+                return;
+            }
+
+            //If-statement failed, which means the money balance is not sufficient & throw ArgumentException.
+            //For future iterations, we can implement a way to display that to the user. 
+            throw new ArgumentException("Money balance is not sufficient enough to purchase this item.");
         }
-
-        throw new ArgumentException("Money balance is not sufficient enough to purchase this item.");
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -55,6 +62,7 @@ public class BuyModel : ShopModel
             observer.UpdateObservers(this);
         }
 
+        //Reset State.
         SubjectState = (int)ShopActions.DEFAULT;
     }
     //------------------------------------------------------------------------------------------------------------------------

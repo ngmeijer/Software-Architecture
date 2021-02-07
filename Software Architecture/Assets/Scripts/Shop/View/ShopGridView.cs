@@ -14,14 +14,12 @@ public class ShopGridView : ShopView
 {
     [SerializeField] protected GridLayoutGroup itemLayoutGroup;
 
-    [SerializeField] private List<GameObject> itemList = new List<GameObject>();
-
     private void Awake()
     {
         viewConfig =
             Resources.Load<ViewConfig>("ViewConfig"); //Load the ViewConfig scriptable object from the Resources folder
         Debug.Assert(viewConfig != null);
-        SetupItemIconView(); //Setup the grid view's properties
+        setupItemIconView(); //Setup the grid view's properties
 
         Inventory.OnMoneyChanged += updateMoneyPanel;
 
@@ -49,7 +47,7 @@ public class ShopGridView : ShopView
     //Setup the grid view according to the ViewConfig object's requirements, right now it just sets the constraint mode and column count,
     //you can make cosmetic adjustments to the GridLayoutGroup by adding more configurations to ViewConfig and use them adjusting properties
     //like cellSize, spacing, padding, etc.
-    private void SetupItemIconView()
+    private void setupItemIconView()
     {
         itemLayoutGroup.constraint =
             GridLayoutGroup.Constraint.Flexible; //Set the constraint mode of the GridLayoutGroup
@@ -62,36 +60,36 @@ public class ShopGridView : ShopView
     //                                                  RepopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Clears the grid view and repopulates it with new icons (updates the visible icons)
-    public void RepopulateItemIconView()
+    public override void RepopulateItemIconView()
     {
-        ClearIconView();
-        PopulateItemIconView();
+        clearIconView();
+        populateItemIconView();
     }
 
     //------------------------------------------------------------------------------------------------------------------------
     //                                                  PopulateItems()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds one icon for each item in the shop
-    private void PopulateItemIconView()
+    protected override void populateItemIconView()
     {
         foreach (Item item in usedModel.inventory.GetItems())
         {
-            AddItemToView(item);
+            addItemToView(item);
         }
     }
 
     public int GetGridItemListCount()
     {
-        return itemList.Count;
+        return _itemList.Count;
     }
 
 //------------------------------------------------------------------------------------------------------------------------
     //                                                  ClearIconView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Removes all existing icons in the grid view
-    private void ClearIconView()
+    protected override void clearIconView()
     {
-        itemList.Clear();
+        _itemList.Clear();
         Transform[] allIcons = itemLayoutGroup.transform.GetComponentsInChildren<Transform>();
         foreach (Transform child in allIcons)
         {
@@ -106,7 +104,7 @@ public class ShopGridView : ShopView
     //                                                  AddItemToView()
     //------------------------------------------------------------------------------------------------------------------------        
     //Adds a new item container to the view, each view can have its way of displaying items
-    private void AddItemToView(Item item)
+    protected override void addItemToView(Item item)
     {
         GameObject newItemInstance = GameObject.Instantiate(itemPrefab);
         newItemInstance.transform.SetParent(itemLayoutGroup.transform);
@@ -116,7 +114,7 @@ public class ShopGridView : ShopView
         Debug.Assert(itemContainer != null);
         itemContainer.Initialize(item);
 
-        itemList.Add(newItemInstance);
+        _itemList.Add(newItemInstance);
     }
 
     public override void UpdateObservers(ISubject pSubject)
@@ -129,20 +127,20 @@ public class ShopGridView : ShopView
 
         if (pSubject.SubjectState == (int)ShopActions.UPGRADED)
         {
-            GameObject itemInstance = itemList[ShopCreator.Instance.inventoryModel.GetSelectedItemIndex()];
+            GameObject itemInstance = _itemList[ShopCreator.Instance.inventoryModel.GetSelectedItemIndex()];
 
             GridViewItemContainer itemContainer = itemInstance.GetComponent<GridViewItemContainer>();
-            itemContainer.updateItemDetailsUI();
+            itemContainer.UpdateItemDetailsUI();
         }
 
         updateMoneyPanel();
     }
 
 
-    private void updateItemList()
+    protected override void updateItemList()
     {
         int removedItemIndex = usedModel.inventory.RemovedItemIndex;
-        itemList.RemoveAt(removedItemIndex);
+        _itemList.RemoveAt(removedItemIndex);
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
     }

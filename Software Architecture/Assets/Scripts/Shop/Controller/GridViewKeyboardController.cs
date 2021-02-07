@@ -38,7 +38,7 @@ public class GridViewKeyboardController : ShopController
     public override void HandleInput()
     {
         MoveFocus();
-        PerformTransaction();
+        HandleTransactionInput();
         SwitchView();
     }
 
@@ -83,9 +83,9 @@ public class GridViewKeyboardController : ShopController
             SelectItemByIndex(currentItemIndex);
     }
 
-    private void PerformTransaction()
+    private void HandleTransactionInput()
     {
-        //Confirm the selected item with the corresponding action when K, U or O is pressed
+        //Confirm the selected item with the corresponding action when 1, 2 or 3 is pressed on either numpad
         if (Input.GetKeyDown(KeyCode.Alpha1) || (Input.GetKeyDown(KeyCode.Keypad1)))
         {
             ConfirmSelectedItem(ShopActions.PURCHASED, ShopCreator.Instance.shopModel);
@@ -102,6 +102,7 @@ public class GridViewKeyboardController : ShopController
 
     private void SwitchView()
     {
+        //Cycles through the view when keycode is pressed.
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             _viewIndex++;
