@@ -84,7 +84,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator InventoryThrowsExceptionsWhenSelectingNegativeIndex()
+        public IEnumerator InventoryThrowsExceptionWhenSelectingNegativeIndex()
         {
             yield return null;
 
@@ -172,20 +172,6 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator ShopListUpdateItemListAfterSell()
-        {
-            yield return null;
-
-            int inventoryItemCountBefore = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
-
-            ShopCreator.Instance.shopModel.ConfirmTransactionSelectedItem(ShopActions.PURCHASED);
-
-            int inventoryItemCountAfter = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
-
-            Assert.That(inventoryItemCountAfter, Is.EqualTo(inventoryItemCountBefore + 1));
-        }
-
-        [UnityTest]
         public IEnumerator InventoryListUpdateItemListAfterPurchase()
         {
             yield return null;
@@ -197,6 +183,20 @@ namespace Tests
             int itemCountAfter = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
 
             Assert.That(itemCountAfter, Is.EqualTo(itemCountBefore + 1));
+        }
+
+        [UnityTest]
+        public IEnumerator InventoryListUpdateItemListAfterSell()
+        {
+            yield return null;
+
+            int itemCountBefore = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
+
+            ShopCreator.Instance.inventoryModel.ConfirmTransactionSelectedItem(ShopActions.SOLD);
+
+            int itemCountAfter = ShopCreator.Instance.inventoryModel.inventory.GetItemCount();
+
+            Assert.That(itemCountAfter, Is.EqualTo(itemCountBefore - 1));
         }
 
         [UnityTest]

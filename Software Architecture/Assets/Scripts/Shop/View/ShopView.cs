@@ -26,14 +26,26 @@ public abstract class ShopView : MonoBehaviour, IObserver
 
     public abstract void UpdateObservers(ISubject pSubject);
 
+    public abstract void RepopulateItemIconView();
+
     protected void updateMoneyPanel()
     {
         moneyText.text = ShopCreator.MoneyCount.ToString();
     }
-
-    public abstract void RepopulateItemIconView();
     protected abstract void populateItemIconView();
     protected abstract void clearIconView();
     protected abstract void addItemToView(Item item);
     protected abstract void updateItemList();
+
+    private void OnEnable()
+    {
+        if (usedModel != null)
+        {
+            RepopulateItemIconView();
+        }
+        else
+        {
+            Debug.Log("usedModel is null");
+        }
+    }
 }

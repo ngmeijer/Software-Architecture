@@ -144,16 +144,4 @@ public class ShopGridView : ShopView
         Transform child = itemLayoutGroup.transform.GetChild(removedItemIndex);
         Destroy(child.gameObject);
     }
-
-    private void OnEnable()
-    {
-        if (usedModel != null)
-        {
-            RepopulateItemIconView();
-        }
-        else
-        {
-            Debug.Log("usedModel is null");
-        }
-    }
 }

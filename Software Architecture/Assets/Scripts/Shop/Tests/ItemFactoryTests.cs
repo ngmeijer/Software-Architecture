@@ -8,20 +8,20 @@ namespace Tests
     public class ItemFactoryTests
     {
         [Test]
+        public void CheckItemCreationProcess()
+        {
+            WeaponFactory weaponFactory = new WeaponFactory();
+            Item item = weaponFactory.CreateItem();
+
+            Assert.IsNotNull(item);
+        }
+
+        [Test]
         public void CheckItemListSize()
         {
             Inventory inventory = new Inventory(5, 5, 5);
             int listItemCount = inventory.GetItems().Count;
             Assert.AreEqual(15, listItemCount);
-        }
-
-        
-        [Test]
-        public void DisplayCorrectArmorBasePrice()
-        {
-            ArmorFactory factoryInstance = new ArmorFactory();
-            Item armorInstance = factoryInstance.CreateItemUnitTest(EItemRarity.LEGENDARY);
-            Assert.That(armorInstance.BasePrice, Is.EqualTo(150));
         }
 
         [Test]

@@ -5196,13 +5196,12 @@ MonoBehaviour:
   moneyText: {fileID: 1947464188}
   InventoryInstance: 0
   itemLayoutGroup: {fileID: 274071970}
-  itemName: {fileID: 7230969415560330353}
-  itemDescription: {fileID: 7230969414859308850}
-  itemType: {fileID: 6592142186150724376}
-  itemPrice: {fileID: 7033142262411977588}
-  itemRarity: {fileID: 3464603553593580141}
-  itemIcon: {fileID: 7230969416361129722}
-  itemList: []
+  _itemName: {fileID: 7230969415560330353}
+  _itemDescription: {fileID: 7230969414859308850}
+  _itemType: {fileID: 6592142186150724376}
+  _itemPrice: {fileID: 7033142262411977588}
+  _itemRarity: {fileID: 3464603553593580141}
+  _itemIcon: {fileID: 7230969416361129722}
 --- !u!1 &849412832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5366,7 +5365,6 @@ MonoBehaviour:
   moneyText: {fileID: 1947464188}
   InventoryInstance: 1
   itemLayoutGroup: {fileID: 1929311889}
-  itemList: []
 --- !u!222 &852296209
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9648,13 +9646,12 @@ MonoBehaviour:
   moneyText: {fileID: 1947464188}
   InventoryInstance: 1
   itemLayoutGroup: {fileID: 998427275}
-  itemName: {fileID: 1321353485}
-  itemDescription: {fileID: 587663509}
-  itemType: {fileID: 1992735991}
-  itemPrice: {fileID: 1338981035}
-  itemRarity: {fileID: 640147702}
-  itemIcon: {fileID: 470101550}
-  itemList: []
+  _itemName: {fileID: 1321353485}
+  _itemDescription: {fileID: 587663509}
+  _itemType: {fileID: 1992735991}
+  _itemPrice: {fileID: 1338981035}
+  _itemRarity: {fileID: 640147702}
+  _itemIcon: {fileID: 470101550}
 --- !u!222 &1596009586
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13493,7 +13490,6 @@ MonoBehaviour:
   moneyText: {fileID: 1947464188}
   InventoryInstance: 0
   itemLayoutGroup: {fileID: 180905780}
-  itemList: []
 --- !u!1 &2137417933
 GameObject:
   m_ObjectHideFlags: 0
